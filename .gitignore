@@ -1,5 +1,5 @@
 # IDEA and editors #
-####################
+#####################
 .idea
 
 # OS generated files #
@@ -15,4 +15,8 @@ Thumbs.db
 # Logs and temp #
 ######################
 *.log
+
+# Vendors #
+######################
+node_modules
 

@@ -13,6 +13,12 @@ It is JS SDK for Vaulty.
 yarn install
 ```
 
+## Run linting
+
+```shell script
+yarn lint
+```
+
 ## Build library
 
 ```shell script
