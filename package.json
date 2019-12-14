@@ -4,15 +4,21 @@
   "description": "Vaulty.co JS SDK",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint ./src ./internals",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Error: no build script specified\" && exit 1"
+    "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "7",
+    "@babel/preset-env": "^7.7.6",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.19.1"
+    "eslint-plugin-import": "^2.19.1",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.12",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.3"
   }
 }
