@@ -7,7 +7,7 @@
   "browser": "build/vaulty-js-sdk.min.js",
   "scripts": {
     "lint": "eslint ./src ./internals",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
     "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
   },
   "author": "",
@@ -16,6 +16,8 @@
     "@babel/core": "7",
     "@babel/preset-env": "^7.7.6",
     "@rollup/plugin-node-resolve": "^6.0.0",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.27.12",
     "rollup-plugin-babel": "^4.3.3",
