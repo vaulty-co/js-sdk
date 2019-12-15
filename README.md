@@ -9,18 +9,18 @@ It is JS SDK for Vaulty.
 
 ## Initialize repository
 
-```shell script
+```sh
 yarn install
 ```
 
 ## Run linting
 
-```shell script
+```sh
 yarn lint
 ```
 
 ## Build library
 
-```shell script
+```sh
 yarn build
 ```
