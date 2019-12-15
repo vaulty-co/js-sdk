@@ -1,41 +1,61 @@
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import pkg from '../../../package.json';
 
-export default {
-  input: 'src/index.js',
-  plugins: [
-    babel({
-      babelrc: false,
-      presets: [
-        [
-          '@babel/env',
-          {
-            targets: {
-              browsers: '> 0.25%, not dead',
-              ie: '11',
-            },
-          },
-        ],
-      ],
-    }),
-    terser({
-      output: {
-        comments: false,
-      },
-      include: [/^.+\.min\.js$/],
-    }),
-  ],
-  output: [
-    // Browser bundle
-    {
-      file: './build/vaulty-js-sdk.min.js',
-      format: 'iife',
+export default [
+  // browser-friendly UMD build
+  {
+    input: 'src/index.js',
+    output: {
       name: 'VaultySDK',
+      file: pkg.browser,
+      format: 'umd',
     },
-    // Bundle for using in imports
-    {
-      file: './build/vaulty-js-sdk.esm.js',
-      format: 'esm',
-    },
-  ],
-};
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        babelrc: false,
+        presets: [
+          [
+            '@babel/env',
+            {
+              targets: {
+                browsers: '> 0.25%, not dead',
+                ie: '11',
+              },
+            },
+          ],
+        ],
+        exclude: ['node_modules/**'],
+      }),
+      terser({
+        output: {
+          comments: false,
+        },
+      }),
+    ],
+  },
+
+  // CommonJS (for Node) and ES module (for bundlers) build.
+  {
+    input: 'src/index.js',
+    output: [
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'esm' },
+    ],
+    plugins: [
+      babel({
+        babelrc: false,
+        presets: [
+          [
+            '@babel/env',
+          ],
+        ],
+        exclude: ['node_modules/**'],
+      }),
+    ],
+  },
+];
