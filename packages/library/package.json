@@ -1,0 +1,21 @@
+{
+  "name": "vaulty-js-sdk",
+  "version": "0.1.0",
+  "description": "Vaulty.co JS SDK",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./internals",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7",
+    "@babel/preset-env": "^7.7.6",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.12",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.3"
+  }
+}
