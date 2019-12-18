@@ -17,3 +17,4 @@ For controlling that, we use [yarn workspaces](https://yarnpkg.com/lang/en/docs/
 ## Packages
 
  - [JS SDK library](/packages/library/README.md)
+ - [JS SDK playground](/packages/playground/README.md)
