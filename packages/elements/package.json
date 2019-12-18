@@ -1,0 +1,32 @@
+{
+  "name": "vaulty-js-sdk-elements",
+  "version": "0.1.0",
+  "description": "Vaulty.co elements controller",
+  "main": "build/vaulty-js-sdk-elements.cjs.js",
+  "module": "build/vaulty-js-sdk-elements.esm.js",
+  "browser": "build/vaulty-js-sdk-elements.min.js",
+  "scripts": {
+    "start": "rimraf ./build && rimraf ./tmp && node ./server",
+    "lint": "eslint ./src ./internals ./server",
+    "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
+    "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7",
+    "@babel/preset-env": "^7.7.6",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "babel-jest": "^24.9.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "morgan": "^1.9.1",
+    "reload": "^3.0.3",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.12",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^5.1.3"
+  }
+}
