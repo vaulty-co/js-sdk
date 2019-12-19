@@ -2,9 +2,6 @@
   "name": "vaulty-js-sdk-elements",
   "version": "0.1.0",
   "description": "Vaulty.co elements controller",
-  "main": "build/vaulty-js-sdk-elements.cjs.js",
-  "module": "build/vaulty-js-sdk-elements.esm.js",
-  "browser": "build/vaulty-js-sdk-elements.min.js",
   "scripts": {
     "start": "rimraf ./build && rimraf ./tmp && node ./server",
     "lint": "eslint ./src ./internals ./server",
@@ -22,11 +19,16 @@
     "express": "^4.17.1",
     "jest": "^24.9.0",
     "morgan": "^1.9.1",
+    "node-sass": "^4.13.0",
     "reload": "^3.0.3",
     "rimraf": "^3.0.0",
     "rollup": "^1.27.12",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^5.1.3"
+  },
+  "dependencies": {
+    "url-search-params-polyfill": "^7.0.1"
   }
 }
