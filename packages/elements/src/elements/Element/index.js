@@ -2,13 +2,26 @@ import invariant from 'invariant';
 
 import { NODE_TYPES } from '../constants/nodeTypes';
 
+const STATUSES = {
+  INIT: 'init',
+  DESTROYED: 'destroyed',
+};
+
 /**
  * Base class for Elements
  * @class
  */
 class Element {
+  /**
+   * @param {boolean} condition
+   * @param {string} message
+   */
   static invariant(condition, message) {
     invariant(condition, `[${this.name}] ${message}`);
+  }
+
+  static get STATUSES() {
+    return STATUSES;
   }
 
   /**
@@ -20,6 +33,7 @@ class Element {
       'Node for element should be a HTMLElement',
     );
 
+    this.status = STATUSES.INIT;
     this.node = node;
   }
 
@@ -28,6 +42,14 @@ class Element {
    * @param {HTMLElement} parent - parent node
    */
   appendTo(parent) {
+    if (this.status === STATUSES.DESTROYED) {
+      this.constructor.invariant(
+        false,
+        'Element is destroyed and can not be append to a parent node.',
+      );
+      return;
+    }
+
     this.constructor.invariant(
       typeof parent === 'object' && parent.nodeType === NODE_TYPES.ELEMENT_NODE,
       'Parent node should be a HTMLElement node',
@@ -41,9 +63,18 @@ class Element {
    * Destroy element and remove its from parent, if it is specified
    */
   destroy() {
+    if (this.status === STATUSES.DESTROYED) {
+      this.constructor.invariant(
+        false,
+        'Element is destroyed and can not be destroyed again.',
+      );
+      return;
+    }
+
     if (this.parent) {
       this.parent.removeChild(this.node);
     }
+    this.status = STATUSES.DESTROYED;
     this.node = null;
     this.parent = null;
   }

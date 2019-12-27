@@ -3,3 +3,7 @@
 exports[`Element #appendTo should throw error, when parent node is not HTMLElement 1`] = `"[Element] Parent node should be a HTMLElement node"`;
 
 exports[`Element #constructor should throw error, when node is not HTMLELement 1`] = `"[Element] Node for element should be a HTMLElement"`;
+
+exports[`Element #destroy should throw exception when appendTo is called after destroying 1`] = `"[Element] Element is destroyed and can not be append to a parent node."`;
+
+exports[`Element #destroy should throw exception when destroy is called after destroying 1`] = `"[Element] Element is destroyed and can not be destroyed again."`;

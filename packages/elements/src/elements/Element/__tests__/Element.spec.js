@@ -58,5 +58,21 @@ describe('Element', () => {
       expect(element.node).toBe(null);
       expect(element.parent).toBe(null);
     });
+
+    it('should throw exception when appendTo is called after destroying', () => {
+      element.destroy();
+
+      expect(() => {
+        element.appendTo(parentNode);
+      }).toThrowErrorMatchingSnapshot();
+    });
+
+    it('should throw exception when destroy is called after destroying', () => {
+      element.destroy();
+
+      expect(() => {
+        element.destroy();
+      }).toThrowErrorMatchingSnapshot();
+    });
   });
 });
