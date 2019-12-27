@@ -10,8 +10,10 @@ const inputTextRoute = new Route(
   },
   () => new TextInput(),
 );
+const queryString = inputTextRoute.getQueryString();
 
 export default inputTextRoute;
 export {
   inputTextRoute,
+  queryString,
 };
