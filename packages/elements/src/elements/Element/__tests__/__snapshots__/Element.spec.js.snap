@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Element #appendTo should throw error, when parent node is not HTMLElement 1`] = `"[Element] Parent node should be a HTMLElement node"`;
+
+exports[`Element #constructor should throw error, when node is not HTMLELement 1`] = `"[Element] Node for element should be a HTMLElement"`;
