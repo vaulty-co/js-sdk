@@ -5,7 +5,7 @@ const reload = require('reload');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const rollup = require('rollup');
-const rollupConfig = require('../internals/rollup/prod/rollup.config');
+const rollupConfig = require('../internals/rollup/rollup.config');
 
 const app = express();
 const rootDir = __dirname;

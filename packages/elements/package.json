@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Vaulty.co elements controller",
   "scripts": {
-    "start": "rimraf ./build && rimraf ./tmp && node ./server",
+    "start": "rimraf ./build && rimraf ./tmp && NODE_ENV=development node ./server",
     "lint": "eslint ./src ./internals ./server",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
-    "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
+    "build": "rimraf ./build && NODE_ENV=production rollup -c ./internals/rollup/rollup.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "@babel/preset-env": "^7.7.6",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "babel-jest": "^24.9.0",
+    "babel-plugin-transform-define": "^2.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jest": "^24.9.0",

@@ -30,6 +30,14 @@ module.exports = [
             },
           ],
         ],
+        plugins: [
+          [
+            'transform-define',
+            {
+              'process.env.NODE_ENV': process.env.NODE_ENV,
+            },
+          ],
+        ],
         exclude: ['node_modules/**'],
       }),
       terser({
