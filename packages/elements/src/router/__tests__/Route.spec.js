@@ -1,4 +1,4 @@
-import { Element } from 'vaulty-js-sdk-elements/src/elements/Element';
+import { Field } from 'vaulty-js-sdk-elements/src/fields/Field';
 import { Route } from '../Route';
 
 describe('Route', () => {
@@ -9,7 +9,7 @@ describe('Route', () => {
     renderFunction = jest.fn(() => {
       const input = document.createElement('input');
       input.type = 'text';
-      return new Element(input);
+      return new Field(input);
     });
     route = new Route(
       'inputText',

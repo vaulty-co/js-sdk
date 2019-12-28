@@ -1,27 +1,27 @@
 import invariant from 'invariant';
 
-import { Element } from '../index';
+import { Field } from '../index';
 
 jest.mock('invariant', () => jest.fn());
 
-describe('Element', () => {
+describe('Field', () => {
   afterEach(() => {
     invariant.mockClear();
   });
 
   it('should call invariant with provided condition result', () => {
-    Element.invariant(false, 'some message');
+    Field.invariant(false, 'some message');
 
     expect(invariant.mock.calls).toHaveLength(1);
     expect(invariant.mock.calls[0][0]).toBe(false);
   });
 
   it('should provides constructor name in message', () => {
-    class MyElement extends Element {}
+    class MyField extends Field {}
 
-    MyElement.invariant(true, 'some message');
+    MyField.invariant(true, 'some message');
 
     expect(invariant.mock.calls).toHaveLength(1);
-    expect(invariant).toBeCalledWith(true, '[MyElement] some message');
+    expect(invariant).toBeCalledWith(true, '[MyField] some message');
   });
 });

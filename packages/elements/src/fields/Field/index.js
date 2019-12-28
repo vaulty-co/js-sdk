@@ -8,11 +8,11 @@ const STATUSES = {
 };
 
 /**
- * Base class for Elements
+ * Base class for Field
  * @class
  * @extends {VaultyElementsInstance}
  */
-class Element {
+class Field {
   /**
    * @param {boolean} condition
    * @param {string} message
@@ -31,7 +31,7 @@ class Element {
   constructor(node) {
     this.constructor.invariant(
       typeof node === 'object' && node.nodeType === NODE_TYPES.ELEMENT_NODE,
-      'Node for element should be a HTMLElement',
+      'Node for field should be a HTMLElement',
     );
 
     this.status = STATUSES.INIT;
@@ -39,7 +39,7 @@ class Element {
   }
 
   /**
-   * Mount element
+   * Mount field
    * @param {HTMLElement} node
    */
   mount(node) {
@@ -47,21 +47,21 @@ class Element {
   }
 
   /**
-   * Unmount element
+   * Unmount field
    */
   unmount() {
     this.destroy();
   }
 
   /**
-   * Append node to parent element
+   * Append field node to parent node
    * @param {HTMLElement} parent - parent node
    */
   appendTo(parent) {
     if (this.status === STATUSES.DESTROYED) {
       this.constructor.invariant(
         false,
-        'Element is destroyed and can not be append to a parent node.',
+        'Field is destroyed and can not be append to a parent node.',
       );
       return;
     }
@@ -76,13 +76,13 @@ class Element {
   }
 
   /**
-   * Destroy element and remove its from parent, if it is specified
+   * Destroy field and remove its from parent, if it is specified
    */
   destroy() {
     if (this.status === STATUSES.DESTROYED) {
       this.constructor.invariant(
         false,
-        'Element is destroyed and can not be destroyed again.',
+        'Field is destroyed and can not be destroyed again.',
       );
       return;
     }
@@ -96,7 +96,7 @@ class Element {
   }
 }
 
-export default Element;
+export default Field;
 export {
-  Element,
+  Field,
 };

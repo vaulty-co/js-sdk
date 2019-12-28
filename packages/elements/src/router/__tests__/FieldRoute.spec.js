@@ -1,7 +1,7 @@
-import { Element } from 'vaulty-js-sdk-elements/src/elements/Element';
-import { ElementRoute } from '../ElementRoute';
+import { Field } from 'vaulty-js-sdk-elements/src/fields/Field';
+import { FieldRoute } from '../FieldRoute';
 
-describe('ElementRoute', () => {
+describe('FieldRoute', () => {
   let route;
   let renderFunction;
 
@@ -9,9 +9,9 @@ describe('ElementRoute', () => {
     renderFunction = jest.fn(() => {
       const input = document.createElement('input');
       input.type = 'text';
-      return new Element(input);
+      return new Field(input);
     });
-    route = new ElementRoute(
+    route = new FieldRoute(
       'inputText',
       {
         field: 'input',
@@ -28,8 +28,8 @@ describe('ElementRoute', () => {
       expect(renderFunction).toBeCalled();
     });
 
-    it('should throw exception, when it does not return Element instance', () => {
-      route = new ElementRoute(
+    it('should throw exception, when it does not return Field instance', () => {
+      route = new FieldRoute(
         'inputText',
         {
           field: 'input',

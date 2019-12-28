@@ -1,8 +1,8 @@
 import { createBrowserHistory } from 'history';
-import { Element } from 'vaulty-js-sdk-elements/src/elements/Element';
+import { Field } from 'vaulty-js-sdk-elements/src/fields/Field';
 
 import { Router } from '../index';
-import { ElementRoute } from '../ElementRoute';
+import { FieldRoute } from '../FieldRoute';
 
 jest.mock('history', () => {
   const history = {
@@ -22,18 +22,18 @@ jest.mock('history', () => {
 
 describe('Router', () => {
   let appNode;
-  let inputElement;
-  let selectElement;
+  let inputField;
+  let selectField;
   let inputRoute;
   let selectRoute;
   let router;
 
   beforeEach(() => {
     appNode = document.createElement('div');
-    inputElement = new Element(document.createElement('div'));
-    selectElement = new Element(document.createElement('div'));
-    inputRoute = new ElementRoute('input', { type: 'input' }, () => inputElement);
-    selectRoute = new ElementRoute('select', { type: 'select' }, () => selectElement);
+    inputField = new Field(document.createElement('div'));
+    selectField = new Field(document.createElement('div'));
+    inputRoute = new FieldRoute('input', { type: 'input' }, () => inputField);
+    selectRoute = new FieldRoute('select', { type: 'select' }, () => selectField);
     router = new Router(appNode);
     router.register(inputRoute);
     router.register(selectRoute);
@@ -55,8 +55,8 @@ describe('Router', () => {
 
       history.lastListener({ search: 'type=select' });
 
-      expect(router.mountedInstances).toEqual([selectElement]);
-      expect(appNode.children[0]).toEqual(selectElement.node);
+      expect(router.mountedInstances).toEqual([selectField]);
+      expect(appNode.children[0]).toEqual(selectField.node);
     });
   });
 
@@ -89,8 +89,8 @@ describe('Router', () => {
 
       router.render();
 
-      expect(router.mountedInstances).toEqual([inputElement]);
-      expect(appNode.children[0]).toBe(inputElement.node);
+      expect(router.mountedInstances).toEqual([inputField]);
+      expect(appNode.children[0]).toBe(inputField.node);
     });
 
     it('should re-render, when route is changed', () => {
@@ -100,8 +100,8 @@ describe('Router', () => {
 
       router.render();
 
-      expect(router.mountedInstances).toEqual([selectElement]);
-      expect(appNode.children[0]).toBe(selectElement.node);
+      expect(router.mountedInstances).toEqual([selectField]);
+      expect(appNode.children[0]).toBe(selectField.node);
     });
   });
 

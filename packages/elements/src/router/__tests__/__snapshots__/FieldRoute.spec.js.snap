@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldRoute #render should throw exception, when it does not return Field instance 1`] = `"[FieldRoute] Field route \\"inputText\\" does not return Field in render function."`;
