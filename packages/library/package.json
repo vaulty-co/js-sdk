@@ -6,7 +6,7 @@
   "module": "build/vaulty-js-sdk.esm.js",
   "browser": "build/vaulty-js-sdk.min.js",
   "scripts": {
-    "lint": "eslint ./src ./internals",
+    "lint": "eslint --cache ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
     "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
   },
