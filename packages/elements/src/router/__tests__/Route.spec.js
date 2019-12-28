@@ -48,7 +48,7 @@ describe('Route', () => {
       expect(renderFunction).toBeCalled();
     });
 
-    it('should throw exception, when it does not return Element instance', () => {
+    it('should return render function result', () => {
       route = new Route(
         'inputText',
         {
@@ -58,9 +58,7 @@ describe('Route', () => {
         () => null,
       );
 
-      expect(() => {
-        route.render();
-      }).toThrowErrorMatchingSnapshot();
+      expect(route.render()).toBe(null);
     });
   });
 });

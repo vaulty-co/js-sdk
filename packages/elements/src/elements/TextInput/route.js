@@ -1,8 +1,8 @@
-import { Route } from 'vaulty-js-sdk-elements/src/router/Route';
+import { ElementRoute } from 'vaulty-js-sdk-elements/src/router/ElementRoute';
 
 import { TextInput } from './index';
 
-const inputTextRoute = new Route(
+const inputTextRoute = new ElementRoute(
   'inputText',
   {
     field: 'input',

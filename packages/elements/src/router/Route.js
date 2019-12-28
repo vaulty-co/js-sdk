@@ -1,10 +1,8 @@
 import 'url-search-params-polyfill';
 import invariant from 'invariant';
 
-import { Element } from '../elements/Element';
-
 /**
- * Create route by query params and can render element, when route has match with query params
+ * Create route by query params and can render instance, when route has match with query params
  */
 class Route {
   // FIXME - add decorator for that
@@ -15,7 +13,7 @@ class Route {
   /**
    * @param {string} name - router name
    * @param {Object} routeParams - map of params and its value, which should be matched for current route
-   * @param {Function} render - render function, which provide right element by route
+   * @param {Function} render - render function, which provide right instance by route
    */
   constructor(name, routeParams, render) {
     this.name = name;
@@ -23,6 +21,11 @@ class Route {
     this.renderFunction = render;
   }
 
+  /**
+   * Match route with query string
+   * @param {string} queryString
+   * @returns {boolean}
+   */
   match(queryString) {
     const queryParams = new URLSearchParams(queryString);
     return Object.keys(this.params)
@@ -41,15 +44,10 @@ class Route {
 
   /**
    * Render route
-   * @returns {?Element}
+   * @returns {*}
    */
   render() {
-    const element = this.renderFunction();
-    this.constructor.invariant(
-      (element instanceof Element),
-      `Router "${this.name}" does not return Element in render function.`,
-    );
-    return element;
+    return this.renderFunction();
   }
 }
 

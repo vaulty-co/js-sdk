@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 import { Element } from 'vaulty-js-sdk-elements/src/elements/Element';
 
 import { Router } from '../index';
-import { Route } from '../Route';
+import { ElementRoute } from '../ElementRoute';
 
 jest.mock('history', () => {
   const history = {
@@ -32,8 +32,8 @@ describe('Router', () => {
     appNode = document.createElement('div');
     inputElement = new Element(document.createElement('div'));
     selectElement = new Element(document.createElement('div'));
-    inputRoute = new Route('input', { type: 'input' }, () => inputElement);
-    selectRoute = new Route('select', { type: 'select' }, () => selectElement);
+    inputRoute = new ElementRoute('input', { type: 'input' }, () => inputElement);
+    selectRoute = new ElementRoute('select', { type: 'select' }, () => selectElement);
     router = new Router(appNode);
     router.register(inputRoute);
     router.register(selectRoute);
@@ -55,7 +55,7 @@ describe('Router', () => {
 
       history.lastListener({ search: 'type=select' });
 
-      expect(router.mountedElements).toEqual([selectElement]);
+      expect(router.mountedInstances).toEqual([selectElement]);
       expect(appNode.children[0]).toEqual(selectElement.node);
     });
   });
@@ -80,16 +80,16 @@ describe('Router', () => {
 
       router.render();
 
-      expect(router.mountedElements).toHaveLength(0);
+      expect(router.mountedInstances).toHaveLength(0);
       expect(appNode.children).toHaveLength(0);
     });
 
-    it('should render matched elements from routes', () => {
+    it('should render matched instances from routes', () => {
       router.locationSearch = 'type=input';
 
       router.render();
 
-      expect(router.mountedElements).toEqual([inputElement]);
+      expect(router.mountedInstances).toEqual([inputElement]);
       expect(appNode.children[0]).toBe(inputElement.node);
     });
 
@@ -100,7 +100,7 @@ describe('Router', () => {
 
       router.render();
 
-      expect(router.mountedElements).toEqual([selectElement]);
+      expect(router.mountedInstances).toEqual([selectElement]);
       expect(appNode.children[0]).toBe(selectElement.node);
     });
   });
@@ -112,13 +112,13 @@ describe('Router', () => {
       expect(router.historyUnlisten).toBeCalled();
     });
 
-    it('should unmount all rendered elements', () => {
+    it('should unmount all rendered instances', () => {
       router.locationSearch = 'type=input';
       router.render();
 
       router.destroy();
 
-      expect(router.mountedElements).toHaveLength(0);
+      expect(router.mountedInstances).toHaveLength(0);
       expect(appNode.children).toHaveLength(0);
     });
   });

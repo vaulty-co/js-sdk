@@ -1,30 +1,27 @@
 import { createBrowserHistory } from 'history';
 
 /**
- * Call method on each element
- * @param {Array<Element>} elements - collection of elements
+ * Call method on each instance
+ * @param {Array<VaultyElementsInstance>} instances - collection of Vaulty elements
  * @param {string} method - method name
  * @param {Array<*>} [args = []]
- * @returns {Array<Element>}
+ * @returns {Array<VaultyElementsInstance>}
  */
-const applyToElements = (elements, method, args = []) => {
-  elements.forEach(
-    /**
-     * @param {Element} element
-     */
-    (element) => element[method](...args),
+const applyToInstances = (instances, method, args = []) => {
+  instances.forEach(
+    (instance) => instance[method](...args),
   );
-  return elements;
+  return instances;
 };
 
 class Router {
   /**
-   * @param {HTMLElement} node - node, where elements from routes should be rendered
+   * @param {HTMLElement} node - node, where routes' instances should be rendered
    */
   constructor(node) {
     this.node = node;
     this.routes = [];
-    this.mountedElements = [];
+    this.mountedInstances = [];
     this.history = createBrowserHistory({
       forceRefresh: false,
     });
@@ -60,42 +57,42 @@ class Router {
   }
 
   /**
-   * Remove rendered elements
+   * Unmount rendered instances
    * @private
    */
-  unmountElements() {
-    if (this.mountedElements.length) {
-      applyToElements(this.mountedElements, 'destroy');
-      this.mountedElements = [];
+  unmountInstances() {
+    if (this.mountedInstances.length) {
+      applyToInstances(this.mountedInstances, 'unmount');
+      this.mountedInstances = [];
     }
   }
 
   /**
-   * Render elements by matched route
+   * Render instances by matched route
    */
   render() {
-    this.unmountElements();
-    this.mountedElements = this.routes.reduce(
+    this.unmountInstances();
+    this.mountedInstances = this.routes.reduce(
       /**
-       * @param {Array<Element>} elements
+       * @param {Array<VaultyElementsInstance>} instances
        * @param {Route} route
        */
-      (elements, route) => {
+      (instances, route) => {
         if (route.match(this.locationSearch)) {
-          elements.push(
+          instances.push(
             route.render(),
           );
         }
-        return elements;
+        return instances;
       },
       [],
     );
-    applyToElements(this.mountedElements, 'appendTo', [this.node]);
+    applyToInstances(this.mountedInstances, 'mount', [this.node]);
   }
 
   destroy() {
     this.historyUnlisten();
-    this.unmountElements();
+    this.unmountInstances();
   }
 }
 

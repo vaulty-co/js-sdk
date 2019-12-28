@@ -10,6 +10,7 @@ const STATUSES = {
 /**
  * Base class for Elements
  * @class
+ * @extends {VaultyElementsInstance}
  */
 class Element {
   /**
@@ -35,6 +36,21 @@ class Element {
 
     this.status = STATUSES.INIT;
     this.node = node;
+  }
+
+  /**
+   * Mount element
+   * @param {HTMLElement} node
+   */
+  mount(node) {
+    this.appendTo(node);
+  }
+
+  /**
+   * Unmount element
+   */
+  unmount() {
+    this.destroy();
   }
 
   /**

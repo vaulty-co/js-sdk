@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Route #render should throw exception, when it does not return Element instance 1`] = `"[Route] Router \\"inputText\\" does not return Element in render function."`;
