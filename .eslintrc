@@ -19,5 +19,6 @@
       ignoreStrings: true,
       ignoreTemplateLiterals: true,
     }],
+    "class-methods-use-this": "off",
   }
 }
