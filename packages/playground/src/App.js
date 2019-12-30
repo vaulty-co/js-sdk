@@ -17,6 +17,9 @@ function App() {
       },
     });
     textInput.appendTo(textInputNode.current);
+    const form = vaultySDK.createForm({
+      fields: [textInput],
+    });
   }, []);
   return (
     <Fragment>

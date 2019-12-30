@@ -1,4 +1,5 @@
 import { TextInputField } from './fields/TextInputField';
+import { VaultyForm } from './controllers/VaultyForm';
 
 /**
  * @typedef {Object} VaultySDKOptions
@@ -26,6 +27,15 @@ class VaultySDK {
     }
     // FIXME - here should be some error handler for SDK user
     return null;
+  }
+
+  /**
+   * Create form for controlling fields
+   * @param {VaultyFormOptions} options
+   * @returns {Form}
+   */
+  createForm(options) {
+    return new VaultyForm(options);
   }
 }
 
