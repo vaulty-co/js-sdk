@@ -35,12 +35,6 @@ describe('Route', () => {
     });
   });
 
-  describe('#getQueryString', () => {
-    it('should return query string by route params', () => {
-      expect(route.getQueryString()).toBe('field=input&type=text');
-    });
-  });
-
   describe('#render', () => {
     it('should run render function', () => {
       route.render();

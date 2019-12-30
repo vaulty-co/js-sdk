@@ -1,4 +1,4 @@
-import { queryString } from 'vaulty-js-sdk-elements/src/fields/TextInput/route';
+import { queryString } from 'vaulty-js-sdk-elements/src/fields/TextInput/route/queryString';
 import get from 'lodash/get';
 
 import { VaultyField } from './VaultyField';

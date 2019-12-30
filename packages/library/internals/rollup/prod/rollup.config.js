@@ -14,7 +14,9 @@ export default [
       format: 'umd',
     },
     plugins: [
-      resolve(),
+      resolve({
+        preferBuiltins: false,
+      }),
       commonjs(),
       babel({
         babelrc: false,

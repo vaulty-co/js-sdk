@@ -35,14 +35,6 @@ class Route {
   }
 
   /**
-   * Gets query string by router params
-   * @returns {string}
-   */
-  getQueryString() {
-    return new URLSearchParams(this.params).toString();
-  }
-
-  /**
    * Render route
    * @returns {*}
    */
