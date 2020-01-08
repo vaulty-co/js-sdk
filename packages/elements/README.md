@@ -1,4 +1,4 @@
-# Vaulty JS SDK elements controller
+# JS SDK elements (fields and its controllers)
 
 It creates content inside of iframe by get params (for example, an input)
 

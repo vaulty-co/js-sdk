@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} VaultyElementsInstance
- * @property {Function} mount - mount Vaulty elements instance
- * @property {Function} unmount - unmount Vaulty elements instance
+ * @typedef {Object} ElementsInstance
+ * @property {Function} mount - mount elements instance
+ * @property {Function} unmount - unmount elements instance
  */

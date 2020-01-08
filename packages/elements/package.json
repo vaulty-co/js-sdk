@@ -1,7 +1,7 @@
 {
-  "name": "vaulty-js-sdk-elements",
+  "name": "@js-sdk/elements",
   "version": "0.1.0",
-  "description": "Vaulty.co elements controller",
+  "description": "JS SDK elements (fields and its controllers)",
   "scripts": {
     "start": "rimraf ./build && rimraf ./tmp && NODE_ENV=development node ./server",
     "lint": "eslint --cache ./src ./internals ./server",

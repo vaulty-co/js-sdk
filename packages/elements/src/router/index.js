@@ -2,10 +2,10 @@ import { createBrowserHistory } from 'history';
 
 /**
  * Call method on each instance
- * @param {Array<VaultyElementsInstance>} instances - collection of Vaulty elements
+ * @param {Array<ElementsInstance>} instances - collection of elements
  * @param {string} method - method name
  * @param {Array<*>} [args = []]
- * @returns {Array<VaultyElementsInstance>}
+ * @returns {Array<ElementsInstance>}
  */
 const applyToInstances = (instances, method, args = []) => {
   instances.forEach(
@@ -74,7 +74,7 @@ class Router {
     this.unmountInstances();
     this.mountedInstances = this.routes.reduce(
       /**
-       * @param {Array<VaultyElementsInstance>} instances
+       * @param {Array<ElementsInstance>} instances
        * @param {Route} route
        */
       (instances, route) => {

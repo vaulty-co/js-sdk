@@ -1,29 +1,29 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import VaultySDK from 'vaulty-js-sdk/src/index';
+import SDK from '@js-sdk/library/src/index';
 
 import appStyles from './App.module.scss';
 
-const vaultySDK = new VaultySDK({
+const sdk = new SDK({
   authKey: 'some-auth-key',
 });
 
 function App() {
   const textInputNode = useRef();
   useEffect(() => {
-    const textInput = vaultySDK.createField('textInput', {
+    const textInput = sdk.createField('textInput', {
       style: {
         width: '100%',
         height: '20px',
       },
     });
     textInput.appendTo(textInputNode.current);
-    const form = vaultySDK.createForm({
+    const form = sdk.createForm({
       fields: [textInput],
     });
   }, []);
   return (
     <Fragment>
-      <div>VaultySDK playground</div>
+      <div>JS SDK playground</div>
       <label>User name</label>
       <div className={appStyles.textInput} ref={textInputNode} />
     </Fragment>

@@ -3,7 +3,10 @@
 import invariant from 'invariant';
 import { NODE_TYPES } from '../constants/nodeTypes';
 
-class VaultyController {
+/**
+ * @class
+ */
+class Controller {
   /**
    * @param {boolean} condition
    * @param {string} message
@@ -13,7 +16,7 @@ class VaultyController {
   }
 
   /**
-   * Append Vaulty controller in some DOM node
+   * Append controller in some DOM node
    * @param {string|HTMLElement} node - valid css selector or DOM node, where element should be appended
    */
   appendTo(node) {
@@ -48,7 +51,7 @@ class VaultyController {
   }
 }
 
-export default VaultyController;
+export default Controller;
 export {
-  VaultyController,
+  Controller,
 };

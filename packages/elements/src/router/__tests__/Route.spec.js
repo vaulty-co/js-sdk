@@ -1,4 +1,4 @@
-import { Field } from 'vaulty-js-sdk-elements/src/fields/Field';
+import { Field } from '@js-sdk/elements/src/fields/Field';
 import { Route } from '../Route';
 
 describe('Route', () => {

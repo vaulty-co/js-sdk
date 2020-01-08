@@ -1,5 +1,5 @@
 {
-  "name": "vaulty-js-sdk-plauground",
+  "name": "@js-sdk/playground",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

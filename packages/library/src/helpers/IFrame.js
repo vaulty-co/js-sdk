@@ -30,7 +30,7 @@ class IFrame {
    */
   createNode() {
     const node = document.createElement('iframe');
-    node.name = get(this.options, 'name', uniqueId('vaulty-iframe-'));
+    node.name = get(this.options, 'name', uniqueId('js-sdk-iframe-'));
     node.src = `${this.options.src}${this.options.src.indexOf('?') !== -1 ? '&rnd=' : '?rnd='}${Math.round(Math.random() * 10e5)}`;
     node.frameborder = '0';
     node.allowTransparency = 'true';
@@ -83,7 +83,7 @@ class IFrame {
   }
 
   /**
-   * Append Vaulty field in some DOM node
+   * Append field in some DOM node
    * @param {HTMLElement} node
    */
   appendTo(node) {

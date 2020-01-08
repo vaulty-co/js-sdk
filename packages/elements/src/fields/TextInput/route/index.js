@@ -1,4 +1,4 @@
-import { FieldRoute } from 'vaulty-js-sdk-elements/src/router/FieldRoute';
+import { FieldRoute } from '@js-sdk/elements/src/router/FieldRoute';
 
 import { TextInput } from '../index';
 import { TEXT_INPUT_PARAMS } from './constants';

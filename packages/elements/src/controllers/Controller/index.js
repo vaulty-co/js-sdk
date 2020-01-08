@@ -3,7 +3,7 @@
 /**
  * Controller base class
  * @class
- * @extends {VaultyElementsInstance}
+ * @extends {ElementsInstance}
  */
 class Controller {
   /**

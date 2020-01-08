@@ -1,5 +1,5 @@
 import { createBrowserHistory } from 'history';
-import { Field } from 'vaulty-js-sdk-elements/src/fields/Field';
+import { Field } from '@js-sdk/elements/src/fields/Field';
 
 import { Router } from '../index';
 import { FieldRoute } from '../FieldRoute';

@@ -1,10 +1,10 @@
 {
-  "name": "vaulty-js-sdk",
+  "name": "@js-sdk/library",
   "version": "0.1.0",
-  "description": "Vaulty.co JS SDK",
-  "main": "build/vaulty-js-sdk.cjs.js",
-  "module": "build/vaulty-js-sdk.esm.js",
-  "browser": "build/vaulty-js-sdk.min.js",
+  "description": "JS SDK library, which are used by customer.",
+  "main": "build/js-sdk.cjs.js",
+  "module": "build/js-sdk.esm.js",
+  "browser": "build/js-sdk.min.js",
   "scripts": {
     "lint": "eslint --cache ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",

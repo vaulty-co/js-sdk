@@ -4,13 +4,13 @@ const babel = require('rollup-plugin-babel');
 const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
 
-const buildAssetName = 'build/vaulty-js-sdk-elements';
+const buildAssetName = 'build/js-sdk-elements';
 module.exports = [
   // browser-friendly UMD build
   {
     input: 'src/index.js',
     output: {
-      name: 'VaultySDK',
+      name: 'SDKElements',
       file: `${buildAssetName}.min.js`,
       format: 'umd',
     },

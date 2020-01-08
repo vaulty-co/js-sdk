@@ -1,4 +1,4 @@
-import { Controller } from 'vaulty-js-sdk-elements/src/controllers/Controller';
+import { Controller } from '@js-sdk/elements/src/controllers/Controller';
 import { ControllerRoute } from '../ControllerRoute';
 
 describe('ControllerRoute', () => {

@@ -1,7 +1,7 @@
-import { queryString } from 'vaulty-js-sdk-elements/src/fields/TextInput/route/queryString';
+import { queryString } from '@js-sdk/elements/src/fields/TextInput/route/queryString';
 import get from 'lodash/get';
 
-import { VaultyField } from './VaultyField';
+import { Field } from './Field';
 import { IFrame } from '../helpers/IFrame';
 
 /**
@@ -12,7 +12,7 @@ import { IFrame } from '../helpers/IFrame';
 
 /**
  * @typedef {Object} TextInputFieldOptions
- * @extends {VaultyFieldOptions}
+ * @extends {FieldOptions}
  * @property {TextInputFieldStyle} style
  */
 
@@ -20,9 +20,9 @@ import { IFrame } from '../helpers/IFrame';
  * Create TextInput field
  * @class
  */
-class TextInputField extends VaultyField {
+class TextInputField extends Field {
   /**
-   * @param {VaultyFieldOptions} options
+   * @param {FieldOptions} options
    */
   constructor(options) {
     super(options);

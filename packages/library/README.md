@@ -1,6 +1,6 @@
-# Vaulty JS SDK library
+# JS SDK library
 
-It is JS SDK for Vaulty.
+It is JS SDK library, which are used by customer.
 
 ## Technical requirements
 

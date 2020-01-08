@@ -1,14 +1,14 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import get from 'lodash/get';
-import { queryString } from 'vaulty-js-sdk-elements/src/controllers/Form/route/queryString';
+import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 
 import { IFrame } from '../helpers/IFrame';
-import { VaultyController } from './VaultyController';
+import { Controller } from './Controller';
 
 /**
- * @typedef {Object} VaultyFormOptions
- * @property {Array<VaultyField>} fields - array of VaultyField instances
+ * @typedef {Object} FormOptions
+ * @property {Array<Field>} fields - array of Field instances
  * @property {string} action - URL, where data should be submitted
  * @property {string} encode - type of submitting data (url encode, json etc.)
  * @property {string} method - method of sending data (POST, GET etc.)
@@ -16,15 +16,15 @@ import { VaultyController } from './VaultyController';
  */
 
 /**
- * @typedef {Object} VaultyFormSubmitOptions
+ * @typedef {Object} FormSubmitOptions
  * @property {*} data - additional data, which is attached to fields data on submit
  * @property {Object} headers - additional headers, which should be provided in action call. They are merged with initial form headers and are replaced,
  * if some of them are different.
  */
 
-class VaultyForm extends VaultyController {
+class Form extends Controller {
   /**
-   * @param {VaultyFormOptions} options
+   * @param {FormOptions} options
    */
   constructor(options) {
     super(options);
@@ -41,7 +41,7 @@ class VaultyForm extends VaultyController {
 
   /**
    * Add fields to form
-   * @param {Array<VaultyField>} fields
+   * @param {Array<Field>} fields
    */
   addFields(fields) {
     this.fields.push(...fields);
@@ -49,12 +49,12 @@ class VaultyForm extends VaultyController {
 
   /**
    * Remove specified fields from form
-   * @param {Array<VaultyField>} fields
+   * @param {Array<Field>} fields
    */
   removeFields(fields) {
     this.fields = this.fields.filter(
       /**
-       * @param {VaultyField} field
+       * @param {Field} field
        */
       (field) => (
         fields.includes(field)
@@ -71,7 +71,7 @@ class VaultyForm extends VaultyController {
 
   /**
    * Submit form in options specified URL
-   * @param {VaultyFormSubmitOptions} options
+   * @param {FormSubmitOptions} options
    */
   // FIXME - disabling eslint should be removed after implementation
   // eslint-disable-next-line no-unused-vars
@@ -88,16 +88,16 @@ class VaultyForm extends VaultyController {
     if (withFields) {
       this.fields.forEach(
         /**
-         * @param {VaultyField} field
+         * @param {Field} field
          */
         (field) => field.destroy(),
       );
     }
-    VaultyController.destroy.call(VaultyForm, withFields);
+    Controller.destroy.call(Form, withFields);
   }
 }
 
-export default VaultyForm;
+export default Form;
 export {
-  VaultyForm,
+  Form,
 };

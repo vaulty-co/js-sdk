@@ -1,4 +1,4 @@
-import { getQueryString } from 'vaulty-js-sdk-elements/src/router/utils/getQueryString';
+import { getQueryString } from '@js-sdk/elements/src/router/utils/getQueryString';
 
 import { FORM_PARAMS } from './constants';
 

@@ -1,9 +1,9 @@
 import { TextInputField } from './fields/TextInputField';
-import { VaultyForm } from './controllers/VaultyForm';
+import { Form } from './controllers/Form';
 
 /**
- * @typedef {Object} VaultySDKOptions
- * @property {string} authKey - key for authorization SDK in Vaulty services
+ * @typedef {Object} SDKOptions
+ * @property {string} authKey - key for authorization SDK services
  */
 
 const FIELDS = {
@@ -13,12 +13,12 @@ const FIELDS = {
 /**
  * @class
  */
-class VaultySDK {
+class SDK {
   /**
    * Create field instance
    * @param {string} type - field type
    * @param {Object} options
-   * @returns {?VaultyField}
+   * @returns {?Field}
    */
   createField(type, options) {
     const FieldInstance = FIELDS[type];
@@ -31,12 +31,12 @@ class VaultySDK {
 
   /**
    * Create form for controlling fields
-   * @param {VaultyFormOptions} options
+   * @param {FormOptions} options
    * @returns {Form}
    */
   createForm(options) {
-    return new VaultyForm(options);
+    return new Form(options);
   }
 }
 
-export default VaultySDK;
+export default SDK;

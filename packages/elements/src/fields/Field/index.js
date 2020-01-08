@@ -10,7 +10,7 @@ const STATUSES = {
 /**
  * Base class for Field
  * @class
- * @extends {VaultyElementsInstance}
+ * @extends {ElementsInstance}
  */
 class Field {
   /**

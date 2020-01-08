@@ -6,16 +6,16 @@ import get from 'lodash/get';
 import { NODE_TYPES } from '../constants/nodeTypes';
 
 /**
- * @typedef {Object} VaultyFieldOptions
+ * @typedef {Object} FieldOptions
  * @property {string} name - field name. It is used for sending data from field in Form.
  */
 
 /**
  * @class
  */
-class VaultyField {
+class Field {
   /**
-   * @param {VaultyFieldOptions} options
+   * @param {FieldOptions} options
    */
   constructor(options) {
     this.name = get(options, 'name');
@@ -30,7 +30,7 @@ class VaultyField {
   }
 
   /**
-   * Append Vaulty field in some DOM node
+   * Append field in some DOM node
    * @param {string|HTMLElement} node - valid css selector or DOM node, where element should be appended
    */
   appendTo(node) {
@@ -80,7 +80,7 @@ class VaultyField {
   }
 }
 
-export default VaultyField;
+export default Field;
 export {
-  VaultyField,
+  Field,
 };

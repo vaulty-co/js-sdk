@@ -9,7 +9,7 @@ export default [
   {
     input: 'src/index.js',
     output: {
-      name: 'VaultySDK',
+      name: 'SDK',
       file: pkg.browser,
       format: 'umd',
     },
