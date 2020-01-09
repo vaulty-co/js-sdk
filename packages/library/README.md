@@ -13,6 +13,12 @@ It is JS SDK library, which are used by customer.
 yarn install
 ```
 
+## Run development build
+
+```sh
+yarn start
+```
+
 ## Run linting
 
 ```sh

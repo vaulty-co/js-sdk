@@ -1,7 +1,6 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
-import get from 'lodash/get';
 
 import { NODE_TYPES } from '../../constants/nodeTypes';
 
@@ -18,7 +17,7 @@ class Field {
    * @param {FieldOptions} options
    */
   constructor(options) {
-    this.name = get(options, 'name');
+    this.name = options?.name;
   }
 
   /**

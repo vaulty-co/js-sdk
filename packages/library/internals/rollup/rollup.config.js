@@ -2,7 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
-import pkg from '../../../package.json';
+import pkg from '../../package.json';
 
 export default [
   // browser-friendly UMD build
@@ -17,7 +17,9 @@ export default [
       resolve({
         preferBuiltins: false,
       }),
-      commonjs(),
+      commonjs({
+        include: /node_modules/,
+      }),
       babel({
         babelrc: false,
         presets: [
@@ -31,13 +33,22 @@ export default [
             },
           ],
         ],
+        plugins: [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+        ],
         exclude: ['node_modules/**'],
       }),
-      terser({
-        output: {
-          comments: false,
-        },
-      }),
+      // enable terser for production
+      (
+        process.env.ROLLUP_WATCH
+          ? undefined
+          : terser({
+            output: {
+              comments: false,
+            },
+          })
+      ),
     ],
   },
 
@@ -55,6 +66,10 @@ export default [
           [
             '@babel/env',
           ],
+        ],
+        plugins: [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
         ],
         exclude: ['node_modules/**'],
       }),

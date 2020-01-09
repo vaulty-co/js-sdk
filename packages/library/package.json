@@ -6,14 +6,17 @@
   "module": "build/js-sdk.esm.js",
   "browser": "build/js-sdk.min.js",
   "scripts": {
+    "start": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js -w",
     "lint": "eslint --cache ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
-    "build": "rimraf ./build && rollup -c ./internals/rollup/prod/rollup.config.js"
+    "build": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.7.7",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^6.1.0",
@@ -28,7 +31,6 @@
     "events": "^3.0.0",
     "immer": "^5.1.0",
     "invariant": "^2.2.4",
-    "lodash": "^4.17.15",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5"
   }

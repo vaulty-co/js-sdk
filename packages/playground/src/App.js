@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import SDK from '@js-sdk/library/src/index';
+import SDK from '@js-sdk/library';
 
 import appStyles from './App.module.scss';
 

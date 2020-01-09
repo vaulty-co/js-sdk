@@ -1,5 +1,3 @@
-import reduce from 'lodash/reduce';
-
 /**
  * Transform actions functions to dispatch store with calling them
  * @param {Store} store
@@ -11,11 +9,14 @@ const actionsToDispatch = (store) => (
    * @returns {Object<Function>}
    */
   (actionMap = {}) => (
-    reduce(actionMap, (result, actionCreator, actionName) => {
-      const newResult = result;
-      newResult[actionName] = (...data) => store.dispatch(actionCreator(...data));
-      return newResult;
-    }, {})
+    Object
+      .keys(actionMap)
+      .reduce((result, actionName) => {
+        const newResult = result;
+        const actionCreator = actionMap[actionName];
+        newResult[actionName] = (...data) => store.dispatch(actionCreator(...data));
+        return newResult;
+      }, {})
   )
 );
 

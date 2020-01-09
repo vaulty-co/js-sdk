@@ -1,5 +1,3 @@
-import map from 'lodash/map';
-
 import { FieldModel } from '../FieldModel';
 import { FieldsCollection } from '../FieldsCollection';
 
@@ -83,10 +81,10 @@ describe('FieldsCollection', () => {
     });
 
     it('should do nothing, if field does not exists', () => {
-      const initialFieldsStatuses = map(fieldsCollection.fields, (f) => f.status);
+      const initialFieldsStatuses = Object.values(fieldsCollection.fields).map((f) => f.status);
 
       fieldsCollection.setFieldStatus({ fieldId: 'unknown-id', status: FieldModel.STATUSES.LOADING });
-      const resultsFieldsStatuses = map(fieldsCollection.fields, (f) => f.status);
+      const resultsFieldsStatuses = Object.values(fieldsCollection.fields).map((f) => f.status);
 
       expect(initialFieldsStatuses).toEqual(resultsFieldsStatuses);
     });

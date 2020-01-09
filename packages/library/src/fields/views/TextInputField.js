@@ -1,5 +1,4 @@
 import { queryString } from '@js-sdk/elements/src/fields/TextInput/route/queryString';
-import get from 'lodash/get';
 
 import { Field } from './Field';
 import { connectField } from '../utils/connectField';
@@ -30,8 +29,8 @@ class TextInputField extends Field {
 
     // FIXME - fixme URL hardcode with using config
     this.fieldIframe = new IFrame({
-      width: get(options, 'style.width', '100%'),
-      height: get(options, 'style.height', '20px'),
+      width: options?.style?.width ?? '100%',
+      height: options?.style?.height ?? '20px',
       src: `http://localhost:3001/?${queryString}`,
     });
   }

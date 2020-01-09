@@ -1,6 +1,5 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
-import get from 'lodash/get';
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 
 import { IFrame } from '../helpers/IFrame';
@@ -35,7 +34,7 @@ class Form extends Controller {
       height: 0,
       src: `http://localhost:3001/?${queryString}`,
     });
-    this.fields = get(options, 'fields', []);
+    this.fields = options?.fields ?? [];
     this.appendTo(document.body);
   }
 

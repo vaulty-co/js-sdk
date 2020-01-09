@@ -1,6 +1,6 @@
 import { immerable } from 'immer';
-import uniqueId from 'lodash/uniqueId';
-import get from 'lodash/get';
+
+import { uniqueId } from '../../helpers/uniqueId';
 
 /**
  * FieldModel statuses
@@ -42,7 +42,7 @@ class FieldModel {
     /**
      * @type {string}
      */
-    this.type = get(options, 'type', 'unknown');
+    this.type = options?.type ?? 'unknown';
     /**
      * @type {FIELD_MODEL_STATUSES}
      */
