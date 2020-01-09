@@ -10,11 +10,12 @@ For controlling that, we use [yarn workspaces](https://yarnpkg.com/lang/en/docs/
  
 ## Initialize mono repository
  
- ```sh
- yarn install
- ```
+```
+yarn install
+```
  
 ## Packages
 
+ - [JS SDK elements](/packages/elements/README.md)
  - [JS SDK library](/packages/library/README.md)
  - [JS SDK playground](/packages/playground/README.md)
