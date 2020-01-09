@@ -26,7 +26,10 @@
   },
   "dependencies": {
     "events": "^3.0.0",
+    "immer": "^5.1.0",
     "invariant": "^2.2.4",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5"
   }
 }

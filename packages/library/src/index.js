@@ -1,4 +1,5 @@
-import { TextInputField } from './fields/TextInputField';
+import { createStore } from './store/index';
+import { ConnectedTextInputField } from './fields/views/TextInputField';
 import { Form } from './controllers/Form';
 
 /**
@@ -7,13 +8,21 @@ import { Form } from './controllers/Form';
  */
 
 const FIELDS = {
-  textInput: TextInputField,
+  textInput: ConnectedTextInputField,
 };
 
 /**
  * @class
  */
 class SDK {
+  constructor() {
+    /**
+     * SDK redux store
+     * @type {Store} - redux store
+     */
+    this.store = createStore();
+  }
+
   /**
    * Create field instance
    * @param {string} type - field type
@@ -23,7 +32,10 @@ class SDK {
   createField(type, options) {
     const FieldInstance = FIELDS[type];
     if (FieldInstance) {
-      return new FieldInstance(options);
+      return new FieldInstance({
+        ...options,
+        store: this.store,
+      });
     }
     // FIXME - here should be some error handler for SDK user
     return null;

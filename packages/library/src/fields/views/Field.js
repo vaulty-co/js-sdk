@@ -3,7 +3,7 @@
 import invariant from 'invariant';
 import get from 'lodash/get';
 
-import { NODE_TYPES } from '../constants/nodeTypes';
+import { NODE_TYPES } from '../../constants/nodeTypes';
 
 /**
  * @typedef {Object} FieldOptions

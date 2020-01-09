@@ -2,7 +2,8 @@ import { queryString } from '@js-sdk/elements/src/fields/TextInput/route/querySt
 import get from 'lodash/get';
 
 import { Field } from './Field';
-import { IFrame } from '../helpers/IFrame';
+import { connectField } from '../utils/connectField';
+import { IFrame } from '../../helpers/IFrame';
 
 /**
  * @typedef {Object} TextInputFieldStyle
@@ -36,7 +37,10 @@ class TextInputField extends Field {
   }
 }
 
+const ConnectedTextInputField = connectField(TextInputField);
+
 export default TextInputField;
 export {
   TextInputField,
+  ConnectedTextInputField,
 };
