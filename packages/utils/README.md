@@ -1,6 +1,4 @@
-# JS SDK library
-
-It is JS SDK library, which are used by customer.
+# JS SDK shared utils for packages
 
 ## Technical requirements
 
@@ -13,12 +11,6 @@ It is JS SDK library, which are used by customer.
 yarn install
 ```
 
-## Run development build
-
-```sh
-yarn start
-```
-
 ## Run linting
 
 ```sh
@@ -28,11 +20,5 @@ yarn lint
 ## Run tests
 
 ```sh
-yarn test
-```
-
-## Build library
-
-```sh
-yarn build
+yarn lint
 ```

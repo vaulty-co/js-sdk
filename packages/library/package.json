@@ -11,7 +11,7 @@
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
     "build": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js"
   },
-  "author": "",
+  "author": "Aliaksei Simanchyk <alex@vaulty.co>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.7.7",

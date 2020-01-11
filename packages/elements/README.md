@@ -25,6 +25,12 @@ yarn start
 yarn lint
 ```
 
+## Run tests
+
+```sh
+yarn test
+```
+
 ## Build library
 
 ```sh
