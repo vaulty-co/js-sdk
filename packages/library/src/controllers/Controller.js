@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
 import { NODE_TYPES } from '../constants/nodeTypes';
+import EventEmitter from 'events';
 
 /**
  * @class
@@ -13,6 +14,13 @@ class Controller {
    */
   static invariant(condition, message) {
     invariant(condition, `[${this.name}] ${message}`);
+  }
+
+  constructor() {
+    /**
+     * @type {EventEmitter}
+     */
+    this.events = new EventEmitter();
   }
 
   /**
@@ -40,6 +48,26 @@ class Controller {
   }
 
   /**
+   * Add handler to event
+   * @param {string} eventName
+   * @param {Function} eventHandler
+   * @return {*}
+   */
+  on(eventName, eventHandler) {
+    return this.events.on(...args);
+  }
+
+  /**
+   * Remove handler from event
+   * @param {string} eventName
+   * @param {Function} eventHandler
+   * @return {*}
+   */
+  off(eventName, eventHandler) {
+    return this.events.off(eventName, eventHandler);
+  }
+
+  /**
    * Destroy controller and its DOM tree. It does not destroy parent, where controller have been placed.
    * Controller is not usable after destroy
    */
@@ -48,6 +76,8 @@ class Controller {
 
     this.parent = null;
     this.controllerIframe = null;
+
+    this.events.removeAllListeners();
   }
 }
 
