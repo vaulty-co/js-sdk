@@ -30,8 +30,8 @@ describe('Router', () => {
 
   beforeEach(() => {
     appNode = document.createElement('div');
-    inputField = new Field(document.createElement('div'));
-    selectField = new Field(document.createElement('div'));
+    inputField = new Field({ node: document.createElement('div'), channelId: 'input-field' });
+    selectField = new Field({ node: document.createElement('div'), channelId: 'select-field' });
     inputRoute = new FieldRoute('input', { type: 'input' }, () => inputField);
     selectRoute = new FieldRoute('select', { type: 'select' }, () => selectField);
     router = new Router(appNode);

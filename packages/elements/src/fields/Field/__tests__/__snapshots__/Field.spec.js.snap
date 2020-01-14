@@ -7,3 +7,5 @@ exports[`Field #constructor should throw error, when node is not HTMLELement 1`]
 exports[`Field #destroy should throw exception when appendTo is called after destroying 1`] = `"[Field] Field is destroyed and can not be append to a parent node."`;
 
 exports[`Field #destroy should throw exception when destroy is called after destroying 1`] = `"[Field] Field is destroyed and can not be destroyed again."`;
+
+exports[`Field #mount should throw error, when channelId is not specified 1`] = `"[Field] Field does not have specified \\"channelId\\" for opening channel"`;

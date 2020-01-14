@@ -1,6 +1,13 @@
 import invariant from 'invariant';
+import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
+import { Message } from '@js-sdk/utils/src/channels/Message';
 
 import { NODE_TYPES } from '../constants/nodeTypes';
+import { Config } from '../../config';
+import {
+  IS_MOUNTED_REQUEST,
+  IS_MOUNTED_RESPONSE,
+} from './messages';
 
 const STATUSES = {
   INIT: 'init',
@@ -26,9 +33,11 @@ class Field {
   }
 
   /**
-   * @param {HTMLElement} node
+   * @param {HTMLElement} options.node
+   * @param {string} options.channelId
    */
-  constructor(node) {
+  constructor(options) {
+    const node = options?.node;
     this.constructor.invariant(
       typeof node === 'object' && node.nodeType === NODE_TYPES.ELEMENT_NODE,
       'Node for field should be a HTMLElement',
@@ -36,6 +45,7 @@ class Field {
 
     this.status = STATUSES.INIT;
     this.node = node;
+    this.channelId = options?.channelId;
   }
 
   /**
@@ -44,6 +54,8 @@ class Field {
    */
   mount(node) {
     this.appendTo(node);
+    this.openChannel();
+    this.registerHandlers();
   }
 
   /**
@@ -73,6 +85,35 @@ class Field {
 
     this.parent = parent;
     parent.appendChild(this.node);
+  }
+
+  /**
+   * Open channel with master frame
+   * @private
+   */
+  openChannel() {
+    this.constructor.invariant(
+      Boolean(this.channelId),
+      'Field does not have specified "channelId" for opening channel',
+    );
+
+    this.fieldSlaveChannel = new SlaveChannel({
+      channelId: this.channelId,
+      targetOrigin: Config.sdkOrigin,
+    });
+    this.fieldSlaveChannel.connect();
+  }
+
+  /**
+   * Register allowed messages by master frame and give response by this messages
+   * @private
+   */
+  registerHandlers() {
+    this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, () => {
+      this.fieldSlaveChannel.postMessage(
+        new Message(IS_MOUNTED_RESPONSE, { success: true }),
+      );
+    });
   }
 
   /**

@@ -9,7 +9,7 @@ describe('Route', () => {
     renderFunction = jest.fn(() => {
       const input = document.createElement('input');
       input.type = 'text';
-      return new Field(input);
+      return new Field({ node: input, channelId: 'some-channel-id' });
     });
     route = new Route(
       'inputText',
@@ -22,24 +22,35 @@ describe('Route', () => {
   });
 
   describe('#match', () => {
-    it('should match query string with route params, if query string contains them', () => {
+    it('should match query params with route params, if query params contains them', () => {
       const queryString = 'field=input&type=text&otherParam=1';
+      const queryParams = new URLSearchParams(queryString);
 
-      expect(route.match(queryString)).toBe(true);
+      expect(route.match(queryParams)).toBe(true);
     });
 
-    it('should not match query string with route params, if query string does not contain them', () => {
+    it('should not match query params with route params, if query params does not contain them', () => {
       const queryString = 'field=select&type=text&otherParam=1';
+      const queryParams = new URLSearchParams(queryString);
 
-      expect(route.match(queryString)).toBe(false);
+      expect(route.match(queryParams)).toBe(false);
     });
   });
 
   describe('#render', () => {
+    const queryString = 'field=select&type=text&otherParam=1';
+    const queryParams = new URLSearchParams(queryString);
+
     it('should run render function', () => {
-      route.render();
+      route.render(queryParams);
 
       expect(renderFunction).toBeCalled();
+    });
+
+    it('should provide query params in render function', () => {
+      route.render(queryParams);
+
+      expect(renderFunction).toBeCalledWith(queryParams);
     });
 
     it('should return render function result', () => {
@@ -52,7 +63,20 @@ describe('Route', () => {
         () => null,
       );
 
-      expect(route.render()).toBe(null);
+      expect(route.render(queryParams)).toBe(null);
+    });
+
+    it('should provide query params in render function', () => {
+      route = new Route(
+        'inputText',
+        {
+          field: 'input',
+          type: 'text',
+        },
+        (renderQueryParams) => renderQueryParams.get('otherParam'),
+      );
+
+      expect(route.render(queryParams)).toBe('1');
     });
   });
 });

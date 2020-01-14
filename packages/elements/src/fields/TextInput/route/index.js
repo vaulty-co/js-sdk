@@ -6,7 +6,7 @@ import { TEXT_INPUT_PARAMS } from './constants';
 const inputTextRoute = new FieldRoute(
   'inputText',
   TEXT_INPUT_PARAMS,
-  () => new TextInput(),
+  (queryParams) => new TextInput({ channelId: queryParams.get('channelId') }),
 );
 
 export default inputTextRoute;

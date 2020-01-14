@@ -6,12 +6,15 @@ import styles from './styles.scss';
  * @class
  */
 class TextInput extends Field {
-  constructor() {
+  constructor(options) {
     const node = document.createElement('input');
     node.setAttribute('type', 'text');
     node.className = styles.input;
 
-    super(node);
+    super({
+      ...options,
+      node,
+    });
   }
 }
 

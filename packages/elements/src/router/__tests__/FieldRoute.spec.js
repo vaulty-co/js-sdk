@@ -9,7 +9,7 @@ describe('FieldRoute', () => {
     renderFunction = jest.fn(() => {
       const input = document.createElement('input');
       input.type = 'text';
-      return new Field(input);
+      return new Field({ node: input, channelId: 'input-channel-id' });
     });
     route = new FieldRoute(
       'inputText',

@@ -1,3 +1,4 @@
+import 'url-search-params-polyfill';
 import { createBrowserHistory } from 'history';
 
 /**
@@ -72,15 +73,16 @@ class Router {
    */
   render() {
     this.unmountInstances();
+    const queryParams = new URLSearchParams(this.locationSearch);
     this.mountedInstances = this.routes.reduce(
       /**
        * @param {Array<ElementsInstance>} instances
        * @param {Route} route
        */
       (instances, route) => {
-        if (route.match(this.locationSearch)) {
+        if (route.match(queryParams)) {
           instances.push(
-            route.render(),
+            route.render(queryParams),
           );
         }
         return instances;

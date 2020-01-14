@@ -15,8 +15,12 @@ module.exports = [
       format: 'umd',
     },
     plugins: [
-      resolve(),
-      commonjs(),
+      resolve({
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+      }),
       babel({
         babelrc: false,
         presets: [
@@ -31,6 +35,8 @@ module.exports = [
           ],
         ],
         plugins: [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
           [
             'transform-define',
             {

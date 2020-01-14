@@ -7,10 +7,11 @@ import { Controller } from '../controllers/Controller';
 class ControllerRoute extends Route {
   /**
    * Render route
+   * @param {URLSearchParams} queryParams
    * @returns {Controller}
    */
-  render() {
-    const controller = this.renderFunction();
+  render(queryParams) {
+    const controller = this.renderFunction(queryParams);
     this.constructor.invariant(
       (controller instanceof Controller),
       `Controller route "${this.name}" does not return Controller in render function.`,

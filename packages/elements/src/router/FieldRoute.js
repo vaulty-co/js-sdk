@@ -7,10 +7,11 @@ import { Field } from '../fields/Field';
 class FieldRoute extends Route {
   /**
    * Render route
+   * @param {URLSearchParams} queryParams
    * @returns {Field}
    */
-  render() {
-    const field = this.renderFunction();
+  render(queryParams) {
+    const field = this.renderFunction(queryParams);
     this.constructor.invariant(
       (field instanceof Field),
       `Field route "${this.name}" does not return Field in render function.`,

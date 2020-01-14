@@ -23,11 +23,10 @@ class Route {
 
   /**
    * Match route with query string
-   * @param {string} queryString
+   * @param {URLSearchParams} queryParams
    * @returns {boolean}
    */
-  match(queryString) {
-    const queryParams = new URLSearchParams(queryString);
+  match(queryParams) {
     return Object.keys(this.params)
       .every((key) => (
         queryParams.get(key) === this.params[key]
@@ -36,10 +35,11 @@ class Route {
 
   /**
    * Render route
+   * @param {URLSearchParams} queryParams
    * @returns {*}
    */
-  render() {
-    return this.renderFunction();
+  render(queryParams) {
+    return this.renderFunction(queryParams);
   }
 }
 
