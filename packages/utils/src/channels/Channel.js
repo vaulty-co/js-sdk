@@ -7,6 +7,10 @@ import { createMessagePortHandler } from './utils';
  * @class
  */
 class Channel {
+  static get STATUSES() {
+    return CHANNEL_STATUSES;
+  }
+
   constructor() {
     /**
      * Connection port
@@ -27,9 +31,8 @@ class Channel {
      */
     this.status = CHANNEL_STATUSES.INITIALIZED;
 
-    window.addEventListener('beforeunload', () => {
-      this.destroy();
-    });
+    this.destroy = this.destroy.bind(this);
+    window.addEventListener('beforeunload', this.destroy);
   }
 
   /**
@@ -42,7 +45,6 @@ class Channel {
     this.port = port;
     this.port.onmessage = createMessagePortHandler((message) => {
       this.events.emit(message.type, message);
-      this.executeQueue();
     });
     this.status = CHANNEL_STATUSES.OPENED;
     this.executeQueue();
@@ -91,6 +93,12 @@ class Channel {
    * Destroy channel
    */
   destroy() {
+    if (this.status === CHANNEL_STATUSES.DESTROYED) {
+      return;
+    }
+
+    window.removeEventListener('beforeunload', this.destroy);
+
     this.status = CHANNEL_STATUSES.DESTROYED;
     this.events.removeAllListeners();
     this.events = null;

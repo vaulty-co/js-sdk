@@ -1,6 +1,5 @@
 import { Channel } from './Channel';
 import {
-  DOCUMENT_READY_STATES,
   PING_MESSAGE_TYPE,
   PONG_MESSAGE_TYPE,
 } from './constants';
@@ -53,11 +52,7 @@ class MasterChannel extends Channel {
    * Connect with target iFrame
    */
   connect() {
-    if (this.target.readyState === DOCUMENT_READY_STATES.COMPLETE) {
-      this.ping();
-    } else {
-      this.target.addEventListener('load', this.onTargetLoad);
-    }
+    this.target.addEventListener('load', this.onTargetLoad);
   }
 
   /**

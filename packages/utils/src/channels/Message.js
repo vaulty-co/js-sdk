@@ -25,15 +25,6 @@ class Message {
   }
 
   /**
-   * Clone message with possibility to change payload data
-   * @param {Message} message
-   * @param {Object} [payload={}]
-   */
-  static clone(message, payload = {}) {
-    return new Message(message.type, payload, message.meta);
-  }
-
-  /**
    * @param {string} type
    * @param {Object} [payload = {}]
    * @param {Object} [meta = {}]
@@ -44,14 +35,18 @@ class Message {
     this.meta = meta;
   }
 
+  toString() {
+    return JSON.stringify({
+      type: this.type,
+      payload: this.payload,
+      meta: this.meta,
+      [MESSAGE_CLASS_IDENTIFIER]: true,
+    });
+  }
+
   [Symbol.toPrimitive](hint) {
     if (hint === 'string') {
-      return JSON.stringify({
-        type: this.type,
-        payload: this.payload,
-        meta: this.meta,
-        [MESSAGE_CLASS_IDENTIFIER]: true,
-      });
+      return this.toString();
     }
     return null;
   }
