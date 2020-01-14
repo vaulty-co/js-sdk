@@ -1,8 +1,18 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
+import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
+import { Message } from '@js-sdk/utils/src/channels/Message';
+import {
+  IS_MOUNTED_REQUEST,
+  IS_MOUNTED_RESPONSE,
+} from '@js-sdk/elements/src/fields/Field/messages';
 
 import { NODE_TYPES } from '../../constants/nodeTypes';
+import { Config } from '../../config';
+import { FieldModel } from '../models/FieldModel';
+import { connectField } from '../utils/connectField';
+import { uniqueId } from '../../helpers/uniqueId';
 
 /**
  * @typedef {Object} FieldOptions
@@ -18,6 +28,7 @@ class Field {
    */
   constructor(options) {
     this.name = options?.name;
+    this.channelId = uniqueId('channel-for-field-');
   }
 
   /**
@@ -50,6 +61,37 @@ class Field {
       'Field should be "appendTo" HTMLElement',
     );
     this.fieldIframe.appendTo(this.parent);
+
+    this.openChannel();
+    this.requestIsMounted();
+  }
+
+  /**
+   * Connect to slave channel
+   */
+  openChannel() {
+    this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.READY });
+
+    this.fieldMasterChannel = new MasterChannel({
+      channelId: this.channelId,
+      target: this.fieldIframe.node,
+      targetOrigin: Config.elementsOrigin,
+    });
+    this.fieldMasterChannel.connect();
+  }
+
+  /**
+   * Check mounted status
+   */
+  requestIsMounted() {
+    this.fieldMasterChannel.postMessage(
+      new Message(IS_MOUNTED_REQUEST),
+    );
+    this.fieldMasterChannel.subscribe(IS_MOUNTED_RESPONSE, (message) => {
+      if (message.payload.success) {
+        this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.READY });
+      }
+    });
   }
 
   /**
@@ -79,7 +121,10 @@ class Field {
   }
 }
 
+const ConnectedField = connectField(Field);
+
 export default Field;
 export {
   Field,
+  ConnectedField,
 };

@@ -1,8 +1,8 @@
 import { queryString } from '@js-sdk/elements/src/fields/TextInput/route/queryString';
 
-import { Field } from './Field';
-import { connectField } from '../utils/connectField';
 import { IFrame } from '../../helpers/IFrame';
+import { Config } from '../../config';
+import { ConnectedField } from './Field';
 
 /**
  * @typedef {Object} TextInputFieldStyle
@@ -20,26 +20,22 @@ import { IFrame } from '../../helpers/IFrame';
  * Create TextInput field
  * @class
  */
-class TextInputField extends Field {
+class TextInputField extends ConnectedField {
   /**
    * @param {FieldOptions} options
    */
   constructor(options) {
     super(options);
 
-    // FIXME - fixme URL hardcode with using config
     this.fieldIframe = new IFrame({
       width: options?.style?.width ?? '100%',
       height: options?.style?.height ?? '20px',
-      src: `http://localhost:3001/?${queryString}`,
+      src: `${Config.elementsOrigin}?${queryString}&channelId=${this.channelId}`,
     });
   }
 }
 
-const ConnectedTextInputField = connectField(TextInputField);
-
 export default TextInputField;
 export {
   TextInputField,
-  ConnectedTextInputField,
 };

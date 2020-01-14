@@ -8,24 +8,38 @@ const sdk = new SDK({
 });
 
 function App() {
-  const textInputNode = useRef();
+  const userNameNode = useRef();
+  const lastNameNode = useRef();
+  const emailNode = useRef();
+
   useEffect(() => {
-    const textInput = sdk.createField('textInput', {
-      style: {
-        width: '100%',
-        height: '20px',
-      },
-    });
-    textInput.appendTo(textInputNode.current);
+    const userName = sdk.createField('textInput');
+    const lastName = sdk.createField('textInput');
+    const email = sdk.createField('textInput');
+
+    userName.appendTo(userNameNode.current);
+    lastName.appendTo(lastNameNode.current);
+    email.appendTo(emailNode.current);
+
+    // FIXME - think about appendTo call method outside of form controller
     const form = sdk.createForm({
-      fields: [textInput],
+      fields: [userName, lastName, email],
     });
+
+    return () => {
+      form.destroy();
+    };
   }, []);
+
   return (
     <Fragment>
       <div>JS SDK playground</div>
       <label>User name</label>
-      <div className={appStyles.textInput} ref={textInputNode} />
+      <div className={appStyles.textInput} ref={userNameNode} />
+      <label>Last name</label>
+      <div className={appStyles.textInput} ref={lastNameNode} />
+      <label>Email</label>
+      <div className={appStyles.textInput} ref={emailNode} />
     </Fragment>
   );
 }

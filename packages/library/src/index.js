@@ -1,5 +1,5 @@
 import { createStore } from './store/index';
-import { ConnectedTextInputField } from './fields/views/TextInputField';
+import { TextInputField } from './fields/views/TextInputField';
 import { Form } from './controllers/Form';
 
 /**
@@ -8,7 +8,7 @@ import { Form } from './controllers/Form';
  */
 
 const FIELDS = {
-  textInput: ConnectedTextInputField,
+  textInput: TextInputField,
 };
 
 /**

@@ -8,7 +8,7 @@ import { uniqueId } from '../../helpers/uniqueId';
  */
 const FIELD_MODEL_STATUSES = {
   INITIALIZED: 'initialized',
-  MOUNTED: 'mount',
+  MOUNTED: 'mounted',
   LOADING: 'loading',
   LOADING_ERROR: 'loading_error',
   READY: 'ready',

@@ -77,6 +77,7 @@ function connectField(FieldClass) {
 
     appendTo(...args) {
       super.appendTo(...args);
+
       this.dispatchers.setFieldStatus({
         fieldId: this.id,
         status: FieldModel.STATUSES.MOUNTED,

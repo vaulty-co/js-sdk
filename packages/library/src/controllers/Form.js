@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 
+import { Config } from '../config';
 import { IFrame } from '../helpers/IFrame';
 import { Controller } from './Controller';
 
@@ -28,11 +29,10 @@ class Form extends Controller {
   constructor(options) {
     super(options);
 
-    // FIXME - fixme URL hardcode with using config
     this.controllerIframe = new IFrame({
       width: 0,
       height: 0,
-      src: `http://localhost:3001/?${queryString}`,
+      src: `${Config.elementsOrigin}/?${queryString}`,
     });
     this.fields = options?.fields ?? [];
     this.appendTo(document.body);
