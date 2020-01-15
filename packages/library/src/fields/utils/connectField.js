@@ -86,7 +86,9 @@ function connectField(FieldClass) {
 
     destroy(...args) {
       super.destroy(...args);
+
       this.remove();
+      this.dispatchers = null;
     }
   }
 

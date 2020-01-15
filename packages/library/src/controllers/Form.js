@@ -5,6 +5,12 @@ import { queryString } from '@js-sdk/elements/src/controllers/Form/route/querySt
 import { Config } from '../config';
 import { IFrame } from '../helpers/IFrame';
 import { Controller } from './Controller';
+import { connectForm } from './utils/connectForm';
+
+const FORM_STATUSES = {
+  INITIALIZED: 'initialized',
+  READY: 'ready',
+};
 
 /**
  * @typedef {Object} FormOptions
@@ -23,6 +29,10 @@ import { Controller } from './Controller';
  */
 
 class Form extends Controller {
+  static get STATUSES() {
+    return FORM_STATUSES;
+  }
+
   /**
    * @param {FormOptions} options
    */
@@ -96,7 +106,10 @@ class Form extends Controller {
   }
 }
 
+const ConnectedForm = connectForm(Form);
+
 export default Form;
 export {
   Form,
+  ConnectedForm,
 };

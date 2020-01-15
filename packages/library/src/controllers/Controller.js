@@ -1,8 +1,9 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
-import { NODE_TYPES } from '../constants/nodeTypes';
 import EventEmitter from 'events';
+
+import { NODE_TYPES } from '../constants/nodeTypes';
 
 /**
  * @class
@@ -54,7 +55,7 @@ class Controller {
    * @return {*}
    */
   on(eventName, eventHandler) {
-    return this.events.on(...args);
+    return this.events.on(eventName, eventHandler);
   }
 
   /**

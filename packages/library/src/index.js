@@ -1,6 +1,7 @@
 import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
-import { Form } from './controllers/Form';
+import { ConnectedForm } from './controllers/Form';
+import { ControllerModel } from './controllers/models/ControllerModel';
 
 /**
  * @typedef {Object} SDKOptions
@@ -15,6 +16,10 @@ const FIELDS = {
  * @class
  */
 class SDK {
+  get FORM_STATUSES() {
+    return ControllerModel.STATUSES;
+  }
+
   constructor() {
     /**
      * SDK redux store
@@ -47,7 +52,10 @@ class SDK {
    * @returns {Form}
    */
   createForm(options) {
-    return new Form(options);
+    return new ConnectedForm({
+      ...options,
+      store: this.store,
+    });
   }
 }
 
