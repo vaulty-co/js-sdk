@@ -70,7 +70,7 @@ class Field {
    * Connect to slave channel
    */
   openChannel() {
-    this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.READY });
+    this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.LOADING });
 
     this.fieldMasterChannel = new MasterChannel({
       channelId: this.channelId,
