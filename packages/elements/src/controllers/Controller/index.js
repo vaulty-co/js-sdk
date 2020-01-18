@@ -1,15 +1,47 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
+import invariant from 'invariant';
+import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
+
+import { Config } from '../../config';
+
+const CONTROLLER_STATUSES = {
+  INIT: 'init',
+  DESTROYED: 'destroyed',
+};
+
 /**
  * Controller base class
  * @class
  * @extends {ElementsInstance}
  */
 class Controller {
+  static get STATUSES() {
+    return CONTROLLER_STATUSES;
+  }
+
+  /**
+   * @param {boolean} condition
+   * @param {string} message
+   */
+  static invariant(condition, message) {
+    invariant(condition, `[${this.name}] ${message}`);
+  }
+
+  /**
+   * @param {string} options.channelId
+   */
+  constructor(options) {
+    this.status = CONTROLLER_STATUSES.INIT;
+    this.channelId = options?.channelId;
+  }
+
   /**
    * Mount controller
    */
   mount() {
+    this.openChannel();
+    this.registerHandlers();
   }
 
   /**
@@ -20,9 +52,44 @@ class Controller {
   }
 
   /**
+   * Open channel with master frame
+   * @private
+   */
+  openChannel() {
+    this.constructor.invariant(
+      Boolean(this.channelId),
+      'Controller does not have specified "channelId" for opening channel',
+    );
+
+    this.controllerSlaveChannel = new SlaveChannel({
+      channelId: this.channelId,
+      targetOrigin: Config.sdkOrigin,
+    });
+    this.controllerSlaveChannel.connect();
+  }
+
+  /**
+   * Register allowed messages by master frame and give response by this messages
+   * @private
+   */
+  registerHandlers() {
+
+  }
+
+  /**
    * Destroy controller
    */
   destroy() {
+    if (this.status === CONTROLLER_STATUSES.DESTROYED) {
+      this.constructor.invariant(
+        false,
+        'Controller is destroyed and can not be destroyed again.',
+      );
+      return;
+    }
+
+    this.controllerSlaveChannel.destroy();
+    this.controllerSlaveChannel = null;
   }
 }
 

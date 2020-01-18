@@ -1,6 +1,6 @@
 import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
-import { ConnectedForm } from './controllers/Form';
+import { ConnectedForm } from './controllers/views/Form';
 import { ControllerModel } from './controllers/models/ControllerModel';
 
 /**

@@ -6,7 +6,7 @@ import { FORM_PARAMS } from './constants';
 const formRoute = new ControllerRoute(
   'form',
   FORM_PARAMS,
-  () => new Form(),
+  (queryParams) => new Form({ channelId: queryParams.get('channelId') }),
 );
 
 export default formRoute;

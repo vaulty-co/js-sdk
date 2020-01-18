@@ -9,7 +9,7 @@ import {
   IS_MOUNTED_RESPONSE,
 } from './messages';
 
-const STATUSES = {
+const FIELD_STATUSES = {
   INIT: 'init',
   DESTROYED: 'destroyed',
 };
@@ -29,7 +29,7 @@ class Field {
   }
 
   static get STATUSES() {
-    return STATUSES;
+    return FIELD_STATUSES;
   }
 
   /**
@@ -43,7 +43,7 @@ class Field {
       'Node for field should be a HTMLElement',
     );
 
-    this.status = STATUSES.INIT;
+    this.status = FIELD_STATUSES.INIT;
     this.node = node;
     this.channelId = options?.channelId;
   }
@@ -70,7 +70,7 @@ class Field {
    * @param {HTMLElement} parent - parent node
    */
   appendTo(parent) {
-    if (this.status === STATUSES.DESTROYED) {
+    if (this.status === FIELD_STATUSES.DESTROYED) {
       this.constructor.invariant(
         false,
         'Field is destroyed and can not be append to a parent node.',
@@ -120,7 +120,7 @@ class Field {
    * Destroy field and remove its from parent, if it is specified
    */
   destroy() {
-    if (this.status === STATUSES.DESTROYED) {
+    if (this.status === FIELD_STATUSES.DESTROYED) {
       this.constructor.invariant(
         false,
         'Field is destroyed and can not be destroyed again.',
@@ -131,9 +131,14 @@ class Field {
     if (this.parent) {
       this.parent.removeChild(this.node);
     }
-    this.status = STATUSES.DESTROYED;
+    this.status = FIELD_STATUSES.DESTROYED;
     this.node = null;
     this.parent = null;
+
+    if (this.fieldSlaveChannel) {
+      this.fieldSlaveChannel.destroy();
+      this.fieldSlaveChannel = null;
+    }
   }
 }
 

@@ -1,11 +1,13 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
+import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 
-import { Config } from '../config';
-import { IFrame } from '../helpers/IFrame';
+import { Config } from '../../config';
+import { IFrame } from '../../helpers/IFrame';
 import { Controller } from './Controller';
-import { connectForm } from './utils/connectForm';
+import { connectForm } from '../utils/connectForm';
+import { uniqueId } from '../../helpers/uniqueId';
 
 const FORM_STATUSES = {
   INITIALIZED: 'initialized',
@@ -39,10 +41,11 @@ class Form extends Controller {
   constructor(options) {
     super(options);
 
+    this.channelId = uniqueId('channel-for-field-');
     this.controllerIframe = new IFrame({
       width: 0,
       height: 0,
-      src: `${Config.elementsOrigin}/?${queryString}`,
+      src: `${Config.elementsOrigin}/?${queryString}&channelId=${this.channelId}`,
     });
     this.fields = options?.fields ?? [];
     this.appendTo(document.body);
@@ -78,6 +81,12 @@ class Form extends Controller {
     this.fields = [];
   }
 
+  appendTo(node) {
+    super.appendTo(node);
+
+    this.openChannel();
+  }
+
   /**
    * Submit form in options specified URL
    * @param {FormSubmitOptions} options
@@ -102,7 +111,25 @@ class Form extends Controller {
         (field) => field.destroy(),
       );
     }
-    Controller.destroy.call(Form, withFields);
+
+    if (this.controllerMasterChannel) {
+      this.controllerMasterChannel.destroy();
+    }
+
+    super.destroy();
+  }
+
+  /**
+   * Connect to slave channel
+   * @private
+   */
+  openChannel() {
+    this.controllerMasterChannel = new MasterChannel({
+      channelId: this.channelId,
+      target: this.controllerIframe.node,
+      targetOrigin: Config.elementsOrigin,
+    });
+    this.controllerMasterChannel.connect();
   }
 }
 

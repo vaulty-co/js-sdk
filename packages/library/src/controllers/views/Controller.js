@@ -3,7 +3,7 @@
 import invariant from 'invariant';
 import EventEmitter from 'events';
 
-import { NODE_TYPES } from '../constants/nodeTypes';
+import { NODE_TYPES } from '../../constants/nodeTypes';
 
 /**
  * @class

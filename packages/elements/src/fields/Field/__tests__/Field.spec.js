@@ -3,6 +3,7 @@ import { Field } from '../index';
 jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
   const connectMock = jest.fn();
   const subscribeMock = jest.fn();
+  const destroyMock = jest.fn();
 
   class SlaveChannel {
     get connect() {
@@ -11,6 +12,10 @@ jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
 
     get subscribe() {
       return subscribeMock;
+    }
+
+    destroy() {
+      return destroyMock;
     }
   }
   return {
