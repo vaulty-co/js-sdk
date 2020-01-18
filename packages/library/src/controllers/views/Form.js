@@ -1,16 +1,20 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
+import { SUBMIT_REQUEST, SUBMIT_RESPONSE } from '@js-sdk/elements/src/controllers/Form/messages';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
+import { Message } from '@js-sdk/utils/src/channels/Message';
 
 import { Config } from '../../config';
 import { IFrame } from '../../helpers/IFrame';
 import { Controller } from './Controller';
 import { connectForm } from '../utils/connectForm';
 import { uniqueId } from '../../helpers/uniqueId';
+import { NO_FIELDS_ERROR } from '../events/noFieldsError';
 
 const FORM_STATUSES = {
   INITIALIZED: 'initialized',
+  PROCESSING: 'processing',
   READY: 'ready',
 };
 
@@ -41,7 +45,7 @@ class Form extends Controller {
   constructor(options) {
     super(options);
 
-    this.channelId = uniqueId('channel-for-field-');
+    this.channelId = uniqueId('channel-for-form-');
     this.controllerIframe = new IFrame({
       width: 0,
       height: 0,
@@ -85,16 +89,31 @@ class Form extends Controller {
     super.appendTo(node);
 
     this.openChannel();
+    this.handleSubmit();
   }
 
   /**
    * Submit form in options specified URL
    * @param {FormSubmitOptions} options
    */
-  // FIXME - disabling eslint should be removed after implementation
-  // eslint-disable-next-line no-unused-vars
   submit(options) {
-
+    if (this.fields.length) {
+      if (this.controllerMasterChannel) {
+        // FIXME  - should works through store
+        this.events.emit('status', FORM_STATUSES.PROCESSING);
+        this.controllerMasterChannel.postMessage(
+          new Message(
+            SUBMIT_REQUEST,
+            {
+              fieldsIds: this.controller.fieldsIds,
+              options,
+            },
+          ),
+        );
+      }
+    } else {
+      this.events.emit('submit', NO_FIELDS_ERROR);
+    }
   }
 
   /**
@@ -130,6 +149,16 @@ class Form extends Controller {
       targetOrigin: Config.elementsOrigin,
     });
     this.controllerMasterChannel.connect();
+  }
+
+  handleSubmit() {
+    this.controllerMasterChannel.subscribe(SUBMIT_RESPONSE, (message) => {
+      const { payload: { success = false } } = message;
+      if (success) {
+        // FIXME  - should works through store
+        this.events.emit('status', FORM_STATUSES.READY);
+      }
+    });
   }
 }
 

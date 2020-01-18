@@ -1,5 +1,17 @@
+import { enforceOptions } from 'broadcast-channel';
 import { Field } from '@js-sdk/elements/src/fields/Field';
+
 import { Route } from '../Route';
+
+beforeAll(() => {
+  enforceOptions({
+    type: 'simulate',
+  });
+});
+
+afterAll(() => {
+  enforceOptions(null);
+});
 
 describe('Route', () => {
   let route;

@@ -1,4 +1,5 @@
 import invariant from 'invariant';
+import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 
@@ -46,6 +47,8 @@ class Field {
     this.status = FIELD_STATUSES.INIT;
     this.node = node;
     this.channelId = options?.channelId;
+
+    this.broadcastChannel = new BroadcastChannel();
   }
 
   /**
@@ -109,7 +112,9 @@ class Field {
    * @private
    */
   registerHandlers() {
-    this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, () => {
+    this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, (message) => {
+      const { payload: { fieldId } } = message;
+      this.id = fieldId;
       this.fieldSlaveChannel.postMessage(
         new Message(IS_MOUNTED_RESPONSE, { success: true }),
       );
@@ -139,6 +144,9 @@ class Field {
       this.fieldSlaveChannel.destroy();
       this.fieldSlaveChannel = null;
     }
+
+    this.broadcastChannel.close();
+    this.broadcastChannel = null;
   }
 }
 

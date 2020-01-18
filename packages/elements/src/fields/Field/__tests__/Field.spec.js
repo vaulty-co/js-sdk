@@ -1,3 +1,5 @@
+import { enforceOptions } from 'broadcast-channel';
+
 import { Field } from '../index';
 
 jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
@@ -21,6 +23,16 @@ jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
   return {
     SlaveChannel,
   };
+});
+
+beforeAll(() => {
+  enforceOptions({
+    type: 'simulate',
+  });
+});
+
+afterAll(() => {
+  enforceOptions(null);
 });
 
 describe('Field', () => {

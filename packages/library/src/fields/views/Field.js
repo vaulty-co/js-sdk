@@ -85,7 +85,9 @@ class Field {
    */
   requestIsMounted() {
     this.fieldMasterChannel.postMessage(
-      new Message(IS_MOUNTED_REQUEST),
+      new Message(IS_MOUNTED_REQUEST, {
+        fieldId: this.id,
+      }),
     );
     this.fieldMasterChannel.subscribe(IS_MOUNTED_RESPONSE, (message) => {
       if (message.payload.success) {

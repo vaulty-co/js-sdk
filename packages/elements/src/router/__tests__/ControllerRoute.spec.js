@@ -1,5 +1,17 @@
+import { enforceOptions } from 'broadcast-channel';
 import { Controller } from '@js-sdk/elements/src/controllers/Controller';
+
 import { ControllerRoute } from '../ControllerRoute';
+
+beforeAll(() => {
+  enforceOptions({
+    type: 'simulate',
+  });
+});
+
+afterAll(() => {
+  enforceOptions(null);
+});
 
 describe('ControllerRoute', () => {
   let route;

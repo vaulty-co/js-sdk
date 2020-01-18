@@ -1,6 +1,5 @@
-// FIXME - disabling eslint should be removed after creating behavior for methods
-/* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
+import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
 
 import { Config } from '../../config';
@@ -34,6 +33,7 @@ class Controller {
   constructor(options) {
     this.status = CONTROLLER_STATUSES.INIT;
     this.channelId = options?.channelId;
+    this.broadcastChannel = new BroadcastChannel();
   }
 
   /**
@@ -72,6 +72,7 @@ class Controller {
    * Register allowed messages by master frame and give response by this messages
    * @private
    */
+  // eslint-disable-line class-methods-use-this
   registerHandlers() {
 
   }
@@ -90,6 +91,9 @@ class Controller {
 
     this.controllerSlaveChannel.destroy();
     this.controllerSlaveChannel = null;
+
+    this.broadcastChannel.close();
+    this.broadcastChannel = null;
   }
 }
 

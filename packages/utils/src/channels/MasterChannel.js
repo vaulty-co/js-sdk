@@ -107,6 +107,16 @@ class MasterChannel extends Channel {
     });
     this.target.contentWindow.postMessage(`${pingMessage}`, this.targetOrigin, [port2]);
   }
+
+  /**
+   * Posting message with log
+   * @param {Message} message
+   * @protected
+   */
+  postingMessage(message) {
+    console.log('[MasterChannel]', 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
+    super.postingMessage(message);
+  }
 }
 
 export default MasterChannel;

@@ -1,8 +1,19 @@
 import { createBrowserHistory } from 'history';
+import { enforceOptions } from 'broadcast-channel';
 import { Field } from '@js-sdk/elements/src/fields/Field';
 
 import { Router } from '../index';
 import { FieldRoute } from '../FieldRoute';
+
+beforeAll(() => {
+  enforceOptions({
+    type: 'simulate',
+  });
+});
+
+afterAll(() => {
+  enforceOptions(null);
+});
 
 jest.mock('history', () => {
   const history = {
