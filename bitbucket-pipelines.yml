@@ -37,3 +37,32 @@ pipelines:
             script:
               - cd ./packages/utils
               - yarn lint:ci
+    - parallel:
+        - step:
+            name: "Elements tests"
+            caches:
+              - node
+            script:
+              - cd ./packages/elements
+              - yarn test
+        - step:
+            name: "Library tests"
+            caches:
+              - node
+            script:
+              - cd ./packages/library
+              - yarn test
+        - step:
+            name: "Playground tests"
+            caches:
+              - node
+            script:
+              - cd ./packages/playground
+              - yarn test
+        - step:
+            name: "Utils tests"
+            caches:
+              - node
+            script:
+              - cd ./packages/utils
+              - yarn test
