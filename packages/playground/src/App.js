@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import SDK from '@js-sdk/library';
+import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
 
 import appStyles from './App.module.scss';
 

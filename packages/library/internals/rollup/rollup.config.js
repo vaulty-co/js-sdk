@@ -4,13 +4,20 @@ import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import pkg from '../../package.json';
 
+const devBuildAssets = {
+  main: 'devTmp/js-sdk.cjs.js',
+  module: 'devTmp/js-sdk.esm.js',
+  browser: 'devTmp/js-sdk.min.js',
+};
+const isDevelopmentBuild = Boolean(process.env.ROLLUP_WATCH);
+
 export default [
   // browser-friendly UMD build
   {
     input: 'src/index.js',
     output: {
       name: 'SDK',
-      file: pkg.browser,
+      file: isDevelopmentBuild ? devBuildAssets.browser : pkg.browser,
       format: 'umd',
     },
     plugins: [
@@ -41,7 +48,7 @@ export default [
       }),
       // enable terser for production
       (
-        process.env.ROLLUP_WATCH
+        isDevelopmentBuild
           ? undefined
           : terser({
             output: {
@@ -56,8 +63,14 @@ export default [
   {
     input: 'src/index.js',
     output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'esm' },
+      {
+        file: isDevelopmentBuild ? devBuildAssets.main : pkg.main,
+        format: 'cjs',
+      },
+      {
+        file: isDevelopmentBuild ? devBuildAssets.module : pkg.module,
+        format: 'esm',
+      },
     ],
     plugins: [
       babel({

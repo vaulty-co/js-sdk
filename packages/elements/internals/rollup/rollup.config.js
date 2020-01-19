@@ -4,14 +4,18 @@ const babel = require('rollup-plugin-babel');
 const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
 
-const buildAssetName = 'build/js-sdk-elements';
+const prodBuildAssetName = 'build/js-sdk-elements.min.js';
+const devBuildAssetName = 'devTmp/js-sdk-elements.js';
+
+const isDevelopmentBuild = process.env.NODE_ENV === 'development';
+
 module.exports = [
   // browser-friendly UMD build
   {
     input: 'src/index.js',
     output: {
       name: 'SDKElements',
-      file: `${buildAssetName}.min.js`,
+      file: isDevelopmentBuild ? devBuildAssetName : prodBuildAssetName,
       format: 'umd',
     },
     plugins: [
@@ -46,11 +50,16 @@ module.exports = [
         ],
         exclude: ['node_modules/**'],
       }),
-      terser({
-        output: {
-          comments: false,
-        },
-      }),
+      // enable terser for production
+      (
+        isDevelopmentBuild
+          ? undefined
+          : terser({
+            output: {
+              comments: false,
+            },
+          })
+      ),
       postcss({
         extract: false,
         modules: true,

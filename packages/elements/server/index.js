@@ -9,10 +9,10 @@ const rollupConfig = require('../internals/rollup/rollup.config');
 
 const app = express();
 const rootDir = __dirname;
-const buildDir = path.join(__dirname, '../build');
+const devBuildDir = path.join(__dirname, '../devTmp');
 
 app.set('port', process.env.PORT || 3001);
-app.use(express.static(buildDir));
+app.use(express.static(devBuildDir));
 app.use(logger('dev'));
 app.use(bodyParser.json()); // Parses json, multi-part (file), url-encoded
 

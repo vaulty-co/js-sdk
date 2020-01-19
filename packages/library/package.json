@@ -6,7 +6,7 @@
   "module": "build/js-sdk.esm.js",
   "browser": "build/js-sdk.min.js",
   "scripts": {
-    "start": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js -w",
+    "start": "rimraf ./devTmp && rollup -c ./internals/rollup/rollup.config.js -w",
     "lint": "eslint --cache ./src ./internals",
     "lint:ci": "eslint ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
