@@ -8,6 +8,7 @@ const prodBuildAssetName = 'build/js-sdk-elements.min.js';
 const devBuildAssetName = 'devTmp/js-sdk-elements.js';
 
 const isDevelopmentBuild = process.env.NODE_ENV === 'development';
+const sourcemap = isDevelopmentBuild ? 'inline' : false;
 
 module.exports = [
   // browser-friendly UMD build
@@ -17,6 +18,7 @@ module.exports = [
       name: 'SDKElements',
       file: isDevelopmentBuild ? devBuildAssetName : prodBuildAssetName,
       format: 'umd',
+      sourcemap,
     },
     plugins: [
       resolve({

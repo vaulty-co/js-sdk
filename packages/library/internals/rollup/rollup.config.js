@@ -10,6 +10,7 @@ const devBuildAssets = {
   browser: 'devTmp/js-sdk.min.js',
 };
 const isDevelopmentBuild = Boolean(process.env.ROLLUP_WATCH);
+const sourcemap = isDevelopmentBuild ? 'inline' : false;
 
 export default [
   // browser-friendly UMD build
@@ -19,6 +20,7 @@ export default [
       name: 'SDK',
       file: isDevelopmentBuild ? devBuildAssets.browser : pkg.browser,
       format: 'umd',
+      sourcemap,
     },
     plugins: [
       resolve({
@@ -66,10 +68,12 @@ export default [
       {
         file: isDevelopmentBuild ? devBuildAssets.main : pkg.main,
         format: 'cjs',
+        sourcemap,
       },
       {
         file: isDevelopmentBuild ? devBuildAssets.module : pkg.module,
         format: 'esm',
+        sourcemap,
       },
     ],
     plugins: [
