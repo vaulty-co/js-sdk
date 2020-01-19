@@ -1,5 +1,3 @@
-// FIXME - disabling eslint should be removed after creating behavior for methods
-/* eslint-disable class-methods-use-this */
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 import { SUBMIT_REQUEST, SUBMIT_RESPONSE } from '@js-sdk/elements/src/controllers/Form/messages';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
@@ -99,8 +97,10 @@ class Form extends Controller {
   submit(options) {
     if (this.fields.length) {
       if (this.controllerMasterChannel) {
-        // FIXME  - should works through store
-        this.events.emit('status', FORM_STATUSES.PROCESSING);
+        this.dispatchers.setControllerStatus({
+          controllerId: this.id,
+          status: FORM_STATUSES.PROCESSING,
+        });
         this.controllerMasterChannel.postMessage(
           new Message(
             SUBMIT_REQUEST,
@@ -155,8 +155,11 @@ class Form extends Controller {
     this.controllerMasterChannel.subscribe(SUBMIT_RESPONSE, (message) => {
       const { payload: { success = false } } = message;
       if (success) {
-        // FIXME  - should works through store
-        this.events.emit('status', FORM_STATUSES.READY);
+        this.dispatchers.setControllerStatus({
+          controllerId: this.id,
+          status: FORM_STATUSES.READY,
+        });
+        this.events.emit('submit', { success: true });
       }
     });
   }

@@ -9,6 +9,7 @@ import { FieldModel } from '../../fields/models/FieldModel';
  */
 const CONTROLLER_MODEL_STATUSES = {
   INITIALIZED: 'initialized',
+  PROCESSING: 'processing',
   READY: 'ready',
 };
 
@@ -54,11 +55,11 @@ class ControllerModel {
 
   // TODO - add memoization
   /**
-   * Get controller status
+   * Get fields status
    * @param {FieldsCollection} fieldsCollection
    * @return {CONTROLLER_MODEL_STATUSES}
    */
-  getStatus(fieldsCollection) {
+  getFieldsStatus(fieldsCollection) {
     const fields = this.fieldsIds.map((fieldId) => (
       fieldsCollection.getField(fieldId)
     ));
@@ -66,6 +67,14 @@ class ControllerModel {
       field.status === FieldModel.STATUSES.READY
     ));
     return isReady ? CONTROLLER_MODEL_STATUSES.READY : CONTROLLER_MODEL_STATUSES.INITIALIZED;
+  }
+
+  /**
+   * Set controller status
+   * @param {CONTROLLER_MODEL_STATUSES} status
+   */
+  setStatus(status) {
+    this.status = status;
   }
 }
 

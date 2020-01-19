@@ -7,6 +7,7 @@ import {
   removeController,
   addFieldsToController,
   removeFieldsFromController,
+  setControllerStatus,
 } from './actions';
 
 // TODO - think about convention and decreasing this boilerplate
@@ -22,6 +23,9 @@ const controllers = handleActions({
   )),
   [removeFieldsFromController]: produce((state, { payload: { controllerId, fieldsIds } }) => (
     state.removeFieldsFromController({ controllerId, fieldsIds })
+  )),
+  [setControllerStatus]: produce((state, { payload: { controllerId, status } }) => (
+    state.setControllerStatus({ controllerId, status })
   )),
 }, new ControllersCollection());
 

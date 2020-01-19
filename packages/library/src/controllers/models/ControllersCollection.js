@@ -72,6 +72,20 @@ class ControllersCollection {
       controller.removeFields(fieldsIds);
     }
   }
+
+  /**
+   * Remove fields from controller by id
+   * @param {Object} options
+   * @param {string} options.controllerId
+   * @param {CONTROLLER_MODEL_STATUSES} options.status
+   */
+  setControllerStatus(options) {
+    const { controllerId, status } = options;
+    const controller = this.getController(controllerId);
+    if (controller) {
+      controller.setStatus(status);
+    }
+  }
 }
 
 export default ControllersCollection;

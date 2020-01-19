@@ -4,6 +4,7 @@ import {
   removeController,
   addFieldsToController,
   removeFieldsFromController,
+  setControllerStatus,
 } from '../actions';
 import { ControllerModel } from '../models/ControllerModel';
 
@@ -37,6 +38,7 @@ function connectForm(FormClass) {
         removeController,
         addFieldsToController,
         removeFieldsFromController,
+        setControllerStatus,
       });
 
       this.add();
@@ -143,9 +145,23 @@ function connectForm(FormClass) {
     subscribeToStore() {
       this.previousState = this.state;
       this.unsubscribeStore = this.store.subscribe(() => {
+        this.handleFieldsStatusChange();
         this.handleStatusChange();
         this.previousState = this.state;
       });
+    }
+
+    /**
+     * Handle Form fields status change
+     * @private
+     */
+    handleFieldsStatusChange() {
+      const previousFormFieldsStatus = this.controller.getFieldsStatus(this.previousState.fields);
+      const formFieldsStatus = this.controller.getFieldsStatus(this.state.fields);
+      if (previousFormFieldsStatus !== formFieldsStatus) {
+        this.previousState = this.state;
+        this.dispatchers.setControllerStatus({ controllerId: this.id, status: formFieldsStatus });
+      }
     }
 
     /**
@@ -153,10 +169,9 @@ function connectForm(FormClass) {
      * @private
      */
     handleStatusChange() {
-      const previousFormStatus = this.controller.getStatus(this.previousState.fields);
-      const formStatus = this.controller.getStatus(this.state.fields);
-      if (previousFormStatus !== formStatus) {
-        this.events.emit('status', formStatus);
+      const previousStatus = this.previousState.controllers.getController(this.id).status;
+      if (previousStatus !== this.controller.status) {
+        this.events.emit('status', this.controller.status);
       }
     }
   }
