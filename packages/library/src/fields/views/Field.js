@@ -13,10 +13,16 @@ import { Config } from '../../config';
 import { FieldModel } from '../models/FieldModel';
 import { connectField } from '../utils/connectField';
 import { uniqueId } from '../../helpers/uniqueId';
+import {
+  DEFAULT_FIELD_STYLES,
+  ALLOWED_STYLED_PROPS,
+} from '../constants';
+import { filterStyles } from '../../helpers/filterStyles';
 
 /**
  * @typedef {Object} FieldOptions
  * @property {string} name - field name. It is used for sending data from field in Form.
+ * @property {FieldStyles} [style = {}] - field styles
  */
 
 /**
@@ -26,9 +32,28 @@ class Field {
   /**
    * @param {FieldOptions} options
    */
-  constructor(options) {
-    this.name = options?.name;
+  constructor(options = {}) {
+    const {
+      name,
+      style = {},
+    } = options;
+
+    /**
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * @type {string}
+     */
     this.channelId = uniqueId('channel-for-field-');
+    /**
+     * Styles for field
+     * @type {FieldStyles}
+     */
+    this.style = {
+      ...DEFAULT_FIELD_STYLES,
+      ...filterStyles(style, ALLOWED_STYLED_PROPS),
+    };
   }
 
   /**
@@ -87,6 +112,7 @@ class Field {
     this.fieldMasterChannel.postMessage(
       new Message(IS_MOUNTED_REQUEST, {
         fieldId: this.id,
+        style: this.style,
       }),
     );
     this.fieldMasterChannel.subscribe(IS_MOUNTED_RESPONSE, (message) => {

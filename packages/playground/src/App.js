@@ -7,6 +7,16 @@ const sdk = new SDK({
   authKey: 'some-auth-key',
 });
 
+const fieldStyle = {
+  width: '100%',
+  height: '40px',
+  fontSize: '16px',
+  lineHeight: '40px',
+  fontWeight: 'italic',
+  fontFamily: 'Verdana, sans-serif',
+  padding: '5px',
+};
+
 function App() {
   const userNameNode = useRef();
   const lastNameNode = useRef();
@@ -15,9 +25,15 @@ function App() {
   const [formStatus, setFormStatus] = useState(null);
 
   useEffect(() => {
-    const userName = sdk.createField('textInput');
-    const lastName = sdk.createField('textInput');
-    const email = sdk.createField('textInput');
+    const userName = sdk.createField('textInput', {
+      style: fieldStyle,
+    });
+    const lastName = sdk.createField('textInput', {
+      style: fieldStyle,
+    });
+    const email = sdk.createField('textInput', {
+      style: fieldStyle,
+    });
 
     userName.appendTo(userNameNode.current);
     lastName.appendTo(lastNameNode.current);

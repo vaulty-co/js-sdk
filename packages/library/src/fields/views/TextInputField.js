@@ -28,8 +28,8 @@ class TextInputField extends ConnectedField {
     super(options);
 
     this.fieldIframe = new IFrame({
-      width: options?.style?.width ?? '100%',
-      height: options?.style?.height ?? '20px',
+      width: this.style.width,
+      height: this.style.height,
       src: `${Config.elementsOrigin}?${queryString}&channelId=${this.channelId}`,
     });
   }

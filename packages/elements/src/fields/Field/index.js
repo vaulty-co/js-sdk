@@ -113,8 +113,12 @@ class Field {
    */
   registerHandlers() {
     this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, (message) => {
-      const { payload: { fieldId } } = message;
+      const { payload: { fieldId, style = {} } } = message;
       this.id = fieldId;
+      Object.assign(
+        this.node.style,
+        style,
+      );
       this.fieldSlaveChannel.postMessage(
         new Message(IS_MOUNTED_RESPONSE, { success: true }),
       );
