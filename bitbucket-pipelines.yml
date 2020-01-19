@@ -1,0 +1,39 @@
+image: node:10.18.1
+
+pipelines:
+  default:
+    - step:
+        name: 'Prepare dependencies'
+        caches:
+          - node
+        script:
+          - yarn install
+    - parallel:
+        - step:
+            name: "Elements linter"
+            caches:
+              - node
+            script:
+              - cd ./packages/elements
+              - yarn lint:ci
+        - step:
+            name: "Library linter"
+            caches:
+              - node
+            script:
+              - cd ./packages/library
+              - yarn lint:ci
+        - step:
+            name: "Playground linter"
+            caches:
+              - node
+            script:
+              - cd ./packages/playground
+              - yarn lint:ci
+        - step:
+            name: "Utils linter"
+            caches:
+              - node
+            script:
+              - cd ./packages/utils
+              - yarn lint:ci

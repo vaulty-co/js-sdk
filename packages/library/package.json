@@ -8,6 +8,7 @@
   "scripts": {
     "start": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js -w",
     "lint": "eslint --cache ./src ./internals",
+    "lint:ci": "eslint ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
     "build": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js"
   },

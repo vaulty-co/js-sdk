@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --cache ./src"
+    "lint": "eslint --cache ./src",
+    "lint:ci": "eslint ./src"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -4,6 +4,7 @@
   "description": "JS SDK shared utils for packages",
   "scripts": {
     "lint": "eslint --cache ./src ./internals",
+    "lint:ci": "eslint ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests"
   },
   "author": "Aliaksei Simanchyk <alex@vaulty.co>",
