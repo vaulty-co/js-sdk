@@ -8,6 +8,7 @@ pipelines:
           - node
         script:
           - yarn install
+          - yarn audit
     - parallel:
         - step:
             name: "Elements linter"
