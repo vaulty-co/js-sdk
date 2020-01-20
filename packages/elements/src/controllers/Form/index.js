@@ -45,9 +45,12 @@ class Form extends Controller {
         }, {});
         // TODO - add calling proxy for sending data
         console.log('Posting to proxy', data);
-        this.controllerSlaveChannel.postingMessage(
-          new Message(SUBMIT_RESPONSE, { success: true }),
-        );
+        // FIXME - emulate server response time and should be deleted after applying reverse proxy
+        setTimeout(() => {
+          this.controllerSlaveChannel.postingMessage(
+            new Message(SUBMIT_RESPONSE, { success: true }),
+          );
+        }, 300);
       });
   }
 

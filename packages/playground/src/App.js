@@ -1,20 +1,22 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
+import { Layout, Menu, Icon, Button, Row, Col } from 'antd';
 
-import appStyles from './App.module.scss';
+import './App.scss';
 
+const { Header, Sider, Content } = Layout;
 const sdk = new SDK({
   authKey: 'some-auth-key',
 });
 
 const fieldStyle = {
   width: '100%',
-  height: '40px',
-  fontSize: '16px',
-  lineHeight: '40px',
+  height: '22px',
+  fontSize: '14px',
+  lineHeight: '22px',
   fontWeight: 'italic',
-  fontFamily: 'Verdana, sans-serif',
-  padding: '5px',
+  fontFamily: 'sans-serif',
+  padding: '0',
 };
 
 function App() {
@@ -64,17 +66,60 @@ function App() {
   }, []);
 
   return (
-    <Fragment>
-      <div>JS SDK playground</div>
-      <label>User name</label>
-      <div className={appStyles.textInput} ref={userNameNode} />
-      <label>Last name</label>
-      <div className={appStyles.textInput} ref={lastNameNode} />
-      <label>Email</label>
-      <div className={appStyles.textInput} ref={emailNode} />
-      <hr />
-      <input type="submit" disabled={formStatus !== sdk.FORM_STATUSES.READY} onClick={handleSubmitClick}/>
-    </Fragment>
+    <Layout>
+      <Sider trigger={null} collapsible>
+        <div className="logo">
+          JS SDK Playground
+        </div>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu.Item key="1">
+            <Icon type="user" />
+            <span>Simple example</span>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header style={{ background: '#fff', padding: 0 }} />
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            background: '#fff',
+            minHeight: 280,
+          }}
+        >
+          <Row className="row">
+            <Col span={12}>
+              <label>User name</label>
+              <div className="ant-input" ref={userNameNode} />
+            </Col>
+          </Row>
+          <Row className="row">
+            <Col span={12}>
+              <label>Last name</label>
+              <div className="ant-input" ref={lastNameNode} />
+            </Col>
+          </Row>
+          <Row className="row">
+            <Col span={12}>
+              <label>Email</label>
+              <div className="ant-input" ref={emailNode} />
+            </Col>
+          </Row>
+          <Row className="row">
+            <Col span={12}>
+              <Button
+                type="primary"
+                disabled={formStatus !== sdk.FORM_STATUSES.READY}
+                loading={formStatus !== sdk.FORM_STATUSES.READY ? { delay: 150 } : false}
+                onClick={handleSubmitClick}>
+                Send
+              </Button>
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </Layout>
   );
 }
 
