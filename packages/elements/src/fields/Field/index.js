@@ -113,8 +113,9 @@ class Field {
    */
   registerHandlers() {
     this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, (message) => {
-      const { payload: { fieldId, style = {} } } = message;
-      this.id = fieldId;
+      const { payload: { id, name, style = {} } } = message;
+      this.id = id;
+      this.name = name;
       Object.assign(
         this.node.style,
         style,

@@ -1,3 +1,4 @@
+import objectPath from 'object-path';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 
 import {
@@ -37,9 +38,13 @@ class Form extends Controller {
     ));
 
     Promise.all(submittingPromises)
-      .then((...args) => {
+      .then((result) => {
+        const data = result.reduce((resultData, field) => {
+          objectPath.set(resultData, field.name, field.data);
+          return resultData;
+        }, {});
         // TODO - add calling proxy for sending data
-        console.log('Posting to proxy', ...args);
+        console.log('Posting to proxy', data);
         this.controllerSlaveChannel.postingMessage(
           new Message(SUBMIT_RESPONSE, { success: true }),
         );

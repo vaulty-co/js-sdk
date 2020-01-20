@@ -38,6 +38,7 @@ class TextInput extends Field {
           GET_FIELD_DATA_RESPONSE,
           {
             id: this.id,
+            name: this.name,
             data: this.node.value,
           },
         ).toString(),

@@ -111,7 +111,8 @@ class Field {
   requestIsMounted() {
     this.fieldMasterChannel.postMessage(
       new Message(IS_MOUNTED_REQUEST, {
-        fieldId: this.id,
+        id: this.id,
+        name: this.name,
         style: this.style,
       }),
     );

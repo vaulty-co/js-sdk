@@ -36,6 +36,7 @@
     "broadcast-channel": "^3.0.3",
     "history": "^4.10.1",
     "invariant": "^2.2.4",
+    "object-path": "^0.11.4",
     "url-search-params-polyfill": "^7.0.1"
   }
 }

@@ -26,12 +26,15 @@ function App() {
 
   useEffect(() => {
     const userName = sdk.createField('textInput', {
+      name: 'user.name',
       style: fieldStyle,
     });
     const lastName = sdk.createField('textInput', {
+      name: 'user.lastName',
       style: fieldStyle,
     });
     const email = sdk.createField('textInput', {
+      name: 'user.email',
       style: fieldStyle,
     });
 
