@@ -94,7 +94,7 @@ class Field {
     this.fieldIframe.appendTo(this.parent);
 
     this.openChannel();
-    this.requestIsMounted();
+    this.requestInitialization();
   }
 
   /**
@@ -174,7 +174,7 @@ class Field {
    * Check mounted status
    * @private
    */
-  requestIsMounted() {
+  requestInitialization() {
     this.fieldMasterChannel.postMessage(
       new Message(INITIALIZE_REQUEST, {
         id: this.id,
