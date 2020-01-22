@@ -4,6 +4,7 @@ import {
   setFieldStatus,
 } from '../actions';
 import { FieldModel } from '../models/FieldModel';
+import { FIELD_NODE_STATUSES } from '../constants';
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 
 /**
@@ -23,6 +24,10 @@ function connectField(FieldClass) {
 
       this.store = options.store;
 
+      /**
+       * @type {Object<Function>}
+       * @protected
+       */
       this.dispatchers = actionsToDispatch(options.store)({
         addField,
         removeField,
@@ -33,8 +38,22 @@ function connectField(FieldClass) {
     }
 
     /**
+     * Set field status
+     * @param {FieldStatus} status
+     * @protected
+     */
+    setFieldStatus(status) {
+      this.dispatchers.setFieldStatus({
+        fieldId: this.id,
+        status,
+      });
+      this.events.emit('status', this.field.status);
+    }
+
+    /**
      * Current fields
      * @returns {*}
+     * @private
      */
     get fields() {
       return this.store.getState().fields;
@@ -43,6 +62,7 @@ function connectField(FieldClass) {
     /**
      * Assigned Field model
      * @returns {?FieldModel}
+     * @private
      */
     get field() {
       if (this.id) {
@@ -53,6 +73,7 @@ function connectField(FieldClass) {
 
     /**
      * Add field to store, if it is not created
+     * @private
      */
     add() {
       if (!this.id) {
@@ -66,6 +87,7 @@ function connectField(FieldClass) {
 
     /**
      * Remove field from store
+     * @private
      */
     remove() {
       this.constructor.invariant(
@@ -80,7 +102,9 @@ function connectField(FieldClass) {
 
       this.dispatchers.setFieldStatus({
         fieldId: this.id,
-        status: FieldModel.STATUSES.MOUNTED,
+        status: {
+          node: FIELD_NODE_STATUSES.MOUNTED,
+        },
       });
     }
 

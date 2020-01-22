@@ -1,6 +1,7 @@
 // FIXME - disabling eslint should be removed after creating behavior for methods
 /* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
+import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
@@ -10,12 +11,13 @@ import {
 
 import { NODE_TYPES } from '../../constants/nodeTypes';
 import { Config } from '../../config';
-import { FieldModel } from '../models/FieldModel';
 import { connectField } from '../utils/connectField';
 import { uniqueId } from '../../helpers/uniqueId';
 import {
   DEFAULT_FIELD_STYLES,
   ALLOWED_STYLED_PROPS,
+  FIELD_VALIDATION_STATUSES,
+  FIELD_READINESS_STATUSES,
 } from '../constants';
 import { filterStyles } from '../../helpers/filterStyles';
 
@@ -54,6 +56,10 @@ class Field {
       ...DEFAULT_FIELD_STYLES,
       ...filterStyles(style, ALLOWED_STYLED_PROPS),
     };
+    /**
+     * @type {EventEmitter}
+     */
+    this.events = new EventEmitter();
   }
 
   /**
@@ -92,35 +98,31 @@ class Field {
   }
 
   /**
-   * Connect to slave channel
+   * Get field status
+   * @returns {FieldStatus}
    */
-  openChannel() {
-    this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.LOADING });
-
-    this.fieldMasterChannel = new MasterChannel({
-      channelId: this.channelId,
-      target: this.fieldIframe.node,
-      targetOrigin: Config.elementsOrigin,
-    });
-    this.fieldMasterChannel.connect();
+  getStatus() {
+    return this.field.status;
   }
 
   /**
-   * Check mounted status
+   * Add handler to event
+   * @param {string} eventName
+   * @param {Function} eventHandler
+   * @return {*}
    */
-  requestIsMounted() {
-    this.fieldMasterChannel.postMessage(
-      new Message(INITIALIZE_REQUEST, {
-        id: this.id,
-        name: this.name,
-        style: this.style,
-      }),
-    );
-    this.fieldMasterChannel.subscribe(INITIALIZE_RESPONSE, (message) => {
-      if (message.payload.success) {
-        this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.READY });
-      }
-    });
+  on(eventName, eventHandler) {
+    return this.events.on(eventName, eventHandler);
+  }
+
+  /**
+   * Remove handler from event
+   * @param {string} eventName
+   * @param {Function} eventHandler
+   * @return {*}
+   */
+  off(eventName, eventHandler) {
+    return this.events.off(eventName, eventHandler);
   }
 
   /**
@@ -147,6 +149,47 @@ class Field {
 
     this.parent = null;
     this.fieldIframe = null;
+
+    this.events.removeAllListeners();
+  }
+
+  /**
+   * Connect to slave channel
+   * @private
+   */
+  openChannel() {
+    this.setFieldStatus({
+      readiness: FIELD_READINESS_STATUSES.LOADING,
+    });
+
+    this.fieldMasterChannel = new MasterChannel({
+      channelId: this.channelId,
+      target: this.fieldIframe.node,
+      targetOrigin: Config.elementsOrigin,
+    });
+    this.fieldMasterChannel.connect();
+  }
+
+  /**
+   * Check mounted status
+   * @private
+   */
+  requestIsMounted() {
+    this.fieldMasterChannel.postMessage(
+      new Message(INITIALIZE_REQUEST, {
+        id: this.id,
+        name: this.name,
+        style: this.style,
+      }),
+    );
+    this.fieldMasterChannel.subscribe(INITIALIZE_RESPONSE, (message) => {
+      if (message.payload.success) {
+        this.setFieldStatus({
+          validation: FIELD_VALIDATION_STATUSES.VALID,
+          readiness: FIELD_READINESS_STATUSES.READY,
+        });
+      }
+    });
   }
 }
 

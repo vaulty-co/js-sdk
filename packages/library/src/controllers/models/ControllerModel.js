@@ -1,7 +1,7 @@
 import { immerable } from 'immer';
 
 import { uniqueId } from '../../helpers/uniqueId';
-import { FieldModel } from '../../fields/models/FieldModel';
+import { FIELD_READINESS_STATUSES } from '../../fields/constants';
 
 /**
  * ControllerModel statuses
@@ -64,7 +64,7 @@ class ControllerModel {
       fieldsCollection.getField(fieldId)
     ));
     const isReady = fields.every((field) => (
-      field.status === FieldModel.STATUSES.READY
+      field.status.readiness === FIELD_READINESS_STATUSES.READY
     ));
     return isReady ? CONTROLLER_MODEL_STATUSES.READY : CONTROLLER_MODEL_STATUSES.INITIALIZED;
   }

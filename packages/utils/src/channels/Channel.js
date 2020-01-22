@@ -27,7 +27,7 @@ class Channel {
      */
     this.events = new EventEmitter();
     /**
-     * @enum {CHANNEL_STATUSES}
+     * @type {CHANNEL_STATUSES}
      */
     this.status = CHANNEL_STATUSES.INITIALIZED;
 

@@ -1,19 +1,21 @@
 import { immerable } from 'immer';
 
+import {
+  FIELD_NODE_STATUSES,
+  FIELD_CONTENT_STATUSES,
+  FIELD_VALIDATION_STATUSES,
+  FIELD_READINESS_STATUSES,
+  FIELD_FOCUS_STATUSES,
+} from '../constants';
 import { uniqueId } from '../../helpers/uniqueId';
-
 /**
- * FieldModel statuses
- * @enum {string}
+ * @typedef {Object} FieldStatus
+ * @property {FIELD_NODE_STATUSES} [node]
+ * @property {FIELD_CONTENT_STATUSES} [content]
+ * @property {FIELD_VALIDATION_STATUSES} [validation]
+ * @property {FIELD_READINESS_STATUSES} [readiness]
+ * @property {FIELD_FOCUS_STATUSES} [focus]
  */
-const FIELD_MODEL_STATUSES = {
-  INITIALIZED: 'initialized',
-  MOUNTED: 'mounted',
-  LOADING: 'loading',
-  LOADING_ERROR: 'loading_error',
-  READY: 'ready',
-  DESTROYED: 'destroyed',
-};
 
 /**
  * @typedef {Object} FieldModelOptions
@@ -25,10 +27,6 @@ const FIELD_MODEL_STATUSES = {
  * @class
  */
 class FieldModel {
-  static get STATUSES() {
-    return FIELD_MODEL_STATUSES;
-  }
-
   /**
    * @param {FieldModelOptions} [options = {}]
    */
@@ -44,17 +42,26 @@ class FieldModel {
      */
     this.type = options?.type ?? 'unknown';
     /**
-     * @type {FIELD_MODEL_STATUSES}
+     * @type {FieldStatus}
      */
-    this.status = FIELD_MODEL_STATUSES.INITIALIZED;
+    this.status = {
+      node: FIELD_NODE_STATUSES.UNMOUNTED,
+      content: FIELD_CONTENT_STATUSES.EMPTY,
+      validation: FIELD_VALIDATION_STATUSES.UNKNOWN,
+      readiness: FIELD_READINESS_STATUSES.READY,
+      focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
+    };
   }
 
   /**
    * Setup new status for field
-   * @param {FIELD_MODEL_STATUSES} newStatus
+   * @param {FieldStatus} newStatus
    */
   setStatus(newStatus) {
-    this.status = newStatus;
+    this.status = {
+      ...this.status,
+      ...newStatus,
+    };
   }
 }
 

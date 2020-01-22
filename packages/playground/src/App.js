@@ -40,6 +40,10 @@ function App() {
       style: fieldStyle,
     });
 
+    userName.on('status', (userNameStatus) => {
+      console.log('[UserName] field status:', userNameStatus);
+    });
+
     userName.appendTo(userNameNode.current);
     lastName.appendTo(lastNameNode.current);
     email.appendTo(emailNode.current);

@@ -49,7 +49,7 @@ class FieldsCollection {
    * Set status in specific field
    * @param {Object} options
    * @param {string} options.fieldId
-   * @param {FIELD_MODEL_STATUSES} options.status
+   * @param {FieldStatus} options.status
    */
   setFieldStatus(options) {
     const { fieldId, status } = options;

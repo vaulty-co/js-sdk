@@ -1,3 +1,6 @@
+/**
+ * @enum {string}
+ */
 const CHANNEL_STATUSES = {
   INITIALIZED: 'initialized',
   OPENED: 'opened',

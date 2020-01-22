@@ -1,4 +1,10 @@
 import { FieldModel } from '../FieldModel';
+import {
+  FIELD_CONTENT_STATUSES,
+  FIELD_NODE_STATUSES,
+  FIELD_VALIDATION_STATUSES,
+  FIELD_READINESS_STATUSES, FIELD_FOCUS_STATUSES,
+} from '../../constants';
 
 describe('FieldModel', () => {
   describe('#constructor', () => {
@@ -16,12 +22,20 @@ describe('FieldModel', () => {
   });
 
   describe('#setStatus', () => {
-    it('should set status to field', () => {
+    it('should set status to with replacing only set statuses', () => {
       const field = new FieldModel();
 
-      field.setStatus(FieldModel.STATUSES.LOADING);
+      field.setStatus({
+        readiness: FIELD_READINESS_STATUSES.LOADING,
+      });
 
-      expect(field.status).toBe(FieldModel.STATUSES.LOADING);
+      expect(field.status).toEqual({
+        node: FIELD_NODE_STATUSES.UNMOUNTED,
+        content: FIELD_CONTENT_STATUSES.EMPTY,
+        validation: FIELD_VALIDATION_STATUSES.UNKNOWN,
+        readiness: FIELD_READINESS_STATUSES.LOADING,
+        focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
+      });
     });
   });
 });
