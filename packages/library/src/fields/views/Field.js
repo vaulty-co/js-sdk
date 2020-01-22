@@ -4,8 +4,8 @@ import invariant from 'invariant';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
-  IS_MOUNTED_REQUEST,
-  IS_MOUNTED_RESPONSE,
+  INITIALIZE_REQUEST,
+  INITIALIZE_RESPONSE,
 } from '@js-sdk/elements/src/fields/Field/messages';
 
 import { NODE_TYPES } from '../../constants/nodeTypes';
@@ -110,13 +110,13 @@ class Field {
    */
   requestIsMounted() {
     this.fieldMasterChannel.postMessage(
-      new Message(IS_MOUNTED_REQUEST, {
+      new Message(INITIALIZE_REQUEST, {
         id: this.id,
         name: this.name,
         style: this.style,
       }),
     );
-    this.fieldMasterChannel.subscribe(IS_MOUNTED_RESPONSE, (message) => {
+    this.fieldMasterChannel.subscribe(INITIALIZE_RESPONSE, (message) => {
       if (message.payload.success) {
         this.dispatchers.setFieldStatus({ fieldId: this.id, status: FieldModel.STATUSES.READY });
       }

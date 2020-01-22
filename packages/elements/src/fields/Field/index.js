@@ -6,8 +6,8 @@ import { Message } from '@js-sdk/utils/src/channels/Message';
 import { NODE_TYPES } from '../constants/nodeTypes';
 import { Config } from '../../config';
 import {
-  IS_MOUNTED_REQUEST,
-  IS_MOUNTED_RESPONSE,
+  INITIALIZE_REQUEST,
+  INITIALIZE_RESPONSE,
 } from './messages';
 
 const FIELD_STATUSES = {
@@ -112,7 +112,7 @@ class Field {
    * @private
    */
   registerHandlers() {
-    this.fieldSlaveChannel.subscribe(IS_MOUNTED_REQUEST, (message) => {
+    this.fieldSlaveChannel.subscribe(INITIALIZE_REQUEST, (message) => {
       const { payload: { id, name, style = {} } } = message;
       this.id = id;
       this.name = name;
@@ -121,7 +121,7 @@ class Field {
         style,
       );
       this.fieldSlaveChannel.postMessage(
-        new Message(IS_MOUNTED_RESPONSE, { success: true }),
+        new Message(INITIALIZE_RESPONSE, { success: true }),
       );
     });
   }
