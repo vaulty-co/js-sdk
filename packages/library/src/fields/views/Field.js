@@ -5,6 +5,7 @@ import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
+  FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_REQUEST,
   INITIALIZE_RESPONSE,
 } from '@js-sdk/elements/src/fields/Field/messages';
@@ -16,6 +17,7 @@ import { uniqueId } from '../../helpers/uniqueId';
 import {
   DEFAULT_FIELD_STYLES,
   ALLOWED_STYLED_PROPS,
+  FIELD_CONTENT_STATUSES,
   FIELD_VALIDATION_STATUSES,
   FIELD_READINESS_STATUSES,
 } from '../constants';
@@ -95,6 +97,7 @@ class Field {
 
     this.openChannel();
     this.requestInitialization();
+    this.handleChanges();
   }
 
   /**
@@ -189,6 +192,19 @@ class Field {
           readiness: FIELD_READINESS_STATUSES.READY,
         });
       }
+    });
+  }
+
+  /**
+   * Handle field changes
+   */
+  handleChanges() {
+    this.fieldMasterChannel.subscribe(FIELD_DATA_CHANGE_RESPONSE, (message) => {
+      const { isDirty, isValid } = message.payload;
+      this.setFieldStatus({
+        content: isDirty ? FIELD_CONTENT_STATUSES.DIRTY : FIELD_CONTENT_STATUSES.EMPTY,
+        validation: isValid ? FIELD_VALIDATION_STATUSES.VALID : FIELD_VALIDATION_STATUSES.INVALID,
+      });
     });
   }
 }

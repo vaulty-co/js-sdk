@@ -6,6 +6,7 @@ import { Message } from '@js-sdk/utils/src/channels/Message';
 import { NODE_TYPES } from '../constants/nodeTypes';
 import { Config } from '../../config';
 import {
+  FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_REQUEST,
   INITIALIZE_RESPONSE,
 } from './messages';
@@ -124,6 +125,20 @@ class Field {
         new Message(INITIALIZE_RESPONSE, { success: true }),
       );
     });
+  }
+
+  /**
+   * Send field data changes
+   * @param {FieldDataChangePayload} payload
+   * @protected
+   */
+  sendDataChanges(payload) {
+    this.fieldSlaveChannel.postMessage(
+      new Message(
+        FIELD_DATA_CHANGE_RESPONSE,
+        payload,
+      ),
+    );
   }
 
   /**

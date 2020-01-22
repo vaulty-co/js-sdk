@@ -21,6 +21,9 @@ class TextInput extends Field {
 
     this.handleGettingData = this.handleGettingData.bind(this);
     this.broadcastChannel.addEventListener('message', this.handleGettingData);
+
+    this.handleInputChanges = this.handleInputChanges.bind(this);
+    this.node.addEventListener('input', this.handleInputChanges);
   }
 
   /**
@@ -46,9 +49,23 @@ class TextInput extends Field {
     }
   }
 
+  /**
+   * Handle input changes
+   */
+  handleInputChanges() {
+    const { value } = this.node;
+    this.sendDataChanges({
+      isDirty: Boolean(value),
+      isValid: true,
+    });
+  }
+
   destroy() {
     this.broadcastChannel.removeEventListener('message', this.handleGettingData);
     this.handleGettingData = null;
+
+    this.node.removeEventListener('input', this.handleInputChanges);
+    this.handleInputChanges = null;
 
     super.destroy();
   }
