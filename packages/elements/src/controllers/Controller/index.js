@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
+import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
 
 import { Config } from '../../config';
 
@@ -33,7 +34,16 @@ class Controller {
   constructor(options) {
     this.status = CONTROLLER_STATUSES.INIT;
     this.channelId = options?.channelId;
-    this.broadcastChannel = new BroadcastChannel();
+
+    let broadcastChannelOptions = {};
+    // Notice: Safari does not allow IndexDB fallback in iFrame and we should manually
+    // use localStorage
+    if (isSafari()) {
+      broadcastChannelOptions = {
+        type: 'localstorage',
+      };
+    }
+    this.broadcastChannel = new BroadcastChannel('broadcast-channel', broadcastChannelOptions);
   }
 
   /**

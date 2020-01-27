@@ -2,6 +2,7 @@ import invariant from 'invariant';
 import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
+import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
 
 import { NODE_TYPES } from '../constants/nodeTypes';
 import { Config } from '../../config';
@@ -49,7 +50,18 @@ class Field {
     this.node = node;
     this.channelId = options?.channelId;
 
-    this.broadcastChannel = new BroadcastChannel();
+    let broadcastChannelOptions = {};
+    // Notice: Safari does not allow IndexDB fallback in iFrame and we should manually
+    // use localStorage
+    if (isSafari()) {
+      broadcastChannelOptions = {
+        type: 'localstorage',
+      };
+    }
+    this.broadcastChannel = new BroadcastChannel(
+      'broadcast-channel',
+      broadcastChannelOptions,
+    );
   }
 
   /**
