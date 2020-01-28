@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
+import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
-import { uniqueId } from './uniqueId';
 
 /**
  * @typedef {Object} IFrameOptions
@@ -30,7 +30,7 @@ class IFrame {
    */
   createNode() {
     const node = document.createElement('iframe');
-    node.name = this.options?.name ?? uniqueId('js-sdk-iframe-');
+    node.name = this.options?.name ?? uniqueId();
     node.src = `${this.options.src}${this.options.src.indexOf('?') !== -1 ? '&rnd=' : '?rnd='}${Math.round(Math.random() * 10e5)}`;
     node.frameborder = '0';
     node.allowTransparency = 'true';

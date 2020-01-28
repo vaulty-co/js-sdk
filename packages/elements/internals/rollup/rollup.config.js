@@ -3,6 +3,7 @@ const commonjs = require('@rollup/plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
+const alias = require('@rollup/plugin-alias');
 
 const prodBuildAssetName = 'build/js-sdk-elements.min.js';
 const devBuildAssetName = 'devTmp/js-sdk-elements.js';
@@ -21,6 +22,12 @@ module.exports = [
       sourcemap,
     },
     plugins: [
+      alias({
+        entries: [
+          // use browser version of crypto
+          { find: 'crypto', replacement: '@js-sdk/utils/src/helpers/crypto' },
+        ],
+      }),
       resolve({
         preferBuiltins: false,
       }),

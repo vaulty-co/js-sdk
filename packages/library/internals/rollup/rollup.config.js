@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import alias from '@rollup/plugin-alias';
 import pkg from '../../package.json';
 
 const devBuildAssets = {
@@ -23,6 +24,12 @@ export default [
       sourcemap,
     },
     plugins: [
+      alias({
+        entries: [
+          // use browser version of crypto
+          { find: 'crypto', replacement: '@js-sdk/utils/src/helpers/crypto' },
+        ],
+      }),
       resolve({
         preferBuiltins: false,
       }),

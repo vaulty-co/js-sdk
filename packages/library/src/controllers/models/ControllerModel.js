@@ -1,6 +1,6 @@
 import { immerable } from 'immer';
+import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
-import { uniqueId } from '../../helpers/uniqueId';
 import { FIELD_READINESS_STATUSES } from '../../fields/constants';
 
 /**
@@ -32,7 +32,7 @@ class ControllerModel {
     /**
      * @type {string}
      */
-    this.id = uniqueId('form-');
+    this.id = uniqueId();
     /**
      * @type {Array<string>}
      */

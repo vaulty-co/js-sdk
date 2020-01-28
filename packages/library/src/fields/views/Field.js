@@ -13,7 +13,6 @@ import {
 import { NODE_TYPES } from '../../constants/nodeTypes';
 import { Config } from '../../config';
 import { connectField } from '../utils/connectField';
-import { uniqueId } from '../../helpers/uniqueId';
 import {
   DEFAULT_FIELD_STYLES,
   ALLOWED_STYLED_PROPS,
@@ -46,10 +45,6 @@ class Field {
      * @type {string}
      */
     this.name = name;
-    /**
-     * @type {string}
-     */
-    this.channelId = uniqueId('channel-for-field-');
     /**
      * Styles for field
      * @type {FieldStyles}
@@ -166,7 +161,7 @@ class Field {
     });
 
     this.fieldMasterChannel = new MasterChannel({
-      channelId: this.channelId,
+      channelId: this.id,
       target: this.fieldIframe.node,
       targetOrigin: Config.elementsOrigin,
     });

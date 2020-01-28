@@ -7,7 +7,6 @@ import { Config } from '../../config';
 import { IFrame } from '../../helpers/IFrame';
 import { Controller } from './Controller';
 import { connectForm } from '../utils/connectForm';
-import { uniqueId } from '../../helpers/uniqueId';
 import { NO_FIELDS_ERROR } from '../events/noFieldsError';
 
 const FORM_STATUSES = {
@@ -43,11 +42,10 @@ class Form extends Controller {
   constructor(options) {
     super(options);
 
-    this.channelId = uniqueId('channel-for-form-');
     this.controllerIframe = new IFrame({
       width: 0,
       height: 0,
-      src: `${Config.elementsOrigin}/?${queryString}&channelId=${this.channelId}`,
+      src: `${Config.elementsOrigin}/?${queryString}&channelId=${this.id}`,
     });
     this.fields = options?.fields ?? [];
     this.appendTo(document.body);
@@ -144,7 +142,7 @@ class Form extends Controller {
    */
   openChannel() {
     this.controllerMasterChannel = new MasterChannel({
-      channelId: this.channelId,
+      channelId: this.id,
       target: this.controllerIframe.node,
       targetOrigin: Config.elementsOrigin,
     });

@@ -1,4 +1,5 @@
 import { immerable } from 'immer';
+import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
 import {
   FIELD_NODE_STATUSES,
@@ -7,7 +8,7 @@ import {
   FIELD_READINESS_STATUSES,
   FIELD_FOCUS_STATUSES,
 } from '../constants';
-import { uniqueId } from '../../helpers/uniqueId';
+
 /**
  * @typedef {Object} FieldStatus
  * @property {FIELD_NODE_STATUSES} [node]
@@ -36,7 +37,7 @@ class FieldModel {
     /**
      * @type {string}
      */
-    this.id = uniqueId('field-');
+    this.id = uniqueId();
     /**
      * @type {string}
      */
