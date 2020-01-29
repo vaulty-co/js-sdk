@@ -33,6 +33,14 @@ import { filterStyles } from '../../helpers/filterStyles';
  */
 class Field {
   /**
+   * @param {boolean} condition
+   * @param {string} message
+   */
+  static invariant(condition, message) {
+    invariant(condition, `[${this.name}] ${message}`);
+  }
+
+  /**
    * @param {FieldOptions} options
    */
   constructor(options = {}) {
@@ -57,14 +65,6 @@ class Field {
      * @type {EventEmitter}
      */
     this.events = new EventEmitter();
-  }
-
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
   }
 
   /**

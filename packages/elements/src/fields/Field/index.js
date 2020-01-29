@@ -38,6 +38,7 @@ class Field {
   /**
    * @param {HTMLElement} options.node
    * @param {string} options.channelId
+   * @param {string} options.sdkId
    */
   constructor(options) {
     const node = options?.node;
@@ -59,7 +60,7 @@ class Field {
       };
     }
     this.broadcastChannel = new BroadcastChannel(
-      'broadcast-channel',
+      options?.sdkId,
       broadcastChannelOptions,
     );
   }

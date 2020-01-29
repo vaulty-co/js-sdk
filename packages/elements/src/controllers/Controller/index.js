@@ -30,6 +30,7 @@ class Controller {
 
   /**
    * @param {string} options.channelId
+   * @param {string} options.sdkId
    */
   constructor(options) {
     this.status = CONTROLLER_STATUSES.INIT;
@@ -43,7 +44,10 @@ class Controller {
         type: 'localstorage',
       };
     }
-    this.broadcastChannel = new BroadcastChannel('broadcast-channel', broadcastChannelOptions);
+    this.broadcastChannel = new BroadcastChannel(
+      options?.sdkId,
+      broadcastChannelOptions,
+    );
   }
 
   /**

@@ -51,6 +51,14 @@ function connectField(FieldClass) {
     }
 
     /**
+     * Get SDK id
+     * @returns {string}
+     */
+    get sdkId() {
+      return this.store.getState().sdkId;
+    }
+
+    /**
      * Current fields
      * @returns {*}
      * @private
@@ -69,6 +77,14 @@ function connectField(FieldClass) {
         return this.fields.getField(this.id);
       }
       return null;
+    }
+
+    /**
+     * Field GET params
+     * @returns {string}
+     */
+    get fieldGetParams() {
+      return `channelId=${this.id}&sdkId=${this.sdkId}`;
     }
 
     /**

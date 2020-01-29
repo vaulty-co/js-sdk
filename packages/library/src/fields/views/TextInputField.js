@@ -30,7 +30,7 @@ class TextInputField extends ConnectedField {
     this.fieldIframe = new IFrame({
       width: this.style.width,
       height: this.style.height,
-      src: `${Config.elementsOrigin}?${queryString}&channelId=${this.id}`,
+      src: `${Config.elementsOrigin}?${queryString}&${this.fieldGetParams}`,
     });
   }
 }

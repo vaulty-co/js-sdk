@@ -1,3 +1,5 @@
+import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
+
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import {
   addController,
@@ -7,10 +9,17 @@ import {
   setControllerStatus,
 } from '../actions';
 import { ControllerModel } from '../models/ControllerModel';
+import { IFrame } from '../../helpers/IFrame';
+import { Config } from '../../config';
 
 const getFieldsIds = (fields = []) => (
   fields.map((field) => field.id)
 );
+
+/**
+ * @typedef {FormOptions} ConnectedFormOptions
+ * @property {Store} store
+ */
 
 /**
  * Connect Form to store  instance
@@ -20,8 +29,7 @@ const getFieldsIds = (fields = []) => (
 function connectForm(FormClass) {
   class ConnectedForm extends FormClass {
     /**
-     * @param {Object} [options = {}]
-     * @param {Store} options.store
+     * @param {ConnectedFormOptions} [options = {}]
      */
     constructor(options = {}) {
       super(options);
@@ -43,6 +51,13 @@ function connectForm(FormClass) {
 
       this.add();
       this.subscribeToStore();
+
+      this.controllerIframe = new IFrame({
+        width: 0,
+        height: 0,
+        src: `${Config.elementsOrigin}/?${queryString}&${this.controllerGetParams}`,
+      });
+      this.appendTo(document.body);
     }
 
     addFields(fields) {
@@ -85,11 +100,26 @@ function connectForm(FormClass) {
     }
 
     /**
+     * Get current Redux state
+     * @return {State}
+     */
+    get state() {
+      return this.store.getState();
+    }
+
+    /**
+     * Get SDK id
+     */
+    get sdkId() {
+      return this.state.sdkId;
+    }
+
+    /**
      * Current controllers
      * @returns {*}
      */
     get controllers() {
-      return this.store.getState().controllers;
+      return this.state.controllers;
     }
 
     /**
@@ -104,11 +134,11 @@ function connectForm(FormClass) {
     }
 
     /**
-     * Get current Redux state
-     * @return {State}
+     * Controller GET params
+     * @returns {string}
      */
-    get state() {
-      return this.store.getState();
+    get controllerGetParams() {
+      return `channelId=${this.id}&sdkId=${this.sdkId}`;
     }
 
     /**

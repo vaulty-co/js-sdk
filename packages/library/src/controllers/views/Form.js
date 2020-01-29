@@ -1,10 +1,8 @@
-import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 import { SUBMIT_REQUEST, SUBMIT_RESPONSE } from '@js-sdk/elements/src/controllers/Form/messages';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 
 import { Config } from '../../config';
-import { IFrame } from '../../helpers/IFrame';
 import { Controller } from './Controller';
 import { connectForm } from '../utils/connectForm';
 import { NO_FIELDS_ERROR } from '../events/noFieldsError';
@@ -31,6 +29,9 @@ const FORM_STATUSES = {
  * if some of them are different.
  */
 
+/**
+ * @class
+ */
 class Form extends Controller {
   static get STATUSES() {
     return FORM_STATUSES;
@@ -42,13 +43,7 @@ class Form extends Controller {
   constructor(options) {
     super(options);
 
-    this.controllerIframe = new IFrame({
-      width: 0,
-      height: 0,
-      src: `${Config.elementsOrigin}/?${queryString}&channelId=${this.id}`,
-    });
     this.fields = options?.fields ?? [];
-    this.appendTo(document.body);
   }
 
   /**
