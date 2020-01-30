@@ -1,4 +1,5 @@
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
+import { IFrameNode } from '@js-sdk/utils/src/nodes/IFrameNode';
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import {
@@ -9,7 +10,6 @@ import {
   setControllerStatus,
 } from '../actions';
 import { ControllerModel } from '../models/ControllerModel';
-import { IFrame } from '../../helpers/IFrame';
 import { Config } from '../../config';
 
 const getFieldsIds = (fields = []) => (
@@ -52,7 +52,7 @@ function connectForm(FormClass) {
       this.add();
       this.subscribeToStore();
 
-      this.controllerIframe = new IFrame({
+      this.controllerIframe = new IFrameNode({
         width: 0,
         height: 0,
         src: `${Config.elementsOrigin}/?${queryString}&${this.controllerGetParams}`,

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "events": "^3.1.0",
+    "invariant": "^2.2.4",
     "uuid": "^3.4.0"
   }
 }

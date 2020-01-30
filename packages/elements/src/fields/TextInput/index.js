@@ -1,4 +1,5 @@
-import Message from '@js-sdk/utils/src/channels/Message';
+import { Message } from '@js-sdk/utils/src/channels/Message';
+import { TextNode } from '@js-sdk/utils/src/nodes/TextNode';
 
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';
@@ -10,9 +11,8 @@ import styles from './styles.scss';
  */
 class TextInput extends Field {
   constructor(options) {
-    const node = document.createElement('input');
-    node.setAttribute('type', 'text');
-    node.className = styles.input;
+    const node = new TextNode();
+    node.addClass(styles.input);
 
     super({
       ...options,
@@ -23,7 +23,7 @@ class TextInput extends Field {
     this.broadcastChannel.addEventListener('message', this.handleGettingData);
 
     this.handleInputChanges = this.handleInputChanges.bind(this);
-    this.node.addEventListener('input', this.handleInputChanges);
+    this.fieldNode.on('input', this.handleInputChanges);
   }
 
   /**
@@ -42,7 +42,7 @@ class TextInput extends Field {
           {
             id: this.id,
             name: this.name,
-            data: this.node.value,
+            data: this.fieldNode.getValue(),
           },
         ).toString(),
       );
@@ -53,7 +53,7 @@ class TextInput extends Field {
    * Handle input changes
    */
   handleInputChanges() {
-    const { value } = this.node;
+    const value = this.fieldNode.getValue();
     this.sendDataChanges({
       isDirty: Boolean(value),
       isValid: true,
@@ -64,7 +64,7 @@ class TextInput extends Field {
     this.broadcastChannel.removeEventListener('message', this.handleGettingData);
     this.handleGettingData = null;
 
-    this.node.removeEventListener('input', this.handleInputChanges);
+    this.fieldNode.off('input', this.handleInputChanges);
     this.handleInputChanges = null;
 
     super.destroy();

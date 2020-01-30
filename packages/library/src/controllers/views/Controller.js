@@ -3,8 +3,6 @@
 import invariant from 'invariant';
 import EventEmitter from 'events';
 
-import { NODE_TYPES } from '../../constants/nodeTypes';
-
 /**
  * @class
  */
@@ -26,26 +24,10 @@ class Controller {
 
   /**
    * Append controller in some DOM node
-   * @param {string|HTMLElement} node - valid css selector or DOM node, where element should be appended
+   * @param {string|HTMLElement} parentNode - valid css selector or DOM node, where element should be appended
    */
-  appendTo(node) {
-    // TODO - it should be some util
-    let resultNode = node;
-    if (typeof node === 'string') {
-      resultNode = document.querySelector(node);
-    }
-    this.parent = node;
-    this.constructor.invariant(
-      this.controllerIframe,
-      'Controller should contains "controllerIframe" property for manipulating its',
-    );
-    this.constructor.invariant(
-      typeof resultNode === 'object'
-      // TODO - NODE_TYPE should be placed in utils
-      && resultNode.nodeType === NODE_TYPES.ELEMENT_NODE,
-      'Controller should be "appendTo" HTMLElement',
-    );
-    this.controllerIframe.appendTo(this.parent);
+  appendTo(parentNode) {
+    this.controllerIframe.appendTo(parentNode);
   }
 
   /**
@@ -74,8 +56,6 @@ class Controller {
    */
   destroy() {
     this.controllerIframe.destroy();
-
-    this.parent = null;
     this.controllerIframe = null;
 
     this.events.removeAllListeners();

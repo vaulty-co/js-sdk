@@ -1,5 +1,6 @@
 import { createBrowserHistory } from 'history';
 import { enforceOptions } from 'broadcast-channel';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 import { Field } from '@js-sdk/elements/src/fields/Field';
 
 import { Router } from '../index';
@@ -41,8 +42,14 @@ describe('Router', () => {
 
   beforeEach(() => {
     appNode = document.createElement('div');
-    inputField = new Field({ node: document.createElement('div'), channelId: 'input-field' });
-    selectField = new Field({ node: document.createElement('div'), channelId: 'select-field' });
+    inputField = new Field({
+      node: new Node({ node: document.createElement('div') }),
+      channelId: 'input-field',
+    });
+    selectField = new Field({
+      node: new Node({ node: document.createElement('div') }),
+      channelId: 'select-field',
+    });
     inputRoute = new FieldRoute('input', { type: 'input' }, () => inputField);
     selectRoute = new FieldRoute('select', { type: 'select' }, () => selectField);
     router = new Router(appNode);
@@ -67,7 +74,7 @@ describe('Router', () => {
       history.lastListener({ search: 'type=select' });
 
       expect(router.mountedInstances).toEqual([selectField]);
-      expect(appNode.children[0]).toEqual(selectField.node);
+      expect(appNode.children[0]).toEqual(selectField.fieldNode.node);
     });
   });
 
@@ -101,7 +108,7 @@ describe('Router', () => {
       router.render();
 
       expect(router.mountedInstances).toEqual([inputField]);
-      expect(appNode.children[0]).toBe(inputField.node);
+      expect(appNode.children[0]).toBe(inputField.fieldNode.node);
     });
 
     it('should re-render, when route is changed', () => {
@@ -112,7 +119,7 @@ describe('Router', () => {
       router.render();
 
       expect(router.mountedInstances).toEqual([selectField]);
-      expect(appNode.children[0]).toBe(selectField.node);
+      expect(appNode.children[0]).toBe(selectField.fieldNode.node);
     });
   });
 

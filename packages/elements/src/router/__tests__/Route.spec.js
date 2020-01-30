@@ -1,4 +1,5 @@
 import { enforceOptions } from 'broadcast-channel';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 import { Field } from '@js-sdk/elements/src/fields/Field';
 
 import { Route } from '../Route';
@@ -21,7 +22,7 @@ describe('Route', () => {
     renderFunction = jest.fn(() => {
       const input = document.createElement('input');
       input.type = 'text';
-      return new Field({ node: input, channelId: 'some-channel-id' });
+      return new Field({ node: new Node({ node: input }), channelId: 'some-channel-id' });
     });
     route = new Route(
       'inputText',

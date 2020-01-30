@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Field #appendTo should throw error, when parent node is not HTMLElement 1`] = `"[Field] Parent node should be a HTMLElement node"`;
+exports[`Field #appendTo should throw error, when parent node is not HTMLElement 1`] = `"[Node] Parent node should be a HTMLElement node"`;
 
-exports[`Field #constructor should throw error, when node is not HTMLELement 1`] = `"[Field] Node for field should be a HTMLElement"`;
+exports[`Field #constructor should throw error, when node is not HTMLELement 1`] = `"[Field] Field's node should be instance of Node"`;
 
 exports[`Field #destroy should throw exception when appendTo is called after destroying 1`] = `"[Field] Field is destroyed and can not be append to a parent node."`;
 

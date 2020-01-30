@@ -1,6 +1,6 @@
 import { queryString } from '@js-sdk/elements/src/fields/TextInput/route/queryString';
+import { IFrameNode } from '@js-sdk/utils/src/nodes/IFrameNode';
 
-import { IFrame } from '../../helpers/IFrame';
 import { Config } from '../../config';
 import { ConnectedField } from './Field';
 
@@ -27,7 +27,7 @@ class TextInputField extends ConnectedField {
   constructor(options) {
     super(options);
 
-    this.fieldIframe = new IFrame({
+    this.fieldIframe = new IFrameNode({
       width: this.style.width,
       height: this.style.height,
       src: `${Config.elementsOrigin}?${queryString}&${this.fieldGetParams}`,

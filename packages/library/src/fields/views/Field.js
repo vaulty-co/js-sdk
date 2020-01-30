@@ -10,7 +10,6 @@ import {
   INITIALIZE_RESPONSE,
 } from '@js-sdk/elements/src/fields/Field/messages';
 
-import { NODE_TYPES } from '../../constants/nodeTypes';
 import { Config } from '../../config';
 import { connectField } from '../utils/connectField';
 import {
@@ -69,26 +68,10 @@ class Field {
 
   /**
    * Append field in some DOM node
-   * @param {string|HTMLElement} node - valid css selector or DOM node, where element should be appended
+   * @param {string|HTMLElement} parentNode - valid css selector or DOM node, where element should be appended
    */
-  appendTo(node) {
-    // TODO - it should be some util
-    let resultNode = node;
-    if (typeof node === 'string') {
-      resultNode = document.querySelector(node);
-    }
-    this.parent = node;
-    this.constructor.invariant(
-      this.fieldIframe,
-      'Field should contains "fieldIframe" property for manipulating its',
-    );
-    this.constructor.invariant(
-      typeof resultNode === 'object'
-      // TODO - NODE_TYPE should be placed in utils
-      && resultNode.nodeType === NODE_TYPES.ELEMENT_NODE,
-      'Field should be "appendTo" HTMLElement',
-    );
-    this.fieldIframe.appendTo(this.parent);
+  appendTo(parentNode) {
+    this.fieldIframe.appendTo(parentNode);
 
     this.openChannel();
     this.requestInitialization();
@@ -144,8 +127,6 @@ class Field {
    */
   destroy() {
     this.fieldIframe.destroy();
-
-    this.parent = null;
     this.fieldIframe = null;
 
     this.events.removeAllListeners();

@@ -3,8 +3,8 @@ import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 
-import { NODE_TYPES } from '../constants/nodeTypes';
 import { Config } from '../../config';
 import {
   FIELD_DATA_CHANGE_RESPONSE,
@@ -36,19 +36,19 @@ class Field {
   }
 
   /**
-   * @param {HTMLElement} options.node
+   * @param {Node} options.node
    * @param {string} options.channelId
    * @param {string} options.sdkId
    */
   constructor(options) {
     const node = options?.node;
     this.constructor.invariant(
-      typeof node === 'object' && node.nodeType === NODE_TYPES.ELEMENT_NODE,
-      'Node for field should be a HTMLElement',
+      typeof node === 'object' && node instanceof Node,
+      'Field\'s node should be instance of Node',
     );
 
     this.status = FIELD_STATUSES.INIT;
-    this.node = node;
+    this.fieldNode = node;
     this.channelId = options?.channelId;
 
     let broadcastChannelOptions = {};
@@ -95,13 +95,7 @@ class Field {
       return;
     }
 
-    this.constructor.invariant(
-      typeof parent === 'object' && parent.nodeType === NODE_TYPES.ELEMENT_NODE,
-      'Parent node should be a HTMLElement node',
-    );
-
-    this.parent = parent;
-    parent.appendChild(this.node);
+    this.fieldNode.appendTo(parent);
   }
 
   /**
@@ -130,10 +124,7 @@ class Field {
       const { payload: { id, name, style = {} } } = message;
       this.id = id;
       this.name = name;
-      Object.assign(
-        this.node.style,
-        style,
-      );
+      this.fieldNode.setStyle(style);
       this.fieldSlaveChannel.postMessage(
         new Message(INITIALIZE_RESPONSE, { success: true }),
       );
@@ -166,12 +157,10 @@ class Field {
       return;
     }
 
-    if (this.parent) {
-      this.parent.removeChild(this.node);
-    }
     this.status = FIELD_STATUSES.DESTROYED;
-    this.node = null;
-    this.parent = null;
+
+    this.fieldNode.destroy();
+    this.fieldNode = null;
 
     if (this.fieldSlaveChannel) {
       this.fieldSlaveChannel.destroy();

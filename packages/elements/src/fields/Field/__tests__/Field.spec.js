@@ -1,4 +1,5 @@
 import { enforceOptions } from 'broadcast-channel';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 
 import { Field } from '../index';
 
@@ -24,6 +25,12 @@ jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
     SlaveChannel,
   };
 });
+
+const createNode = () => (
+  new Node({
+    node: document.createElement('div'),
+  })
+);
 
 beforeAll(() => {
   enforceOptions({
@@ -52,7 +59,7 @@ describe('Field', () => {
 
     beforeEach(() => {
       field = new Field({
-        node: document.createElement('div'),
+        node: createNode(),
         channelId: 'channel-id',
       });
       parentNode = document.createElement('div');
@@ -65,7 +72,7 @@ describe('Field', () => {
     });
 
     it('should throw error, when channelId is not specified', () => {
-      field = new Field({ node: document.createElement('div') });
+      field = new Field({ node: createNode() });
 
       expect(() => {
         field.mount(parentNode);
@@ -75,7 +82,7 @@ describe('Field', () => {
     it('should append field node to parent node', () => {
       field.mount(parentNode);
 
-      expect(parentNode.firstChild).toBe(field.node);
+      expect(parentNode.firstChild).toBe(field.fieldNode.node);
     });
 
     it('should initialize slave channel connected to parent channel', () => {
@@ -93,17 +100,17 @@ describe('Field', () => {
 
   describe('#appendTo', () => {
     it('should append field node in specified parent node', () => {
-      const fieldNode = document.createElement('div');
+      const fieldNode = createNode();
       const parentNode = document.createElement('div');
       const field = new Field({ node: fieldNode, channelId: 'channel-id' });
 
       field.appendTo(parentNode);
 
-      expect(parentNode.firstChild).toBe(fieldNode);
+      expect(parentNode.firstChild).toBe(fieldNode.node);
     });
 
     it('should throw error, when parent node is not HTMLElement', () => {
-      const fieldNode = document.createElement('div');
+      const fieldNode = createNode();
       const parentNode = undefined;
       const field = new Field({ node: fieldNode, channelId: 'channel-id' });
 
@@ -119,7 +126,7 @@ describe('Field', () => {
     let field;
 
     beforeEach(() => {
-      fieldNode = document.createElement('div');
+      fieldNode = createNode();
       parentNode = document.createElement('div');
       field = new Field({ node: fieldNode, channelId: 'channel-id' });
 
@@ -135,8 +142,7 @@ describe('Field', () => {
     it('should clear all references about nodes (parent and field node)', () => {
       field.destroy();
 
-      expect(field.node).toBe(null);
-      expect(field.parent).toBe(null);
+      expect(field.fieldNode).toBe(null);
     });
 
     it('should throw exception when appendTo is called after destroying', () => {
