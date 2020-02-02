@@ -1,5 +1,6 @@
 import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
+import { CardNumberField } from './fields/views/CardNumberField';
 import { ConnectedForm } from './controllers/views/Form';
 import { ControllerModel } from './controllers/models/ControllerModel';
 
@@ -10,6 +11,7 @@ import { ControllerModel } from './controllers/models/ControllerModel';
 
 const FIELDS = {
   textInput: TextInputField,
+  cardNumber: CardNumberField,
 };
 
 /**

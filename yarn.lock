@@ -2304,6 +2304,11 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@ungap/global-this@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@ungap/global-this/-/global-this-0.3.1.tgz#e37e005301c64484a61eed90305210bf078a4bc5"
+  integrity sha512-6gxLxSsXmt3XcC2p0mRjeHOtZemfs/IswAyWJZU0b8UvCQAegRpjSrQK0Y+u3OQQ3V0ZYQkHVCV9V3dxnlJ5Zw==
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -3546,6 +3551,13 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
+card-validator@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/card-validator/-/card-validator-6.2.0.tgz#59037c6480df5786473cab720f165ba868560e0b"
+  integrity sha512-1vYv45JaE9NmixZr4dl6ykzbFKv7imI9L7MQDs235b/a7EGbG8rrEsipeHtVvscLSUbl3RX6UP5gyOe0Y2FlHA==
+  dependencies:
+    credit-card-type "^8.0.0"
+
 case-sensitive-paths-webpack-plugin@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.2.0.tgz#3371ef6365ef9c25fa4b81c16ace0e9c7dc58c3e"
@@ -4082,6 +4094,11 @@ create-react-class@^15.5.3:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
+
+credit-card-type@^8.0.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/credit-card-type/-/credit-card-type-8.3.0.tgz#f93c187c9362411544158c91d552efcc443aa87a"
+  integrity sha512-czfZUpQ7W9CDxZL4yFLb1kFtM/q2lTOY975hL2aO+DC8+GRNDVSXVCHXhVFZPxiUKmQCZbFP8vIhxx5TBQaThw==
 
 cross-spawn@6.0.5, cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
@@ -6307,6 +6324,13 @@ ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
+
+imask@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-6.0.1.tgz#081b3cd90339ff5108e2110d686a1618bbad5331"
+  integrity sha512-UjsrfPtc+9eTOsaeWE76BTG0m7ZmjYdAe8tpvfmTfNBK9nk+h5cmCtXn/fUpBQ+Ggi2vG8Rovpki7l8Cs/JJkQ==
+  dependencies:
+    "@ungap/global-this" "^0.3.1"
 
 immer@1.10.0:
   version "1.10.0"

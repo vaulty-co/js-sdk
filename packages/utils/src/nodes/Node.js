@@ -72,7 +72,26 @@ class Node {
    * @param {string} className
    */
   addClass(className) {
-    this.node.className = `${this.node.className} ${className}`;
+    const currentClassName = this.node.className;
+    if (currentClassName) {
+      this.node.className = `${currentClassName} ${className}`;
+    } else {
+      this.node.className = className;
+    }
+  }
+
+  /**
+   * Remove class from node
+   * @param {string} className
+   */
+  removeClass(className) {
+    const classNames = this.node.className.split(' ');
+    if (classNames.length) {
+      this.node.className = classNames
+        .filter((currentClassName) => currentClassName.trim() !== className)
+        .join(' ')
+        .trim();
+    }
   }
 
   /**

@@ -23,6 +23,7 @@ function App() {
   const userNameNode = useRef();
   const lastNameNode = useRef();
   const emailNode = useRef();
+  const cardNode = useRef();
   const form = useRef();
   const [formStatus, setFormStatus] = useState(null);
 
@@ -39,6 +40,10 @@ function App() {
       name: 'user.email',
       style: fieldStyle,
     });
+    const card = sdk.createField('cardNumber', {
+      name: 'user.cardNumber',
+      style: fieldStyle,
+    });
 
     userName.on('status', (userNameStatus) => {
       console.log('[UserName] field status:', userNameStatus);
@@ -47,10 +52,11 @@ function App() {
     userName.appendTo(userNameNode.current);
     lastName.appendTo(lastNameNode.current);
     email.appendTo(emailNode.current);
+    card.appendTo(cardNode.current);
 
     // FIXME - think about appendTo call method outside of form controller
     const resultForm = sdk.createForm({
-      fields: [userName, lastName, email],
+      fields: [userName, lastName, email, card],
     });
     resultForm.on('status', (nextFormStatus) => {
       setFormStatus(nextFormStatus);
@@ -108,6 +114,12 @@ function App() {
             <Col span={12}>
               <label>Email</label>
               <div className="ant-input" ref={emailNode} />
+            </Col>
+          </Row>
+          <Row className="row">
+            <Col span={12}>
+              <label>Card number</label>
+              <div className="ant-input" ref={cardNode} />
             </Col>
           </Row>
           <Row className="row">
