@@ -8,11 +8,17 @@
       "packages/*"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "sh ./scripts/pre-push.sh"
+    }
+  },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-jest": "^23.6.0"
+    "eslint-plugin-jest": "^23.6.0",
+    "husky": "^4.2.1"
   }
 }
