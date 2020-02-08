@@ -85,7 +85,10 @@ describe('FieldsCollection', () => {
       expect(field.status).toEqual({
         node: FIELD_NODE_STATUSES.UNMOUNTED,
         content: FIELD_CONTENT_STATUSES.EMPTY,
-        validation: FIELD_VALIDATION_STATUSES.UNKNOWN,
+        validation: {
+          status: FIELD_VALIDATION_STATUSES.UNKNOWN,
+          invalidValidators: [],
+        },
         readiness: FIELD_READINESS_STATUSES.LOADING,
         focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
       });

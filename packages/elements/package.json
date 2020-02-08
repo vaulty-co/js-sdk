@@ -37,6 +37,7 @@
     "broadcast-channel": "^3.0.3",
     "card-validator": "^6.2.0",
     "history": "^4.10.1",
+    "imask": "^6.0.1",
     "invariant": "^2.2.4",
     "object-path": "^0.11.4",
     "url-search-params-polyfill": "^7.0.1"

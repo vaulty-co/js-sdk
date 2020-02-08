@@ -25,6 +25,7 @@ import { filterStyles } from '../../helpers/filterStyles';
  * @typedef {Object} FieldOptions
  * @property {string} name - field name. It is used for sending data from field in Form.
  * @property {FieldStyles} [style = {}] - field styles
+ * @property {Array<string>} [validators = []] - validators for field
  */
 
 /**
@@ -46,6 +47,7 @@ class Field {
     const {
       name,
       style = {},
+      validators = [],
     } = options;
 
     /**
@@ -60,6 +62,11 @@ class Field {
       ...DEFAULT_FIELD_STYLES,
       ...filterStyles(style, ALLOWED_STYLED_PROPS),
     };
+    /**
+     * Validators for field
+     * @type {Array<string>}
+     */
+    this.validators = validators;
     /**
      * @type {EventEmitter}
      */
@@ -159,12 +166,16 @@ class Field {
         id: this.id,
         name: this.name,
         style: this.style,
+        validators: this.validators,
       }),
     );
     this.fieldMasterChannel.subscribe(INITIALIZE_RESPONSE, (message) => {
       if (message.payload.success) {
         this.setFieldStatus({
-          validation: FIELD_VALIDATION_STATUSES.VALID,
+          validation: {
+            status: FIELD_VALIDATION_STATUSES.VALID,
+            invalidValidators: [],
+          },
           readiness: FIELD_READINESS_STATUSES.READY,
         });
       }
@@ -176,10 +187,13 @@ class Field {
    */
   handleChanges() {
     this.fieldMasterChannel.subscribe(FIELD_DATA_CHANGE_RESPONSE, (message) => {
-      const { isDirty, isValid } = message.payload;
+      const { isDirty, validation: { isValid, validators } = {} } = message.payload;
       this.setFieldStatus({
         content: isDirty ? FIELD_CONTENT_STATUSES.DIRTY : FIELD_CONTENT_STATUSES.EMPTY,
-        validation: isValid ? FIELD_VALIDATION_STATUSES.VALID : FIELD_VALIDATION_STATUSES.INVALID,
+        validation: {
+          status: isValid ? FIELD_VALIDATION_STATUSES.VALID : FIELD_VALIDATION_STATUSES.INVALID,
+          invalidValidators: validators.filter((validator) => !validator.isValid),
+        },
       });
     });
   }

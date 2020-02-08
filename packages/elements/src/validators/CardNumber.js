@@ -1,11 +1,11 @@
 import cardValidator from 'card-validator';
 import { Validator } from '@js-sdk/utils/src/validators/Validator';
 
-import { VALIDATOR_TYPES } from './constants';
+import { VALIDATORS_TYPES } from './constants';
 
 class CardNumber extends Validator {
   constructor() {
-    super(VALIDATOR_TYPES.CARD_NUMBER);
+    super(VALIDATORS_TYPES.CARD_NUMBER);
   }
 
   /**

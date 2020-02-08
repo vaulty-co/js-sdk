@@ -3,6 +3,7 @@ import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
 import { Layout, Menu, Icon, Button, Row, Col } from 'antd';
 
 import './App.scss';
+import { Field } from './components/Field';
 
 const { Header, Sider, Content } = Layout;
 const sdk = new SDK({
@@ -20,49 +21,58 @@ const fieldStyle = {
 };
 
 function App() {
-  const userNameNode = useRef();
-  const lastNameNode = useRef();
-  const emailNode = useRef();
-  const cardNode = useRef();
-  const form = useRef();
+  const form = useRef(null);
+  const userName = useRef(null);
+  const lastName = useRef(null);
+  const email = useRef(null);
+  const cardNumber = useRef(null);
+  const [appStatus, setAppStatus] = useState('preparing');
   const [formStatus, setFormStatus] = useState(null);
 
   useEffect(() => {
-    const userName = sdk.createField('textInput', {
+    userName.current = sdk.createField('textInput', {
       name: 'user.name',
       style: fieldStyle,
+      validators: [
+        sdk.VALIDATORS.REQUIRED,
+      ],
     });
-    const lastName = sdk.createField('textInput', {
+    lastName.current = sdk.createField('textInput', {
       name: 'user.lastName',
       style: fieldStyle,
     });
-    const email = sdk.createField('textInput', {
+    email.current = sdk.createField('textInput', {
       name: 'user.email',
       style: fieldStyle,
+      validators: [
+        sdk.VALIDATORS.REQUIRED,
+      ],
     });
-    const card = sdk.createField('cardNumber', {
+    cardNumber.current = sdk.createField('cardNumber', {
       name: 'user.cardNumber',
       style: fieldStyle,
+      validators: [
+        sdk.VALIDATORS.REQUIRED,
+        sdk.VALIDATORS.CARD_NUMBER,
+      ],
     });
-
-    userName.on('status', (userNameStatus) => {
-      console.log('[UserName] field status:', userNameStatus);
-    });
-
-    userName.appendTo(userNameNode.current);
-    lastName.appendTo(lastNameNode.current);
-    email.appendTo(emailNode.current);
-    card.appendTo(cardNode.current);
 
     // FIXME - think about appendTo call method outside of form controller
     const resultForm = sdk.createForm({
-      fields: [userName, lastName, email, card],
+      fields: [
+        userName.current,
+        lastName.current,
+        email.current,
+        cardNumber.current,
+      ],
     });
     resultForm.on('status', (nextFormStatus) => {
       setFormStatus(nextFormStatus);
     });
 
     form.current = resultForm;
+
+    setAppStatus('initialized');
 
     return () => {
       resultForm.destroy();
@@ -98,35 +108,35 @@ function App() {
             minHeight: 280,
           }}
         >
-          <Row className="row">
-            <Col span={12}>
-              <label>User name</label>
-              <div className="ant-input" ref={userNameNode} />
-            </Col>
-          </Row>
-          <Row className="row">
-            <Col span={12}>
-              <label>Last name</label>
-              <div className="ant-input" ref={lastNameNode} />
-            </Col>
-          </Row>
-          <Row className="row">
-            <Col span={12}>
-              <label>Email</label>
-              <div className="ant-input" ref={emailNode} />
-            </Col>
-          </Row>
-          <Row className="row">
-            <Col span={12}>
-              <label>Card number</label>
-              <div className="ant-input" ref={cardNode} />
-            </Col>
-          </Row>
+          <Field
+            name="userName"
+            label="User name"
+            field={userName.current}
+            form={form.current}
+          />
+          <Field
+            name="lastName"
+            label="Last name"
+            field={lastName.current}
+            form={form.current}
+          />
+          <Field
+            name="email"
+            label="Email"
+            field={email.current}
+            form={form.current}
+          />
+          <Field
+            name="cardNumber"
+            label="Card Number"
+            field={cardNumber.current}
+            form={form.current}
+          />
           <Row className="row">
             <Col span={12}>
               <Button
                 type="primary"
-                disabled={formStatus !== sdk.FORM_STATUSES.READY}
+                disabled={appStatus === 'preparing' || formStatus !== sdk.FORM_STATUSES.READY}
                 loading={formStatus !== sdk.FORM_STATUSES.READY ? { delay: 150 } : false}
                 onClick={handleSubmitClick}>
                 Send

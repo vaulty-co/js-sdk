@@ -1,3 +1,5 @@
+import { VALIDATORS_TYPES } from '@js-sdk/elements/src/validators/constants';
+
 import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
 import { CardNumberField } from './fields/views/CardNumberField';
@@ -20,6 +22,10 @@ const FIELDS = {
 class SDK {
   get FORM_STATUSES() {
     return ControllerModel.STATUSES;
+  }
+
+  get VALIDATORS() {
+    return VALIDATORS_TYPES;
   }
 
   constructor() {

@@ -1,6 +1,6 @@
 import { Message } from '@js-sdk/utils/src/channels/Message';
-import { TextNode } from '@js-sdk/utils/src/nodes/TextNode';
 
+import { TextNode } from './nodes/TextNode';
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';
 import styles from './styles.scss';
@@ -56,7 +56,7 @@ class TextInput extends Field {
     const value = this.fieldNode.getValue();
     this.sendDataChanges({
       isDirty: Boolean(value),
-      isValid: true,
+      validation: this.composedValidator.validate(value),
     });
   }
 

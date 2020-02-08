@@ -1,4 +1,4 @@
-import { getMask } from '../CardNumber';
+import { getMask } from '@js-sdk/elements/src/fields/CardNumber/nodes/CardNumber';
 
 describe('getMask', () => {
   describe('for one length', () => {

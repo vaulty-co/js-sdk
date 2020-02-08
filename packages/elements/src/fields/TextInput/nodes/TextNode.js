@@ -1,4 +1,4 @@
-import { Node } from './Node';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 
 /**
  * Create text node with using <input /> element

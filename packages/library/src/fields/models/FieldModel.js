@@ -10,10 +10,16 @@ import {
 } from '../constants';
 
 /**
+ * @typedef {Object} FieldValidationStatus
+ * @property {FIELD_VALIDATION_STATUSES} status
+ * @property {Array<string>} invalidValidators
+ */
+
+/**
  * @typedef {Object} FieldStatus
  * @property {FIELD_NODE_STATUSES} [node]
  * @property {FIELD_CONTENT_STATUSES} [content]
- * @property {FIELD_VALIDATION_STATUSES} [validation]
+ * @property {FieldValidationStatus} [validation]
  * @property {FIELD_READINESS_STATUSES} [readiness]
  * @property {FIELD_FOCUS_STATUSES} [focus]
  */
@@ -48,7 +54,10 @@ class FieldModel {
     this.status = {
       node: FIELD_NODE_STATUSES.UNMOUNTED,
       content: FIELD_CONTENT_STATUSES.EMPTY,
-      validation: FIELD_VALIDATION_STATUSES.UNKNOWN,
+      validation: {
+        status: FIELD_VALIDATION_STATUSES.UNKNOWN,
+        invalidValidators: [],
+      },
       readiness: FIELD_READINESS_STATUSES.READY,
       focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
     };

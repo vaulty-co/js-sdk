@@ -1,7 +1,6 @@
 import IMask from 'imask';
 import cardValidator from 'card-validator';
-
-import { Node } from './Node';
+import { Node } from '@js-sdk/utils/src/nodes/Node';
 
 const timesString = (count, character) => (
   Array

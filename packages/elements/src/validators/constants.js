@@ -1,9 +1,9 @@
-const VALIDATOR_TYPES = {
+const VALIDATORS_TYPES = {
   REQUIRED: 'required',
   CARD_NUMBER: 'card_number',
 };
 
-export default VALIDATOR_TYPES;
+export default VALIDATORS_TYPES;
 export {
-  VALIDATOR_TYPES,
+  VALIDATORS_TYPES,
 };
