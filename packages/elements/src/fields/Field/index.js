@@ -102,6 +102,32 @@ class Field {
   }
 
   /**
+   * Destroy field and remove its from parent, if it is specified
+   */
+  destroy() {
+    if (this.status === FIELD_STATUSES.DESTROYED) {
+      this.constructor.invariant(
+        false,
+        'Field is destroyed and can not be destroyed again.',
+      );
+      return;
+    }
+
+    this.status = FIELD_STATUSES.DESTROYED;
+
+    this.fieldNode.destroy();
+    this.fieldNode = null;
+
+    if (this.fieldSlaveChannel) {
+      this.fieldSlaveChannel.destroy();
+      this.fieldSlaveChannel = null;
+    }
+
+    this.broadcastChannel.close();
+    this.broadcastChannel = null;
+  }
+
+  /**
    * Open channel with master frame
    * @private
    */
@@ -151,32 +177,6 @@ class Field {
         payload,
       ),
     );
-  }
-
-  /**
-   * Destroy field and remove its from parent, if it is specified
-   */
-  destroy() {
-    if (this.status === FIELD_STATUSES.DESTROYED) {
-      this.constructor.invariant(
-        false,
-        'Field is destroyed and can not be destroyed again.',
-      );
-      return;
-    }
-
-    this.status = FIELD_STATUSES.DESTROYED;
-
-    this.fieldNode.destroy();
-    this.fieldNode = null;
-
-    if (this.fieldSlaveChannel) {
-      this.fieldSlaveChannel.destroy();
-      this.fieldSlaveChannel = null;
-    }
-
-    this.broadcastChannel.close();
-    this.broadcastChannel = null;
   }
 
   /**
