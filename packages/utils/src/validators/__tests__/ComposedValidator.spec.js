@@ -28,7 +28,6 @@ describe('ComposedValidator', () => {
   it('should compose validators and return valid state for positive validation', () => {
     const required = new Required();
     const integer = new Integer();
-
     const composedValidator = new ComposedValidator([required, integer]);
 
     expect(composedValidator.validate('5')).toHaveProperty('isValid', true);
@@ -37,7 +36,6 @@ describe('ComposedValidator', () => {
   it('should compose validators and return valid state for negative validation', () => {
     const required = new Required();
     const integer = new Integer();
-
     const composedValidator = new ComposedValidator([required, integer]);
 
     expect(composedValidator.validate('abc')).toHaveProperty('isValid', false);
@@ -46,12 +44,20 @@ describe('ComposedValidator', () => {
   it('should prepare data about separate validator status', () => {
     const required = new Required();
     const integer = new Integer();
-
     const composedValidator = new ComposedValidator([required, integer]);
 
     expect(composedValidator.validate('abc')).toHaveProperty('validators', [
       { type: 'required', isValid: true },
       { type: 'integer', isValid: false },
     ]);
+  });
+
+  it('should return positive validation when no one validator is composed', () => {
+    const composedValidator = new ComposedValidator([]);
+
+    expect(composedValidator.validate('something')).toEqual({
+      isValid: true,
+      validators: [],
+    });
   });
 });
