@@ -4,6 +4,7 @@ const babel = require('rollup-plugin-babel');
 const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
 const alias = require('@rollup/plugin-alias');
+const visualizer = require('rollup-plugin-visualizer');
 
 const prodBuildAssetName = 'build/js-sdk-elements.min.js';
 const devBuildAssetName = 'devTmp/js-sdk-elements.js';
@@ -59,6 +60,12 @@ module.exports = [
         ],
         exclude: ['node_modules/**'],
       }),
+      postcss({
+        extract: false,
+        modules: true,
+        use: ['sass'],
+        minimize: true,
+      }),
       // enable terser for production
       (
         isDevelopmentBuild
@@ -69,12 +76,15 @@ module.exports = [
             },
           })
       ),
-      postcss({
-        extract: false,
-        modules: true,
-        use: ['sass'],
-        minimize: true,
-      }),
+      // enable build analyzer (visualizer)
+      (
+        isDevelopmentBuild
+          ? undefined
+          : visualizer({
+            title: 'SDK library',
+            filename: './build/stats.html',
+          })
+      ),
     ],
   },
 ];
