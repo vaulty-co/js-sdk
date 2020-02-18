@@ -5,6 +5,7 @@ const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
 const alias = require('@rollup/plugin-alias');
 const visualizer = require('rollup-plugin-visualizer');
+const image = require('@rollup/plugin-image');
 
 const prodBuildAssetName = 'build/js-sdk-elements.min.js';
 const devBuildAssetName = 'devTmp/js-sdk-elements.js';
@@ -35,6 +36,7 @@ module.exports = [
       commonjs({
         include: /node_modules/,
       }),
+      image(),
       babel({
         babelrc: false,
         presets: [

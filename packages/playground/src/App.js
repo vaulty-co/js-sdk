@@ -131,6 +131,7 @@ function App() {
             label="Card Number"
             field={cardNumber.current}
             form={form.current}
+            className="cardNumber"
           />
           <Row className="row">
             <Col span={12}>

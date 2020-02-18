@@ -2,6 +2,9 @@ import IMask from 'imask';
 import cardValidator from 'card-validator';
 import { Node } from '@js-sdk/utils/src/nodes/Node';
 
+import styles from './styles.scss';
+import { cardsIcons } from './cardsIcons';
+
 const timesString = (count, character) => (
   Array
     .from({ length: count })
@@ -37,6 +40,21 @@ const getMask = (card) => {
     .join(' ');
 };
 
+const STYLES_FOR_WRAPPER = ['width', 'height'];
+const getStyleForInput = (style = {}) => (
+  Object
+    .keys(style)
+    .reduce((resultStyles, name) => {
+      if (!STYLES_FOR_WRAPPER.includes(name)) {
+        return {
+          ...resultStyles,
+          [name]: style[name],
+        };
+      }
+      return resultStyles;
+    }, {})
+);
+
 /**
  * Create card number node with using <input /> element
  * @class
@@ -47,7 +65,11 @@ class CardNumber extends Node {
    */
   constructor(options = {}) {
     const wrapper = document.createElement('div');
-    wrapper.innerHTML = '<input type="tel" />';
+    wrapper.className = styles.cardNumberWrapper;
+    wrapper.innerHTML = `
+        <img class="${styles.cardNumberIcon}" src="${cardsIcons.generic}" alt="" />
+        <input class="${styles.cardNumberInput}" type="tel" />
+    `;
 
     super({
       ...options,
@@ -55,6 +77,7 @@ class CardNumber extends Node {
     });
 
     this.input = wrapper.querySelector('input');
+    this.image = wrapper.querySelector('img');
 
     this.patternMask = IMask(this.input, {
       mask: '0000 0000 0000 0000',
@@ -72,14 +95,6 @@ class CardNumber extends Node {
     return this.patternMask.unmaskedValue;
   }
 
-  addClass(className) {
-    super.addClass.call({ node: this.input }, className);
-  }
-
-  removeClass(className) {
-    super.removeClass().call({ node: this.input }, className);
-  }
-
   /**
    * Handle input change
    */
@@ -87,11 +102,29 @@ class CardNumber extends Node {
     const value = this.getValue();
 
     const cardData = cardValidator.number(value);
-    const card = cardData?.card ?? { lengths: [16], gaps: [4, 8, 12] };
+    const card = cardData?.card ?? { lengths: [16], gaps: [4, 8, 12], type: 'generic' };
 
     this.patternMask.updateOptions({
       mask: getMask(card),
     });
+
+    this.image.src = cardsIcons[card.type];
+  }
+
+  /**
+   * Set style to node
+   * @param {Object} [style = {}]
+   */
+  setStyle(style) {
+    const styleForInput = getStyleForInput(style);
+    Object.assign(
+      this.node,
+      style,
+    );
+    Object.assign(
+      this.input,
+      styleForInput,
+    );
   }
 
   /**
@@ -106,6 +139,7 @@ class CardNumber extends Node {
     super.destroy();
 
     this.input = null;
+    this.image = null;
   }
 }
 

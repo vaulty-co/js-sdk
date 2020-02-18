@@ -3,7 +3,6 @@ import { Message } from '@js-sdk/utils/src/channels/Message';
 import { CardNumber as CardNumberNode } from './nodes/CardNumber';
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';
-import styles from './styles.scss';
 
 /**
  * It renders simple text input node
@@ -12,7 +11,6 @@ import styles from './styles.scss';
 class CardNumber extends Field {
   constructor(options) {
     const node = new CardNumberNode();
-    node.addClass(styles.input);
 
     super({
       ...options,

@@ -1,0 +1,22 @@
+.cardNumberWrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.cardNumberIcon {
+  display: block;
+  height: 100%;
+  margin-right: 0.3em;
+}
+
+.cardNumberInput {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  flex-grow: 1;
+  border: 0 none;
+  outline: 0 none;
+  box-sizing: border-box;
+}
