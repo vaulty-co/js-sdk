@@ -24,15 +24,15 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
-    "rimraf": "^3.0.1",
-    "rollup": "^1.31.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-visualizer": "^3.3.1"
   },
   "dependencies": {
     "events": "^3.1.0",
-    "immer": "^5.3.4",
+    "immer": "^5.3.6",
     "invariant": "^2.2.4",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5"
