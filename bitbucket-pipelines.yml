@@ -8,7 +8,7 @@ pipelines:
           - node
         script:
           - yarn install
-          - yarn audit
+          - sh -c 'yarn audit; [[ $? -ge 4 ]] && exit 1 || exit  0'
     - parallel:
         - step:
             name: "Elements linter"
