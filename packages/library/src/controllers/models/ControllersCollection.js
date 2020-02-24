@@ -77,7 +77,7 @@ class ControllersCollection {
    * Remove fields from controller by id
    * @param {Object} options
    * @param {string} options.controllerId
-   * @param {CONTROLLER_MODEL_STATUSES} options.status
+   * @param {ControllerStatus} options.status
    */
   setControllerStatus(options) {
     const { controllerId, status } = options;

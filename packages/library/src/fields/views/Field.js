@@ -157,7 +157,7 @@ class Field {
   }
 
   /**
-   * Check mounted status
+   * Request initialization of field
    * @private
    */
   requestInitialization() {

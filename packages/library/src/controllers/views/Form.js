@@ -1,17 +1,20 @@
-import { SUBMIT_REQUEST, SUBMIT_RESPONSE } from '@js-sdk/elements/src/controllers/Form/messages';
+import {
+  SUBMIT_REQUEST, SUBMIT_RESPONSE,
+  INITIALIZE_FORM_REQUEST,
+  INITIALIZE_FORM_RESPONSE,
+} from '@js-sdk/elements/src/controllers/Form/messages';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 
+
 import { Config } from '../../config';
 import { Controller } from './Controller';
+import {
+  CONTROLLER_STATUSES,
+  CONTROLLER_READINESS_STATUSES,
+} from '../constants';
 import { connectForm } from '../utils/connectForm';
 import { NO_FIELDS_ERROR } from '../events/noFieldsError';
-
-const FORM_STATUSES = {
-  INITIALIZED: 'initialized',
-  PROCESSING: 'processing',
-  READY: 'ready',
-};
 
 /**
  * @typedef {Object} FormOptions
@@ -34,7 +37,7 @@ const FORM_STATUSES = {
  */
 class Form extends Controller {
   static get STATUSES() {
-    return FORM_STATUSES;
+    return CONTROLLER_STATUSES;
   }
 
   /**
@@ -80,6 +83,7 @@ class Form extends Controller {
     super.appendTo(node);
 
     this.openChannel();
+    this.requestInitialization();
     this.handleSubmit();
   }
 
@@ -92,7 +96,9 @@ class Form extends Controller {
       if (this.controllerMasterChannel) {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
-          status: FORM_STATUSES.PROCESSING,
+          status: {
+            readiness: CONTROLLER_READINESS_STATUSES.LOADING,
+          },
         });
         this.controllerMasterChannel.postMessage(
           new Message(
@@ -144,13 +150,39 @@ class Form extends Controller {
     this.controllerMasterChannel.connect();
   }
 
+  /**
+   * Request initialization data for getting readiness status
+   * @private
+   */
+  requestInitialization() {
+    this.controllerMasterChannel.postMessage(
+      new Message(INITIALIZE_FORM_REQUEST),
+    );
+    this.controllerMasterChannel.subscribe(INITIALIZE_FORM_RESPONSE, (message) => {
+      if (message.payload.success) {
+        this.dispatchers.setControllerStatus({
+          controllerId: this.id,
+          status: {
+            readiness: CONTROLLER_READINESS_STATUSES.READY,
+          },
+        });
+      }
+    });
+  }
+
+  /**
+   * Handle submit response
+   * @private
+   */
   handleSubmit() {
     this.controllerMasterChannel.subscribe(SUBMIT_RESPONSE, (message) => {
       const { payload: { success = false } } = message;
       if (success) {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
-          status: FORM_STATUSES.READY,
+          status: {
+            readiness: CONTROLLER_READINESS_STATUSES.READY,
+          },
         });
         this.events.emit('submit', { success: true });
       }

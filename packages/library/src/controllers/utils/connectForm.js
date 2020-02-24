@@ -9,6 +9,7 @@ import {
   removeFieldsFromController,
   setControllerStatus,
 } from '../actions';
+import { CONTROLLER_NODE_STATUSES } from '../constants';
 import { ControllerModel } from '../models/ControllerModel';
 import { Config } from '../../config';
 
@@ -87,6 +88,17 @@ function connectForm(FormClass) {
       });
     }
 
+    appendTo(node) {
+      super.appendTo(node);
+
+      this.dispatchers.setControllerStatus({
+        controllerId: this.id,
+        status: {
+          node: CONTROLLER_NODE_STATUSES.MOUNTED,
+        },
+      });
+    }
+
     destroy(...args) {
       this.remove();
 
@@ -97,6 +109,15 @@ function connectForm(FormClass) {
       this.dispatchers = null;
 
       super.destroy(...args);
+    }
+
+
+    /**
+     * Get controller status
+     * @returns {ControllerStatus}
+     */
+    getStatus() {
+      return this.controller.status;
     }
 
     /**
@@ -186,11 +207,14 @@ function connectForm(FormClass) {
      * @private
      */
     handleFieldsStatusChange() {
-      const previousFormFieldsStatus = this.controller.getFieldsStatus(this.previousState.fields);
-      const formFieldsStatus = this.controller.getFieldsStatus(this.state.fields);
-      if (previousFormFieldsStatus !== formFieldsStatus) {
+      const previousStatus = this.controller.getFormStatusByFields(this.previousState.fields);
+      const currentStatus = this.controller.getFormStatusByFields(this.state.fields);
+      if (previousStatus !== currentStatus) {
         this.previousState = this.state;
-        this.dispatchers.setControllerStatus({ controllerId: this.id, status: formFieldsStatus });
+        this.dispatchers.setControllerStatus({
+          controllerId: this.id,
+          status: currentStatus,
+        });
       }
     }
 

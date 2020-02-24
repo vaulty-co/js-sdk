@@ -1,17 +1,21 @@
 import { immerable } from 'immer';
+import memoizeOne from 'memoize-one';
 import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
-import { FIELD_READINESS_STATUSES } from '../../fields/constants';
+import { FIELD_READINESS_STATUSES, FIELD_VALIDATION_STATUSES } from '../../fields/constants';
+import {
+  CONTROLLER_STATUSES,
+  CONTROLLER_NODE_STATUSES,
+  CONTROLLER_READINESS_STATUSES,
+  CONTROLLER_VALIDATION_STATUSES,
+} from '../constants';
 
 /**
- * ControllerModel statuses
- * @enum {string}
+ * @typedef {Object} ControllerStatus
+ * @property {CONTROLLER_NODE_STATUSES} [node]
+ * @property {CONTROLLER_VALIDATION_STATUSES} [validation]
+ * @property {CONTROLLER_READINESS_STATUSES} [readiness]
  */
-const CONTROLLER_MODEL_STATUSES = {
-  INITIALIZED: 'initialized',
-  PROCESSING: 'processing',
-  READY: 'ready',
-};
 
 /**
  * Controller's model
@@ -19,7 +23,7 @@ const CONTROLLER_MODEL_STATUSES = {
  */
 class ControllerModel {
   static get STATUSES() {
-    return CONTROLLER_MODEL_STATUSES;
+    return CONTROLLER_STATUSES;
   }
 
   constructor(options = {}) {
@@ -37,6 +41,33 @@ class ControllerModel {
      * @type {Array<string>}
      */
     this.fieldsIds = fieldsIds;
+    /**
+     * @type {ControllerStatus}
+     */
+    this.status = {
+      node: CONTROLLER_NODE_STATUSES.UNMOUNTED,
+      validation: CONTROLLER_VALIDATION_STATUSES.UNKNOWN,
+      readiness: CONTROLLER_READINESS_STATUSES.LOADING,
+    };
+
+    this.getFormStatusByFields = memoizeOne(
+      this.getFormStatusByFields,
+      /**
+       * Compare fields collections in controller context
+       * @param {FieldsCollection} newCollection
+       * @param {FieldsCollection} lastCollection
+       * @returns {boolean}
+       */
+      ([newCollection], [lastCollection]) => {
+        if (newCollection === lastCollection) {
+          return true;
+        }
+
+        return this.fieldsIds.every((fieldId) => (
+          newCollection.getField(fieldId) === lastCollection.getField(fieldId)
+        ));
+      },
+    );
   }
 
   /**
@@ -53,28 +84,45 @@ class ControllerModel {
     this.fieldsIds = this.fieldsIds.filter((fieldId) => !fieldsIds.includes(fieldId));
   }
 
-  // TODO - add memoization
   /**
-   * Get fields status
+   * Get form status by fields status
+   * Notice: memoized
    * @param {FieldsCollection} fieldsCollection
-   * @return {CONTROLLER_MODEL_STATUSES}
+   * @return {ControllerStatus}
    */
-  getFieldsStatus(fieldsCollection) {
+  getFormStatusByFields(fieldsCollection) {
     const fields = this.fieldsIds.map((fieldId) => (
       fieldsCollection.getField(fieldId)
     ));
     const isReady = fields.every((field) => (
       field.status.readiness === FIELD_READINESS_STATUSES.READY
     ));
-    return isReady ? CONTROLLER_MODEL_STATUSES.READY : CONTROLLER_MODEL_STATUSES.INITIALIZED;
+    const isValid = fields.every((field) => (
+      field.status.validation.status === FIELD_VALIDATION_STATUSES.VALID
+    ));
+    if (isReady) {
+      return {
+        readiness: CONTROLLER_READINESS_STATUSES.READY,
+        validation: isValid
+          ? CONTROLLER_VALIDATION_STATUSES.VALID
+          : CONTROLLER_VALIDATION_STATUSES.INVALID,
+      };
+    }
+    return {
+      readiness: CONTROLLER_READINESS_STATUSES.LOADING,
+      validation: CONTROLLER_VALIDATION_STATUSES.UNKNOWN,
+    };
   }
 
   /**
    * Set controller status
-   * @param {CONTROLLER_MODEL_STATUSES} status
+   * @param {ControllerStatus} status
    */
   setStatus(status) {
-    this.status = status;
+    this.status = {
+      ...this.status,
+      ...status,
+    };
   }
 }
 

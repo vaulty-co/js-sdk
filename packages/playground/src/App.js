@@ -85,6 +85,10 @@ function App() {
     form.current.submit();
   }, []);
 
+  const isFormEnabled = Boolean(formStatus)
+    && formStatus.readiness === sdk.FORM_STATUSES.READINESS.READY
+    && formStatus.validation === sdk.FORM_STATUSES.VALIDATION.VALID;
+
   return (
     <Layout>
       <Sider trigger={null} collapsible>
@@ -137,8 +141,8 @@ function App() {
             <Col span={12}>
               <Button
                 type="primary"
-                disabled={appStatus === 'preparing' || formStatus !== sdk.FORM_STATUSES.READY}
-                loading={formStatus !== sdk.FORM_STATUSES.READY ? { delay: 150 } : false}
+                disabled={appStatus === 'preparing' || !isFormEnabled}
+                loading={formStatus && formStatus.readiness === sdk.FORM_STATUSES.READINESS.LOADING ? { delay: 150 } : false}
                 onClick={handleSubmitClick}>
                 Send
               </Button>
