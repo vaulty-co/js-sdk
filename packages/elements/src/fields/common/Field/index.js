@@ -6,9 +6,9 @@ import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
 import { Node } from '@js-sdk/utils/src/nodes/Node';
 import { ComposedValidator } from '@js-sdk/utils/src/validators/ComposedValidator';
 
-import { Config } from '../../config';
-import { VALIDATORS_TYPES } from '../../validators/constants';
-import { VALIDATORS_REGISTRY } from '../../validators/registry';
+import { Config } from '../../../config';
+import { VALIDATORS_TYPES } from '../../../validators/constants';
+import { VALIDATORS_REGISTRY } from '../../../validators/registry';
 import {
   FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_FIELD_REQUEST,
@@ -39,9 +39,7 @@ class Field {
   }
 
   /**
-   * @param {Node} options.node
-   * @param {string} options.channelId
-   * @param {string} options.sdkId
+   * @param {FieldOptions} options
    */
   constructor(options) {
     const node = options?.node;

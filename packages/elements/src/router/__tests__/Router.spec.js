@@ -1,7 +1,7 @@
 import { createBrowserHistory } from 'history';
 import { enforceOptions } from 'broadcast-channel';
 import { Node } from '@js-sdk/utils/src/nodes/Node';
-import { Field } from '@js-sdk/elements/src/fields/Field';
+import { Field } from '@js-sdk/elements/src/fields/common/Field';
 
 import { Router } from '../index';
 import { FieldRoute } from '../FieldRoute';

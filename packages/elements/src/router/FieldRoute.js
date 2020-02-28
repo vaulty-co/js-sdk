@@ -1,5 +1,5 @@
 import { Route } from './Route';
-import { Field } from '../fields/Field';
+import { Field } from '../fields/common/Field';
 
 /**
  * Route for Field

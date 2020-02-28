@@ -4,7 +4,7 @@ import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
   GET_FIELD_DATA_REQUEST,
   GET_FIELD_DATA_RESPONSE,
-} from '../../fields/Field/messages';
+} from '../../fields/common/Field/messages';
 import { Controller } from '../Controller';
 import {
   SUBMIT_REQUEST,
