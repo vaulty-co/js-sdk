@@ -6,8 +6,8 @@ import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
   FIELD_DATA_CHANGE_RESPONSE,
-  INITIALIZE_REQUEST,
-  INITIALIZE_RESPONSE,
+  INITIALIZE_FIELD_REQUEST,
+  INITIALIZE_FIELD_RESPONSE,
 } from '@js-sdk/elements/src/fields/Field/messages';
 
 import { Config } from '../../config';
@@ -155,14 +155,14 @@ class Field {
    */
   requestInitialization() {
     this.fieldMasterChannel.postMessage(
-      new Message(INITIALIZE_REQUEST, {
+      new Message(INITIALIZE_FIELD_REQUEST, {
         id: this.id,
         name: this.name,
         style: this.style,
         validators: this.validators,
       }),
     );
-    this.fieldMasterChannel.subscribe(INITIALIZE_RESPONSE, (message) => {
+    this.fieldMasterChannel.subscribe(INITIALIZE_FIELD_RESPONSE, (message) => {
       if (message.payload.success) {
         this.setFieldStatus({
           validation: {

@@ -11,8 +11,8 @@ import { VALIDATORS_TYPES } from '../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../validators/registry';
 import {
   FIELD_DATA_CHANGE_RESPONSE,
-  INITIALIZE_REQUEST,
-  INITIALIZE_RESPONSE,
+  INITIALIZE_FIELD_REQUEST,
+  INITIALIZE_FIELD_RESPONSE,
 } from './messages';
 
 const FIELD_STATUSES = {
@@ -149,7 +149,7 @@ class Field {
    * @private
    */
   registerHandlers() {
-    this.fieldSlaveChannel.subscribe(INITIALIZE_REQUEST, (message) => {
+    this.fieldSlaveChannel.subscribe(INITIALIZE_FIELD_REQUEST, (message) => {
       const {
         payload: {
           id, name, style = {}, validators = [],
@@ -160,7 +160,7 @@ class Field {
       this.composedValidator = this.createValidators(validators);
       this.fieldNode.setStyle(style);
       this.fieldSlaveChannel.postMessage(
-        new Message(INITIALIZE_RESPONSE, { success: true }),
+        new Message(INITIALIZE_FIELD_RESPONSE, { success: true }),
       );
     });
   }
