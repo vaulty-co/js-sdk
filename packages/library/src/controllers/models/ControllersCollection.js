@@ -74,7 +74,7 @@ class ControllersCollection {
   }
 
   /**
-   * Remove fields from controller by id
+   * Set controller status
    * @param {Object} options
    * @param {string} options.controllerId
    * @param {ControllerStatus} options.status
