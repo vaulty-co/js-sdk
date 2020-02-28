@@ -12,7 +12,7 @@ import {
 /**
  * @typedef {Object} FieldValidationStatus
  * @property {FIELD_VALIDATION_STATUSES} status
- * @property {Array<string>} invalidValidators
+ * @property {Array<ValidatorName>} invalidValidators
  */
 
 /**

@@ -5,18 +5,6 @@ import { Config } from '../../config';
 import { ConnectedField } from './Field';
 
 /**
- * @typedef {Object} TextInputFieldStyle
- * @property {string} [width = '100%'] - width of text input field
- * @property {string} [height = '20px'] - height of text input field
- */
-
-/**
- * @typedef {Object} TextInputFieldOptions
- * @extends {FieldOptions}
- * @property {TextInputFieldStyle} style
- */
-
-/**
  * Create TextInput field
  * @class
  */

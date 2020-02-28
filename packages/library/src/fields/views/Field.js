@@ -22,13 +22,6 @@ import {
 import { filterStyles } from '../../helpers/filterStyles';
 
 /**
- * @typedef {Object} FieldOptions
- * @property {string} name - field name. It is used for sending data from field in Form.
- * @property {FieldStyles} [style = {}] - field styles
- * @property {Array<string>} [validators = []] - validators for field
- */
-
-/**
  * @class
  */
 class Field {
@@ -51,7 +44,7 @@ class Field {
     } = options;
 
     /**
-     * @type {string}
+     * @type {FieldName}
      */
     this.name = name;
     /**

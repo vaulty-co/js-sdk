@@ -1,17 +1,4 @@
 /**
- * @typedef {Object} FieldStyles
- * @property {string} [width = '100%']
- * @property {string} [height = '24px']
- * @property {string} [fontSize = '12px']
- * @property {string} [fontFamily]
- * @property {string} [color]
- * @property {string} [fontWeight = 'normal']
- * @property {string} [lineHeight = '24px']
- * @property {string} [padding = '5px']
- * @property {string} [padding = '5px']
- */
-
-/**
  * @type {FieldStyles}
  */
 const DEFAULT_FIELD_STYLES = {
