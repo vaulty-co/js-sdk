@@ -109,6 +109,7 @@ class ControllerModel {
       };
     }
     return {
+      ...this.status,
       readiness: CONTROLLER_READINESS_STATUSES.LOADING,
       validation: CONTROLLER_VALIDATION_STATUSES.UNKNOWN,
     };

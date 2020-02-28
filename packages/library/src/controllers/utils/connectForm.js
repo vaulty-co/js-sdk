@@ -9,7 +9,10 @@ import {
   removeFieldsFromController,
   setControllerStatus,
 } from '../actions';
-import { CONTROLLER_NODE_STATUSES } from '../constants';
+import {
+  CONTROLLER_NODE_STATUSES,
+  CONTROLLER_READINESS_STATUSES,
+} from '../constants';
 import { ControllerModel } from '../models/ControllerModel';
 import { Config } from '../../config';
 
@@ -114,10 +117,20 @@ function connectForm(FormClass) {
 
     /**
      * Get controller status
+     * Notice: real readiness is computed value by form readiness and fields readiness
      * @returns {ControllerStatus}
      */
     getStatus() {
-      return this.controller.status;
+      const currentStatusByFields = this.controller.getFormStatusByFields(this.state.fields);
+      return {
+        ...this.controller.status,
+        readiness: (
+          this.controller.status === CONTROLLER_READINESS_STATUSES.LOADING
+          || currentStatusByFields.readiness === CONTROLLER_READINESS_STATUSES.LOADING
+        )
+          ? CONTROLLER_READINESS_STATUSES.LOADING
+          : CONTROLLER_READINESS_STATUSES.READY,
+      };
     }
 
     /**
@@ -209,12 +222,16 @@ function connectForm(FormClass) {
     handleFieldsStatusChange() {
       const previousStatus = this.controller.getFormStatusByFields(this.previousState.fields);
       const currentStatus = this.controller.getFormStatusByFields(this.state.fields);
-      if (previousStatus !== currentStatus) {
+      if (previousStatus.validation !== currentStatus.validation) {
         this.previousState = this.state;
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
-          status: currentStatus,
+          status: {
+            validation: currentStatus.validation,
+          },
         });
+      } else if (previousStatus.readiness !== currentStatus.readiness) {
+        this.events.emit('status', this.getStatus());
       }
     }
 
@@ -225,7 +242,7 @@ function connectForm(FormClass) {
     handleStatusChange() {
       const previousStatus = this.previousState.controllers.getController(this.id).status;
       if (previousStatus !== this.controller.status) {
-        this.events.emit('status', this.controller.status);
+        this.events.emit('status', this.getStatus());
       }
     }
   }
