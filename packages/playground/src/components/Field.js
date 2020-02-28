@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
+import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
 
 const FieldComponent = ({ name, label, field, form, className }) => {
   const fieldRef = useRef(null);
@@ -29,7 +30,7 @@ const FieldComponent = ({ name, label, field, form, className }) => {
 
   return (
     <Row className="row">
-      <Col span={12} className={fieldStatus.validation.status === 'invalid' ? 'has-error' : ''}>
+      <Col span={12} className={fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'has-error' : ''}>
         <label>{label}</label>
         <div className={`ant-input ${className}`} ref={fieldRef} />
       </Col>

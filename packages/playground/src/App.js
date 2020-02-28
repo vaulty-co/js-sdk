@@ -34,7 +34,7 @@ function App() {
       name: 'user.name',
       style: fieldStyle,
       validators: [
-        sdk.VALIDATORS.REQUIRED,
+        SDK.VALIDATORS.REQUIRED,
       ],
     });
     lastName.current = sdk.createField('textInput', {
@@ -45,15 +45,15 @@ function App() {
       name: 'user.email',
       style: fieldStyle,
       validators: [
-        sdk.VALIDATORS.REQUIRED,
+        SDK.VALIDATORS.REQUIRED,
       ],
     });
     cardNumber.current = sdk.createField('cardNumber', {
       name: 'user.cardNumber',
       style: fieldStyle,
       validators: [
-        sdk.VALIDATORS.REQUIRED,
-        sdk.VALIDATORS.CARD_NUMBER,
+        SDK.VALIDATORS.REQUIRED,
+        SDK.VALIDATORS.CARD_NUMBER,
       ],
     });
 
@@ -86,8 +86,8 @@ function App() {
   }, []);
 
   const isFormEnabled = Boolean(formStatus)
-    && formStatus.readiness === sdk.FORM_STATUSES.READINESS.READY
-    && formStatus.validation === sdk.FORM_STATUSES.VALIDATION.VALID;
+    && formStatus.readiness === SDK.FORM_STATUSES.READINESS.READY
+    && formStatus.validation === SDK.FORM_STATUSES.VALIDATION.VALID;
 
   return (
     <Layout>
@@ -142,7 +142,7 @@ function App() {
               <Button
                 type="primary"
                 disabled={appStatus === 'preparing' || !isFormEnabled}
-                loading={formStatus && formStatus.readiness === sdk.FORM_STATUSES.READINESS.LOADING ? { delay: 150 } : false}
+                loading={formStatus && formStatus.readiness === SDK.FORM_STATUSES.READINESS.LOADING ? { delay: 150 } : false}
                 onClick={handleSubmitClick}>
                 Send
               </Button>

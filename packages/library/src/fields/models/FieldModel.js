@@ -2,6 +2,7 @@ import { immerable } from 'immer';
 import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
 import {
+  FIELD_STATUSES,
   FIELD_NODE_STATUSES,
   FIELD_CONTENT_STATUSES,
   FIELD_VALIDATION_STATUSES,
@@ -34,6 +35,10 @@ import {
  * @class
  */
 class FieldModel {
+  static get STATUSES() {
+    return FIELD_STATUSES;
+  }
+
   /**
    * @param {FieldModelOptions} [options = {}]
    */
