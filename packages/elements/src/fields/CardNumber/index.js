@@ -1,4 +1,4 @@
-import { CardNumber as CardNumberNode } from './nodes/CardNumber';
+import { CardNumberNode } from './nodes/CardNumberNode';
 import { InputField } from '../common/InputField';
 
 /**

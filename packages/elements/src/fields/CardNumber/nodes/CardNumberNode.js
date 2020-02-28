@@ -59,7 +59,7 @@ const getStyleForInput = (style = {}) => (
  * Create card number node with using <input /> element
  * @class
  */
-class CardNumber extends Node {
+class CardNumberNode extends Node {
   /**
    * @param {Object} [options = {}]
    */
@@ -143,8 +143,8 @@ class CardNumber extends Node {
   }
 }
 
-export default CardNumber;
+export default CardNumberNode;
 export {
-  CardNumber,
+  CardNumberNode,
   getMask,
 };

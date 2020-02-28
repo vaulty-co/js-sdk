@@ -8,7 +8,7 @@ import {
   FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,
-} from '@js-sdk/elements/src/fields/Field/messages';
+} from '@js-sdk/elements/src/fields/common/Field/messages';
 
 import { Config } from '../../config';
 import { connectField } from '../utils/connectField';
