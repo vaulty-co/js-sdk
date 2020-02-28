@@ -26,6 +26,7 @@ function App() {
   const lastName = useRef(null);
   const email = useRef(null);
   const cardNumber = useRef(null);
+  const cardVerificationCode = useRef(null);
   const [appStatus, setAppStatus] = useState('preparing');
   const [formStatus, setFormStatus] = useState(null);
 
@@ -56,6 +57,14 @@ function App() {
         SDK.VALIDATORS.CARD_NUMBER,
       ],
     });
+    cardVerificationCode.current = sdk.createField('cardVerificationCode', {
+      name: 'user.cvc',
+      style: fieldStyle,
+      validators: [
+        SDK.VALIDATORS.REQUIRED,
+        SDK.VALIDATORS.CARD_VERIFICATION_CODE,
+      ],
+    });
 
     // FIXME - think about appendTo call method outside of form controller
     const resultForm = sdk.createForm({
@@ -64,6 +73,7 @@ function App() {
         lastName.current,
         email.current,
         cardNumber.current,
+        cardVerificationCode.current,
       ],
     });
     resultForm.on('status', (nextFormStatus) => {
@@ -136,6 +146,13 @@ function App() {
             field={cardNumber.current}
             form={form.current}
             className="cardNumber"
+          />
+          <Field
+            name="cardVerificationCode"
+            label="CVC"
+            field={cardVerificationCode.current}
+            form={form.current}
+            span={1}
           />
           <Row className="row">
             <Col span={12}>
