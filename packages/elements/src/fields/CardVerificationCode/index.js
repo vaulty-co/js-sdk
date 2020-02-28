@@ -1,16 +1,16 @@
 import { Message } from '@js-sdk/utils/src/channels/Message';
 
-import { TextNode } from '../../nodes/TextNode';
+import { CardVerificationCodeNode } from './nodes/CardVerificationCodeNode';
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';
 
 /**
- * It renders simple text input node
+ * It renders card ver input node
  * @class
  */
-class TextInput extends Field {
+class CardVerificationCode extends Field {
   constructor(options) {
-    const node = new TextNode();
+    const node = new CardVerificationCodeNode();
 
     super({
       ...options,
@@ -69,7 +69,7 @@ class TextInput extends Field {
   }
 }
 
-export default TextInput;
+export default CardVerificationCode;
 export {
-  TextInput,
+  CardVerificationCode,
 };

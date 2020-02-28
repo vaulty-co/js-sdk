@@ -17,7 +17,7 @@ class ComposedValidator {
   /**
    * @param {Array<Validator>} validators
    */
-  constructor(validators) {
+  constructor(validators = []) {
     this.validators = validators;
   }
 

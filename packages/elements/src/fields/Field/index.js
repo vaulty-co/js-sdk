@@ -53,6 +53,7 @@ class Field {
     this.status = FIELD_STATUSES.INIT;
     this.fieldNode = node;
     this.channelId = options?.channelId;
+    this.composedValidator = new ComposedValidator();
 
     let broadcastChannelOptions = {};
     // Notice: Safari does not allow IndexDB fallback in iFrame and we should manually

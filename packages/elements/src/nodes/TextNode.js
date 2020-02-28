@@ -1,4 +1,5 @@
 import { Node } from '@js-sdk/utils/src/nodes/Node';
+import styles from './styles.scss';
 
 /**
  * Create text node with using <input /> element
@@ -18,6 +19,8 @@ class TextNode extends Node {
       ...options,
       node,
     });
+
+    this.addClass(styles.input);
   }
 
   /**
