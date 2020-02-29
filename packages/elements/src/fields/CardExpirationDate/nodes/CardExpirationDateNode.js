@@ -2,10 +2,10 @@ import IMask from 'imask';
 import { TextNode } from '../../../nodes/TextNode';
 
 /**
- * Create card verification code node
+ * Create card expiration date node
  * @class
  */
-class CardVerificationCodeNode extends TextNode {
+class CardExpirationDateNode extends TextNode {
   /**
    * @param {TextNodeOptions} [options = {}]
    */
@@ -13,7 +13,8 @@ class CardVerificationCodeNode extends TextNode {
     super(options);
 
     this.patternMask = IMask(this.node, {
-      mask: '000[0]',
+      mask: '00/00',
+      lazy: false,
     });
   }
 
@@ -34,7 +35,7 @@ class CardVerificationCodeNode extends TextNode {
   }
 }
 
-export default CardVerificationCodeNode;
+export default CardExpirationDateNode;
 export {
-  CardVerificationCodeNode,
+  CardExpirationDateNode,
 };

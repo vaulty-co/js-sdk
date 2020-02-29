@@ -191,6 +191,10 @@ class Field {
       .filter((validatorType) => providedValidators.includes(validatorType));
     const validators = validatorsTypesSetup.map((validatorType) => {
       const Validator = VALIDATORS_REGISTRY[validatorType];
+      this.constructor.invariant(
+        Boolean(Validator),
+        `Does not found out validator: '${validatorType}'`,
+      );
       return new Validator();
     });
 

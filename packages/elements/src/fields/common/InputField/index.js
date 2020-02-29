@@ -22,6 +22,18 @@ class InputField extends Field {
   }
 
   /**
+   * Get data for sending its to controller
+   * @returns {{id: string, name: FieldName, data: *}}
+   */
+  getData() {
+    return {
+      id: this.id,
+      name: this.name,
+      data: this.fieldNode.getValue(),
+    }
+  }
+
+  /**
    * Handle GET_FIELD_DATA_REQUEST
    * @param {string} textMessage
    */
@@ -34,11 +46,7 @@ class InputField extends Field {
       this.broadcastChannel.postMessage(
         new Message(
           GET_FIELD_DATA_RESPONSE,
-          {
-            id: this.id,
-            name: this.name,
-            data: this.fieldNode.getValue(),
-          },
+          this.getData(),
         ).toString(),
       );
     }

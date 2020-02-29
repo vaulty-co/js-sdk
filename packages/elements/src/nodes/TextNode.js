@@ -2,13 +2,17 @@ import { Node } from '@js-sdk/utils/src/nodes/Node';
 import styles from './styles.scss';
 
 /**
+ * @typedef {Object} TextNodeOptions
+ * @property {string} type - type of text node
+ */
+
+/**
  * Create text node with using <input /> element
  * @class
  */
 class TextNode extends Node {
   /**
-   * @param {Object} [options = {}]
-   * @param {string} [options.type = 'text']
+   * @param {TextNodeOptions} [options = {}]
    */
   constructor(options = {}) {
     const { type = 'text' } = options;

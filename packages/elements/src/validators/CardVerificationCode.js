@@ -9,13 +9,13 @@ class CardVerificationCode extends Validator {
 
   /**
    * Validate card verification code
-   * @param {string} cardNumber
+   * @param {string} cardVerificationCode
    * @returns {boolean}
    */
-  validate(cardNumber) {
+  validate(cardVerificationCode) {
     return (
-      typeof cardNumber === 'string'
-      && cardNumber.length >= 3
+      typeof cardVerificationCode === 'string'
+      && cardVerificationCode.length >= 3
     );
   }
 }
