@@ -51,7 +51,7 @@ function App() {
       ],
     });
     cardNumber.current = sdk.createField('cardNumber', {
-      name: 'user.cardNumber',
+      name: 'card.number',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,
@@ -59,7 +59,7 @@ function App() {
       ],
     });
     cardVerificationCode.current = sdk.createField('cardVerificationCode', {
-      name: 'user.cvc',
+      name: 'card.cvc',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,
@@ -67,7 +67,7 @@ function App() {
       ],
     });
     cardExpirationDate.current = sdk.createField('cardExpirationDate', {
-      name: 'user.expirationDate',
+      name: 'card.expirationDate',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,
