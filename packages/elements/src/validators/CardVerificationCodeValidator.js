@@ -2,7 +2,7 @@ import { Validator } from '@js-sdk/utils/src/validators/Validator';
 
 import { VALIDATORS_TYPES } from './constants';
 
-class CardVerificationCode extends Validator {
+class CardVerificationCodeValidator extends Validator {
   constructor() {
     super(VALIDATORS_TYPES.CARD_VERIFICATION_CODE);
   }
@@ -21,7 +21,7 @@ class CardVerificationCode extends Validator {
   }
 }
 
-export default CardVerificationCode;
+export default CardVerificationCodeValidator;
 export {
-  CardVerificationCode,
+  CardVerificationCodeValidator,
 };

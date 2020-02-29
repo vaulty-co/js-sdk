@@ -1,6 +1,6 @@
 import cardValidator from 'card-validator';
 
-import { CardExpirationDate } from '../CardExpirationDate';
+import { CardExpirationDateValidator } from '../CardExpirationDateValidator';
 
 jest.mock('card-validator', () => ({
   expirationDate: jest.fn(() => ({ isValid: true })),
@@ -10,7 +10,7 @@ describe('CardExpirationDateValidator', () => {
   let cardExpirationDateValidtor;
 
   beforeEach(() => {
-    cardExpirationDateValidtor = new CardExpirationDate();
+    cardExpirationDateValidtor = new CardExpirationDateValidator();
   });
 
   afterEach(() => {

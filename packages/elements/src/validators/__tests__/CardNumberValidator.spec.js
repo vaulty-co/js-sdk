@@ -1,6 +1,6 @@
 import cardValidator from 'card-validator';
 
-import { CardNumber } from '../CardNumber';
+import { CardNumberValidator } from '../CardNumberValidator';
 
 jest.mock('card-validator', () => ({
   number: jest.fn(() => ({ isValid: true })),
@@ -10,7 +10,7 @@ describe('CardNumberValidator', () => {
   let cardNumberValidator;
 
   beforeEach(() => {
-    cardNumberValidator = new CardNumber();
+    cardNumberValidator = new CardNumberValidator();
   });
 
   afterEach(() => {

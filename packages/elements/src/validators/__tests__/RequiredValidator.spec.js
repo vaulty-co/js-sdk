@@ -1,10 +1,10 @@
-import { Required } from '../Required';
+import { RequiredValidator } from '../RequiredValidator';
 
 describe('RequredValidator', () => {
   let requiredValidator;
 
   beforeEach(() => {
-    requiredValidator = new Required();
+    requiredValidator = new RequiredValidator();
   });
 
   describe('False ->', () => {

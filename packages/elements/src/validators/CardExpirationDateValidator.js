@@ -3,7 +3,7 @@ import { Validator } from '@js-sdk/utils/src/validators/Validator';
 
 import { VALIDATORS_TYPES } from './constants';
 
-class CardExpirationDate extends Validator {
+class CardExpirationDateValidator extends Validator {
   constructor() {
     super(VALIDATORS_TYPES.CARD_EXPIRATION_DATE);
   }
@@ -21,7 +21,7 @@ class CardExpirationDate extends Validator {
   }
 }
 
-export default CardExpirationDate;
+export default CardExpirationDateValidator;
 export {
-  CardExpirationDate,
+  CardExpirationDateValidator,
 };

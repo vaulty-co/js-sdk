@@ -1,10 +1,10 @@
-import { CardVerificationCode } from '../CardVerificationCode';
+import { CardVerificationCodeValidator } from '../CardVerificationCodeValidator';
 
 describe('CardVerificationCodeValidtor', () => {
   let cardVerificationCodeValidator;
 
   beforeEach(() => {
-    cardVerificationCodeValidator = new CardVerificationCode();
+    cardVerificationCodeValidator = new CardVerificationCodeValidator();
   });
 
   describe('False ->', () => {

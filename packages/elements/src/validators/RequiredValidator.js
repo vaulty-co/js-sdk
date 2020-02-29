@@ -2,7 +2,7 @@ import { Validator } from '@js-sdk/utils/src/validators/Validator';
 
 import { VALIDATORS_TYPES } from './constants';
 
-class Required extends Validator {
+class RequiredValidator extends Validator {
   constructor() {
     super(VALIDATORS_TYPES.REQUIRED);
   }
@@ -17,7 +17,7 @@ class Required extends Validator {
   }
 }
 
-export default Required;
+export default RequiredValidator;
 export {
-  Required,
+  RequiredValidator,
 };
