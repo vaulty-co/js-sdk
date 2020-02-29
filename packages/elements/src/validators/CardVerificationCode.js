@@ -15,7 +15,8 @@ class CardVerificationCode extends Validator {
   validate(cardVerificationCode) {
     return (
       typeof cardVerificationCode === 'string'
-      && cardVerificationCode.length >= 3
+      && cardVerificationCode.length > 2
+      && cardVerificationCode.length < 5
     );
   }
 }
