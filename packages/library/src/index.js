@@ -4,6 +4,7 @@ import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
 import { CardNumberField } from './fields/views/CardNumberField';
 import { CardVerificationCodeField } from './fields/views/CardVerificationCodeField';
+import { CardExpirationDateField } from './fields/views/CardExpirationDateField';
 import { FieldModel } from './fields/models/FieldModel';
 import { ConnectedForm } from './controllers/views/Form';
 import { ControllerModel } from './controllers/models/ControllerModel';
@@ -17,6 +18,7 @@ const FIELDS = {
   textInput: TextInputField,
   cardNumber: CardNumberField,
   cardVerificationCode: CardVerificationCodeField,
+  cardExpirationDate: CardExpirationDateField,
 };
 
 /**

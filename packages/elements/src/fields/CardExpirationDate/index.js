@@ -31,8 +31,8 @@ class CardExpirationDate extends InputField {
       data: {
         month,
         year,
-      }
-    }
+      },
+    };
   }
 }
 

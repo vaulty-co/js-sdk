@@ -30,7 +30,7 @@ class InputField extends Field {
       id: this.id,
       name: this.name,
       data: this.fieldNode.getValue(),
-    }
+    };
   }
 
   /**
