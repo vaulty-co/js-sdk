@@ -19,6 +19,10 @@ class InputField extends Field {
 
     this.handleInputChanges = this.handleInputChanges.bind(this);
     this.fieldNode.on('input', this.handleInputChanges);
+    this.handleInputFocus = this.handleInputFocus.bind(this);
+    this.fieldNode.on('focus', this.handleInputFocus);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
+    this.fieldNode.on('blur', this.handleInputBlur);
   }
 
   /**
@@ -36,6 +40,7 @@ class InputField extends Field {
   /**
    * Handle GET_FIELD_DATA_REQUEST
    * @param {string} textMessage
+   * @protected
    */
   handleGettingData(textMessage) {
     /**
@@ -54,6 +59,7 @@ class InputField extends Field {
 
   /**
    * Handle input changes
+   * @protected
    */
   handleInputChanges() {
     const value = this.fieldNode.getValue();
@@ -63,12 +69,36 @@ class InputField extends Field {
     });
   }
 
+  /**
+   * Handle input focus
+   * @protected
+   */
+  handleInputFocus() {
+    this.sendFocusChanges({
+      isFocused: true,
+    });
+  }
+
+  /**
+   * Handle input blur
+   * @protected
+   */
+  handleInputBlur() {
+    this.sendFocusChanges({
+      isFocused: false,
+    });
+  }
+
   destroy() {
     this.broadcastChannel.removeEventListener('message', this.handleGettingData);
     this.handleGettingData = null;
 
     this.fieldNode.off('input', this.handleInputChanges);
     this.handleInputChanges = null;
+    this.fieldNode.off('focus', this.handleInputFocus);
+    this.handleInputFocus = null;
+    this.fieldNode.off('blur', this.handleInputBlur);
+    this.handleInputBlur = null;
 
     super.destroy();
   }

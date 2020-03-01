@@ -5,9 +5,10 @@ import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
 import { Message } from '@js-sdk/utils/src/channels/Message';
 import {
-  FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,
+  FIELD_DATA_CHANGE_RESPONSE,
+  FIELD_FOCUS_CHANGE,
 } from '@js-sdk/elements/src/fields/common/Field/messages';
 
 import { Config } from '../../config';
@@ -18,6 +19,7 @@ import {
   FIELD_CONTENT_STATUSES,
   FIELD_VALIDATION_STATUSES,
   FIELD_READINESS_STATUSES,
+  FIELD_FOCUS_STATUSES,
 } from '../constants';
 import { filterStyles } from '../../helpers/filterStyles';
 
@@ -76,6 +78,7 @@ class Field {
     this.openChannel();
     this.requestInitialization();
     this.handleChanges();
+    this.handleFocusChanges();
   }
 
   /**
@@ -177,6 +180,7 @@ class Field {
 
   /**
    * Handle field changes
+   * @private
    */
   handleChanges() {
     this.fieldMasterChannel.subscribe(FIELD_DATA_CHANGE_RESPONSE, (message) => {
@@ -187,6 +191,19 @@ class Field {
           status: isValid ? FIELD_VALIDATION_STATUSES.VALID : FIELD_VALIDATION_STATUSES.INVALID,
           invalidValidators: validators.filter((validator) => !validator.isValid),
         },
+      });
+    });
+  }
+
+  /**
+   * Handle field focus
+   * @private
+   */
+  handleFocusChanges() {
+    this.fieldMasterChannel.subscribe(FIELD_FOCUS_CHANGE, (message) => {
+      const { isFocused } = message.payload;
+      this.setFieldStatus({
+        focus: isFocused ? FIELD_FOCUS_STATUSES.FOCUSED : FIELD_FOCUS_STATUSES.UNFOCUSED,
       });
     });
   }

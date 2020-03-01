@@ -30,9 +30,21 @@ const FieldComponent = ({ name, label, field, form, className, span }) => {
 
   return (
     <Row className="row">
-      <Col span={span} className={fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'has-error' : ''}>
+      <Col
+        span={span}
+        className={
+          fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'has-error' : ''
+        }
+      >
         <label>{label}</label>
-        <div className={`ant-input ${className}`} ref={fieldRef} />
+        <div
+          className={
+            `ant-input ${
+              fieldStatus.focus === SDK.FIELD_STATUSES.FOCUS.FOCUSED ? 'ant-input-focused' : ''
+            } ${className}`
+          }
+          ref={fieldRef}
+        />
       </Col>
     </Row>
   )

@@ -10,9 +10,10 @@ import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../../validators/registry';
 import {
-  FIELD_DATA_CHANGE_RESPONSE,
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,
+  FIELD_DATA_CHANGE_RESPONSE,
+  FIELD_FOCUS_CHANGE,
 } from './messages';
 
 const FIELD_STATUSES = {
@@ -173,6 +174,20 @@ class Field {
     this.fieldSlaveChannel.postMessage(
       new Message(
         FIELD_DATA_CHANGE_RESPONSE,
+        payload,
+      ),
+    );
+  }
+
+  /**
+   * Send field focus
+   * @param {FieldFocusChangePayload} payload
+   * @protected
+   */
+  sendFocusChanges(payload) {
+    this.fieldSlaveChannel.postMessage(
+      new Message(
+        FIELD_FOCUS_CHANGE,
         payload,
       ),
     );

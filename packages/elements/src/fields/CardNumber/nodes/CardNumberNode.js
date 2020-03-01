@@ -89,6 +89,32 @@ class CardNumberNode extends Node {
   }
 
   /**
+   * Add event listener
+   * @param {string} eventName
+   * @param {function(e:Event)} handler
+   */
+  on(eventName, handler) {
+    if (['focus', 'blur'].includes(eventName)) {
+      this.input.addEventListener(eventName, handler);
+    } else {
+      super.on(eventName, handler);
+    }
+  }
+
+  /**
+   * Remove event listener
+   * @param {string} eventName
+   * @param {function(e:Event)} handler
+   */
+  off(eventName, handler) {
+    if (['focus', 'blur'].includes(eventName)) {
+      this.input.removeEventListener(eventName, handler);
+    } else {
+      super.off(eventName, handler);
+    }
+  }
+
+  /**
    * Get text input value
    */
   getValue() {
