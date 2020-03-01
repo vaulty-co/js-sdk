@@ -20,13 +20,8 @@ class SlaveChannel extends Channel {
    * @param {SlaveChannelOptions} options
    */
   constructor(options = {}) {
-    super();
+    super(options);
 
-    /**
-     * Channel identifier
-     * @type {string}
-     */
-    this.channelId = options.channelId;
     /**
      * Connected iFrame origin
      * @type {string}
@@ -85,16 +80,6 @@ class SlaveChannel extends Channel {
   pong(port) {
     const message = new Message(PONG_MESSAGE_TYPE);
     port.postMessage(`${message}`);
-  }
-
-  /**
-   * Posting message with log
-   * @param {Message} message
-   * @protected
-   */
-  postingMessage(message) {
-    console.log('[SlaveChannel]', 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
-    super.postingMessage(message);
   }
 }
 

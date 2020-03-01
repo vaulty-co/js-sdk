@@ -25,13 +25,8 @@ class MasterChannel extends Channel {
    * @param {MasterChannelOptions} [options = {}]
    */
   constructor(options = {}) {
-    super();
+    super(options);
 
-    /**
-     * Channel identifier
-     * @type {string}
-     */
-    this.channelId = options.channelId;
     /**
      * Connected iFrame instance
      * @type {HTMLIFrameElement}
@@ -78,7 +73,7 @@ class MasterChannel extends Channel {
    * @private
    */
   onTargetLoad() {
-    this.target.removeEventListener('load', this.onTargetLoad);
+    this.closePort();
     this.ping();
   }
 
@@ -106,16 +101,6 @@ class MasterChannel extends Channel {
       }
     });
     this.target.contentWindow.postMessage(`${pingMessage}`, this.targetOrigin, [port2]);
-  }
-
-  /**
-   * Posting message with log
-   * @param {Message} message
-   * @protected
-   */
-  postingMessage(message) {
-    console.log('[MasterChannel]', 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
-    super.postingMessage(message);
   }
 }
 

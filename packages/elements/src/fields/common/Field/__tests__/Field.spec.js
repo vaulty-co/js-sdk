@@ -1,11 +1,14 @@
 import { enforceOptions } from 'broadcast-channel';
 import { Node } from '@js-sdk/utils/src/nodes/Node';
+import { Message } from '@js-sdk/utils/src/channels/Message';
 
 import { Field } from '../index';
+import { FIELD_LOADED } from '../messages';
 
 jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
   const connectMock = jest.fn();
   const subscribeMock = jest.fn();
+  const postMessageMock = jest.fn();
   const destroyMock = jest.fn();
 
   class SlaveChannel {
@@ -15,6 +18,10 @@ jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
 
     get subscribe() {
       return subscribeMock;
+    }
+
+    get postMessage() {
+      return postMessageMock;
     }
 
     destroy() {
@@ -89,6 +96,14 @@ describe('Field', () => {
       field.mount(parentNode);
 
       expect(field.fieldSlaveChannel.connect).toBeCalled();
+    });
+
+    it('should post message that field is loaded', () => {
+      field.mount(parentNode);
+
+      expect(field.fieldSlaveChannel.postMessage).toBeCalledWith(
+        new Message(FIELD_LOADED, { success: true }),
+      );
     });
 
     it('should add handlers to slave channel', () => {

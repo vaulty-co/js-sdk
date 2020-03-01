@@ -7,6 +7,7 @@ import {
 } from '../../fields/common/Field/messages';
 import { Controller } from '../Controller';
 import {
+  FORM_LOADED,
   SUBMIT_REQUEST,
   SUBMIT_RESPONSE,
 } from './messages';
@@ -15,6 +16,20 @@ import {
  * Form controller for submitting data from fields
  */
 class Form extends Controller {
+  /**
+   * Open channel with master frame
+   * @protected
+   */
+  openChannel() {
+    super.openChannel();
+
+    this.controllerSlaveChannel.postMessage(
+      new Message(FORM_LOADED, {
+        success: true,
+      }),
+    );
+  }
+
   /**
    * Submit data from fields
    */

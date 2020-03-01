@@ -4,6 +4,11 @@ import { CHANNEL_STATUSES } from './constants';
 import { createMessagePortHandler } from './utils';
 
 /**
+ * @typedef {Object} ChannelOptions
+ * @property {string} channelId
+ */
+
+/**
  * @class
  */
 class Channel {
@@ -11,7 +16,15 @@ class Channel {
     return CHANNEL_STATUSES;
   }
 
-  constructor() {
+  /**
+   * @param {ChannelOptions} [options = {}]
+   */
+  constructor(options = {}) {
+    /**
+     * Channel identifier
+     * @type {string}
+     */
+    this.channelId = options.channelId;
     /**
      * Connection port
      * @type {?MessagePort}
@@ -26,13 +39,24 @@ class Channel {
      * @type {EventEmitter}
      */
     this.events = new EventEmitter();
-    /**
-     * @type {CHANNEL_STATUSES}
-     */
-    this.status = CHANNEL_STATUSES.INITIALIZED;
+
+    this.setStatus(CHANNEL_STATUSES.INITIALIZED);
 
     this.destroy = this.destroy.bind(this);
     window.addEventListener('beforeunload', this.destroy);
+  }
+
+  /**
+   * Set channel status
+   * @param {CHANNEL_STATUSES} status
+   */
+  setStatus(status) {
+    /**
+     * @type {CHANNEL_STATUSES}
+     */
+    this.status = status;
+
+    console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'status:', this.status);
   }
 
   /**
@@ -46,7 +70,7 @@ class Channel {
     this.port.onmessage = createMessagePortHandler((message) => {
       this.events.emit(message.type, message);
     });
-    this.status = CHANNEL_STATUSES.OPENED;
+    this.setStatus(CHANNEL_STATUSES.OPENED);
     this.executeQueue();
   }
 
@@ -55,7 +79,7 @@ class Channel {
    */
   closePort() {
     if (this.port) {
-      this.status = CHANNEL_STATUSES.CLOSED;
+      this.setStatus(CHANNEL_STATUSES.CLOSED);
       this.port.close();
       this.port.onmessage = null;
       this.port = null;
@@ -99,7 +123,7 @@ class Channel {
 
     window.removeEventListener('beforeunload', this.destroy);
 
-    this.status = CHANNEL_STATUSES.DESTROYED;
+    this.setStatus(CHANNEL_STATUSES.DESTROYED);
     this.events.removeAllListeners();
     this.events = null;
 
@@ -117,7 +141,7 @@ class Channel {
       return;
     }
 
-    this.status = CHANNEL_STATUSES.EXECUTING;
+    this.setStatus(CHANNEL_STATUSES.EXECUTING);
     const message = this.messagesQueue.shift();
     this.postingMessage(message);
   }
@@ -128,7 +152,9 @@ class Channel {
    */
   postingMessage(message) {
     this.port.postMessage(`${message}`);
-    this.status = CHANNEL_STATUSES.OPENED;
+    console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
+    this.setStatus(CHANNEL_STATUSES.OPENED);
+
     this.executeQueue();
   }
 }

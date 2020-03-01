@@ -3,11 +3,7 @@ import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 
 import {
   FIELD_STATUSES,
-  FIELD_NODE_STATUSES,
-  FIELD_CONTENT_STATUSES,
-  FIELD_VALIDATION_STATUSES,
-  FIELD_READINESS_STATUSES,
-  FIELD_FOCUS_STATUSES,
+  INITIAL_FIELD_STATUS,
 } from '../constants';
 
 /**
@@ -56,16 +52,7 @@ class FieldModel {
     /**
      * @type {FieldStatus}
      */
-    this.status = {
-      node: FIELD_NODE_STATUSES.UNMOUNTED,
-      content: FIELD_CONTENT_STATUSES.EMPTY,
-      validation: {
-        status: FIELD_VALIDATION_STATUSES.UNKNOWN,
-        invalidValidators: [],
-      },
-      readiness: FIELD_READINESS_STATUSES.READY,
-      focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
-    };
+    this.status = INITIAL_FIELD_STATUS;
   }
 
   /**

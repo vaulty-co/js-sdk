@@ -65,6 +65,15 @@ describe('MasterChannel', () => {
       expect(masterChannel.onTargetLoad).toBeCalled();
     });
 
+    it('should close previous chanel when iframe is reloaded', () => {
+      jest.spyOn(masterChannel, 'closePort');
+      masterChannel.connect();
+
+      target.dispatchEvent(new Event('load'));
+
+      expect(masterChannel.closePort).toHaveBeenCalled();
+    });
+
     it('should start PING iframe, when it is loaded', () => {
       const { port2 } = createMessageChannel();
       masterChannel.connect();

@@ -5,9 +5,9 @@ import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
 import { FIELD_READINESS_STATUSES, FIELD_VALIDATION_STATUSES } from '../../fields/constants';
 import {
   CONTROLLER_STATUSES,
-  CONTROLLER_NODE_STATUSES,
   CONTROLLER_READINESS_STATUSES,
   CONTROLLER_VALIDATION_STATUSES,
+  INITIAL_CONTROLLER_STATUS,
 } from '../constants';
 
 /**
@@ -44,11 +44,7 @@ class ControllerModel {
     /**
      * @type {ControllerStatus}
      */
-    this.status = {
-      node: CONTROLLER_NODE_STATUSES.UNMOUNTED,
-      validation: CONTROLLER_VALIDATION_STATUSES.UNKNOWN,
-      readiness: CONTROLLER_READINESS_STATUSES.LOADING,
-    };
+    this.status = INITIAL_CONTROLLER_STATUS;
 
     this.getFormStatusByFields = memoizeOne(
       this.getFormStatusByFields,

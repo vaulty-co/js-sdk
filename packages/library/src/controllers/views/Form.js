@@ -1,5 +1,7 @@
 import {
-  SUBMIT_REQUEST, SUBMIT_RESPONSE,
+  FORM_LOADED,
+  SUBMIT_REQUEST,
+  SUBMIT_RESPONSE,
   INITIALIZE_FORM_REQUEST,
   INITIALIZE_FORM_RESPONSE,
 } from '@js-sdk/elements/src/controllers/Form/messages';
@@ -12,6 +14,9 @@ import { Controller } from './Controller';
 import {
   CONTROLLER_STATUSES,
   CONTROLLER_READINESS_STATUSES,
+  CONTROLLER_VALIDATION_STATUSES,
+  CONTROLLER_NODE_STATUSES,
+  INITIAL_CONTROLLER_STATUS,
 } from '../constants';
 import { connectForm } from '../utils/connectForm';
 import { NO_FIELDS_ERROR } from '../events/noFieldsError';
@@ -83,7 +88,6 @@ class Form extends Controller {
     super.appendTo(node);
 
     this.openChannel();
-    this.requestInitialization();
     this.handleSubmit();
   }
 
@@ -147,6 +151,15 @@ class Form extends Controller {
       target: this.controllerIframe.node,
       targetOrigin: Config.elementsOrigin,
     });
+    this.controllerMasterChannel.subscribe(FORM_LOADED, (message) => {
+      if (message.payload.success) {
+        this.dispatchers.setControllerStatus({
+          ...INITIAL_CONTROLLER_STATUS,
+          node: CONTROLLER_NODE_STATUSES.MOUNTED,
+        });
+        this.requestInitialization();
+      }
+    });
     this.controllerMasterChannel.connect();
   }
 
@@ -163,6 +176,7 @@ class Form extends Controller {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
           status: {
+            validation: CONTROLLER_VALIDATION_STATUSES.VALID,
             readiness: CONTROLLER_READINESS_STATUSES.READY,
           },
         });

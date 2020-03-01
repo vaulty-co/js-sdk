@@ -10,6 +10,7 @@ import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../../validators/registry';
 import {
+  FIELD_LOADED,
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,
   FIELD_DATA_CHANGE_RESPONSE,
@@ -142,6 +143,11 @@ class Field {
       targetOrigin: Config.sdkOrigin,
     });
     this.fieldSlaveChannel.connect();
+    this.fieldSlaveChannel.postMessage(
+      new Message(FIELD_LOADED, {
+        success: true,
+      }),
+    );
   }
 
   /**

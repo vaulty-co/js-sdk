@@ -67,7 +67,7 @@ class Controller {
 
   /**
    * Open channel with master frame
-   * @private
+   * @protected
    */
   openChannel() {
     this.constructor.invariant(

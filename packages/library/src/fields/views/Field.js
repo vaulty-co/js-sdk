@@ -9,6 +9,7 @@ import {
   INITIALIZE_FIELD_RESPONSE,
   FIELD_DATA_CHANGE_RESPONSE,
   FIELD_FOCUS_CHANGE,
+  FIELD_LOADED,
 } from '@js-sdk/elements/src/fields/common/Field/messages';
 
 import { Config } from '../../config';
@@ -20,6 +21,8 @@ import {
   FIELD_VALIDATION_STATUSES,
   FIELD_READINESS_STATUSES,
   FIELD_FOCUS_STATUSES,
+  FIELD_NODE_STATUSES,
+  INITIAL_FIELD_STATUS,
 } from '../constants';
 import { filterStyles } from '../../helpers/filterStyles';
 
@@ -76,7 +79,6 @@ class Field {
     this.fieldIframe.appendTo(parentNode);
 
     this.openChannel();
-    this.requestInitialization();
     this.handleChanges();
     this.handleFocusChanges();
   }
@@ -148,6 +150,16 @@ class Field {
       channelId: this.id,
       target: this.fieldIframe.node,
       targetOrigin: Config.elementsOrigin,
+    });
+    this.fieldMasterChannel.subscribe(FIELD_LOADED, (message) => {
+      if (message.payload.success) {
+        // Reset field status, if it is reloaded
+        this.setFieldStatus({
+          ...INITIAL_FIELD_STATUS,
+          node: FIELD_NODE_STATUSES.MOUNTED,
+        });
+        this.requestInitialization();
+      }
     });
     this.fieldMasterChannel.connect();
   }
