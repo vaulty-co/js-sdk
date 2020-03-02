@@ -5,6 +5,9 @@ const GET_FIELD_DATA_REQUEST = 'get_field_data_request';
 const GET_FIELD_DATA_RESPONSE = 'get_field_data_response';
 const FIELD_DATA_CHANGE_RESPONSE = 'field_data_change_response';
 const FIELD_FOCUS_CHANGE = 'field_focus_change';
+const FOCUS_FIELD = 'focus_field';
+const BLUR_FIELD = 'blur_field';
+const CLEAR_FIELD = 'clear_field';
 
 export {
   FIELD_LOADED,
@@ -14,4 +17,7 @@ export {
   GET_FIELD_DATA_RESPONSE,
   FIELD_DATA_CHANGE_RESPONSE,
   FIELD_FOCUS_CHANGE,
+  FOCUS_FIELD,
+  BLUR_FIELD,
+  CLEAR_FIELD,
 };

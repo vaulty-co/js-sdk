@@ -33,6 +33,13 @@ class TextNode extends Node {
   getValue() {
     return this.node.value;
   }
+
+  /**
+   * Clear text node
+   */
+  clear() {
+    this.node.value = '';
+  }
 }
 
 export default TextNode;

@@ -1,5 +1,3 @@
-// FIXME - disabling eslint should be removed after creating behavior for methods
-/* eslint-disable class-methods-use-this */
 import invariant from 'invariant';
 import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
@@ -10,6 +8,9 @@ import {
   FIELD_DATA_CHANGE_RESPONSE,
   FIELD_FOCUS_CHANGE,
   FIELD_LOADED,
+  FOCUS_FIELD,
+  BLUR_FIELD,
+  CLEAR_FIELD,
 } from '@js-sdk/elements/src/fields/common/Field/messages';
 
 import { Config } from '../../config';
@@ -114,17 +115,29 @@ class Field {
   /**
    * Focus field
    */
-  focus() {}
+  focus() {
+    this.fieldMasterChannel.postMessage(
+      new Message(FOCUS_FIELD),
+    );
+  }
 
   /**
    * Blur field
    */
-  blur() {}
+  blur() {
+    this.fieldMasterChannel.postMessage(
+      new Message(BLUR_FIELD),
+    );
+  }
 
   /**
    * Clear field value
    */
-  clear() {}
+  clear() {
+    this.fieldMasterChannel.postMessage(
+      new Message(CLEAR_FIELD),
+    );
+  }
 
   /**
    * Destroy field and its DOM tree. It does not destroy parent, where field have been placed.

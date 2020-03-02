@@ -132,6 +132,28 @@ class Node {
   }
 
   /**
+   * Focus node
+   */
+  focus() {
+    this.node.focus();
+  }
+
+  /**
+   * Blur node
+   */
+  blur() {
+    this.node.blur();
+  }
+
+  /**
+   * Clear node
+   */
+  // eslint-disable-line class-methods-use-this
+  clear() {
+
+  }
+
+  /**
    * Destroy node
    */
   destroy() {

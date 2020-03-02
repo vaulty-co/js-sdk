@@ -15,6 +15,9 @@ import {
   INITIALIZE_FIELD_RESPONSE,
   FIELD_DATA_CHANGE_RESPONSE,
   FIELD_FOCUS_CHANGE,
+  FOCUS_FIELD,
+  BLUR_FIELD,
+  CLEAR_FIELD,
 } from './messages';
 
 const FIELD_STATUSES = {
@@ -103,6 +106,27 @@ class Field {
   }
 
   /**
+   * Focus field
+   */
+  focusField() {
+    this.fieldNode.focus();
+  }
+
+  /**
+   * Blur field
+   */
+  blurField() {
+    this.fieldNode.blur();
+  }
+
+  /**
+   * Clear field
+   */
+  clearField() {
+    this.fieldNode.clear();
+  }
+
+  /**
    * Destroy field and remove its from parent, if it is specified
    */
   destroy() {
@@ -168,6 +192,15 @@ class Field {
       this.fieldSlaveChannel.postMessage(
         new Message(INITIALIZE_FIELD_RESPONSE, { success: true }),
       );
+    });
+    this.fieldSlaveChannel.subscribe(FOCUS_FIELD, () => {
+      this.focusField();
+    });
+    this.fieldSlaveChannel.subscribe(BLUR_FIELD, () => {
+      this.blurField();
+    });
+    this.fieldSlaveChannel.subscribe(CLEAR_FIELD, () => {
+      this.clearField();
     });
   }
 

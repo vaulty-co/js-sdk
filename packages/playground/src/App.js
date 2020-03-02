@@ -103,11 +103,39 @@ function App() {
     e.preventDefault();
 
     form.current.submit();
-  }, []);
+  }, [form]);
 
-  const isFormEnabled = Boolean(formStatus)
-    && formStatus.readiness === SDK.FORM_STATUSES.READINESS.READY
+  const handleResetClick = useCallback((e) => {
+    e.preventDefault();
+
+    userName.current.clear();
+    lastName.current.clear();
+    email.current.clear();
+    cardNumber.current.clear();
+    cardVerificationCode.current.clear();
+    cardExpirationDate.current.clear();
+  }, [userName, lastName, email, cardNumber, cardVerificationCode, cardExpirationDate]);
+
+  const handleUpClick = useCallback((e) => {
+    e.preventDefault();
+
+    userName.current.focus();
+  }, [userName]);
+
+  const handleDownClick = useCallback((e) => {
+    e.preventDefault();
+
+    userName.current.blur();
+  }, [userName]);
+
+  const isFormReady = formStatus
+    && formStatus.readiness === SDK.FORM_STATUSES.READINESS.READY;
+
+  const isFormEnabled = isFormReady
     && formStatus.validation === SDK.FORM_STATUSES.VALIDATION.VALID;
+
+  const isUserNameReady = userName.current
+    && userName.current.getStatus().readiness === SDK.FIELD_STATUSES.READINESS.READY;
 
   return (
     <Layout>
@@ -172,13 +200,40 @@ function App() {
             span={2}
           />
           <Row className="row">
-            <Col span={12}>
+            <Col span={2}>
+              <Button
+                type="default"
+                disabled={appStatus === 'preparing'}
+                loading={isFormReady ? false : { delay: 150 }}
+                onClick={handleResetClick}>
+                Reset
+              </Button>
+            </Col>
+            <Col span={5}>
               <Button
                 type="primary"
                 disabled={appStatus === 'preparing' || !isFormEnabled}
-                loading={formStatus && formStatus.readiness === SDK.FORM_STATUSES.READINESS.LOADING ? { delay: 150 } : false}
+                loading={isFormReady ? false : { delay: 150 }}
                 onClick={handleSubmitClick}>
                 Send
+              </Button>
+            </Col>
+            <Col span={3}>
+              <Button
+                type="primary"
+                disabled={appStatus === 'preparing' || !isUserNameReady}
+                loading={isFormReady ? false : { delay: 150 }}
+                onClick={handleUpClick}>
+                Focus User name
+              </Button>
+            </Col>
+            <Col span={2}>
+              <Button
+                type="primary"
+                disabled={appStatus === 'preparing' || !isUserNameReady}
+                loading={isUserNameReady ? false : { delay: 150 }}
+                onClick={handleDownClick}>
+                Blur User name
               </Button>
             </Col>
           </Row>

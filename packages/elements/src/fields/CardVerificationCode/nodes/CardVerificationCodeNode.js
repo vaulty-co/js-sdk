@@ -24,6 +24,14 @@ class CardVerificationCodeNode extends TextNode {
     return this.patternMask.unmaskedValue;
   }
 
+  /**
+   * Clear card number node
+   */
+  clear() {
+    this.patternMask.value = '';
+    this.patternMask.updateControl();
+  }
+
   destroy() {
     super.destroy();
 

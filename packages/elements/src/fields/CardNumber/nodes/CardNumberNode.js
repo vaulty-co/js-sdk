@@ -102,6 +102,28 @@ class CardNumberNode extends Node {
   }
 
   /**
+   * Focus card number node
+   */
+  focus() {
+    this.input.focus();
+  }
+
+  /**
+   * Blur card number node
+   */
+  blur() {
+    this.input.blur();
+  }
+
+  /**
+   * Clear card number node
+   */
+  clear() {
+    this.patternMask.value = '';
+    this.patternMask.updateControl();
+  }
+
+  /**
    * Remove event listener
    * @param {string} eventName
    * @param {function(e:Event)} handler
@@ -119,22 +141,6 @@ class CardNumberNode extends Node {
    */
   getValue() {
     return this.patternMask.unmaskedValue;
-  }
-
-  /**
-   * Handle input change
-   */
-  handleInput() {
-    const value = this.getValue();
-
-    const cardData = cardValidator.number(value);
-    const card = cardData?.card ?? { lengths: [16], gaps: [4, 8, 12], type: 'generic' };
-
-    this.patternMask.updateOptions({
-      mask: getMask(card),
-    });
-
-    this.image.src = cardsIcons[card.type];
   }
 
   /**
@@ -166,6 +172,23 @@ class CardNumberNode extends Node {
 
     this.input = null;
     this.image = null;
+  }
+
+  /**
+   * Handle input change
+   * @private
+   */
+  handleInput() {
+    const value = this.getValue();
+
+    const cardData = cardValidator.number(value);
+    const card = cardData?.card ?? { lengths: [16], gaps: [4, 8, 12], type: 'generic' };
+
+    this.patternMask.updateOptions({
+      mask: getMask(card),
+    });
+
+    this.image.src = cardsIcons[card.type];
   }
 }
 
