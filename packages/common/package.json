@@ -1,5 +1,5 @@
 {
-  "name": "@js-sdk/utils",
+  "name": "@js-sdk/common",
   "version": "0.1.0",
   "description": "JS SDK shared utils for packages",
   "scripts": {

@@ -1,6 +1,6 @@
 import { immerable } from 'immer';
 import memoizeOne from 'memoize-one';
-import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
+import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 
 import { FIELD_READINESS_STATUSES, FIELD_VALIDATION_STATUSES } from '../../fields/constants';
 import {

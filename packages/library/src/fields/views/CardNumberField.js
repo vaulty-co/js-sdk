@@ -1,5 +1,5 @@
 import { queryString } from '@js-sdk/elements/src/fields/CardNumber/route/queryString';
-import { IFrameNode } from '@js-sdk/utils/src/nodes/IFrameNode';
+import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
 
 import { Config } from '../../config';
 import { ConnectedField } from './Field';

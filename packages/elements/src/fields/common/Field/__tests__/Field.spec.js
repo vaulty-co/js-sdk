@@ -1,11 +1,11 @@
 import { enforceOptions } from 'broadcast-channel';
-import { Node } from '@js-sdk/utils/src/nodes/Node';
-import { Message } from '@js-sdk/utils/src/channels/Message';
+import { Node } from '@js-sdk/common/src/nodes/Node';
+import { Message } from '@js-sdk/common/src/channels/Message';
 
 import { Field } from '../index';
 import { FIELD_LOADED } from '../messages';
 
-jest.mock('@js-sdk/utils/src/channels/SlaveChannel', () => {
+jest.mock('@js-sdk/common/src/channels/SlaveChannel', () => {
   const connectMock = jest.fn();
   const subscribeMock = jest.fn();
   const postMessageMock = jest.fn();

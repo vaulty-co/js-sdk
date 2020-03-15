@@ -32,11 +32,11 @@ pipelines:
               - cd ./packages/playground
               - yarn lint:ci
         - step:
-            name: "Utils linter"
+            name: "Common linter"
             caches:
               - node
             script:
-              - cd ./packages/utils
+              - cd ./packages/common
               - yarn lint:ci
     - parallel:
         - step:
@@ -61,9 +61,9 @@ pipelines:
               - cd ./packages/playground
               - yarn test
         - step:
-            name: "Utils tests"
+            name: "Common tests"
             caches:
               - node
             script:
-              - cd ./packages/utils
+              - cd ./packages/common
               - yarn test

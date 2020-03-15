@@ -1,7 +1,7 @@
 import invariant from 'invariant';
 import EventEmitter from 'events';
-import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
-import { Message } from '@js-sdk/utils/src/channels/Message';
+import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
+import { Message } from '@js-sdk/common/src/channels/Message';
 import {
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,

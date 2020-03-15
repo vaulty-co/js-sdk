@@ -1,4 +1,4 @@
-import { Node } from '@js-sdk/utils/src/nodes/Node';
+import { Node } from '@js-sdk/common/src/nodes/Node';
 import styles from './styles.scss';
 
 /**

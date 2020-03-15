@@ -1,4 +1,4 @@
-# JS SDK shared utils for packages
+# JS SDK shared common instances for packages
 
 ## Technical requirements
 

@@ -1,5 +1,5 @@
 import objectPath from 'object-path';
-import { Message } from '@js-sdk/utils/src/channels/Message';
+import { Message } from '@js-sdk/common/src/channels/Message';
 
 import {
   GET_FIELD_DATA_REQUEST,

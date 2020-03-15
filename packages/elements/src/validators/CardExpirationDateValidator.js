@@ -1,5 +1,5 @@
 import cardValidator from 'card-validator';
-import { Validator } from '@js-sdk/utils/src/validators/Validator';
+import { Validator } from '@js-sdk/common/src/validators/Validator';
 
 import { VALIDATORS_TYPES } from './constants';
 

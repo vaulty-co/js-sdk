@@ -1,5 +1,5 @@
 import { createStore as reduxCreateStore, combineReducers } from 'redux';
-import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
+import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 
 import { fields } from '../fields/reducer';
 import { controllers } from '../controllers/reducer';

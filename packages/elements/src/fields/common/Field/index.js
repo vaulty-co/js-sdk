@@ -1,10 +1,10 @@
 import invariant from 'invariant';
 import { BroadcastChannel } from 'broadcast-channel';
-import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
-import { Message } from '@js-sdk/utils/src/channels/Message';
-import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
-import { Node } from '@js-sdk/utils/src/nodes/Node';
-import { ComposedValidator } from '@js-sdk/utils/src/validators/ComposedValidator';
+import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
+import { Message } from '@js-sdk/common/src/channels/Message';
+import { isSafari } from '@js-sdk/common/src/helpers/isSafari';
+import { Node } from '@js-sdk/common/src/nodes/Node';
+import { ComposedValidator } from '@js-sdk/common/src/validators/ComposedValidator';
 
 import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';

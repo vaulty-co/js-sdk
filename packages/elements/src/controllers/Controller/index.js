@@ -1,7 +1,7 @@
 import invariant from 'invariant';
 import { BroadcastChannel } from 'broadcast-channel';
-import { SlaveChannel } from '@js-sdk/utils/src/channels/SlaveChannel';
-import { isSafari } from '@js-sdk/utils/src/helpers/isSafari';
+import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
+import { isSafari } from '@js-sdk/common/src/helpers/isSafari';
 
 import { Config } from '../../config';
 

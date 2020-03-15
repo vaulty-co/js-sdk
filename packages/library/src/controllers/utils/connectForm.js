@@ -1,5 +1,5 @@
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
-import { IFrameNode } from '@js-sdk/utils/src/nodes/IFrameNode';
+import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import {

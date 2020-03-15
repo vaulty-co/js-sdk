@@ -4,7 +4,7 @@ import {
   FIELD_READINESS_STATUSES,
   FIELD_VALIDATION_STATUSES,
 } from '@js-sdk/library/src/fields/constants';
-import { uniqueId } from '@js-sdk/utils/src/helpers/uniqueId';
+import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 
 import {
   CONTROLLER_NODE_STATUSES,
@@ -13,8 +13,8 @@ import {
 } from '../../constants';
 import { ControllerModel } from '../ControllerModel';
 
-jest.mock('@js-sdk/utils/src/helpers/uniqueId', () => {
-  const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/utils/src/helpers/uniqueId');
+jest.mock('@js-sdk/common/src/helpers/uniqueId', () => {
+  const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/common/src/helpers/uniqueId');
   return {
     uniqueId: jest.fn(uniqueIdActual),
   };
@@ -30,7 +30,7 @@ describe('ControllerModel', () => {
   });
 
   afterEach(() => {
-    const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/utils/src/helpers/uniqueId');
+    const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/common/src/helpers/uniqueId');
     uniqueId.mockImplementation(uniqueIdActual);
   });
 

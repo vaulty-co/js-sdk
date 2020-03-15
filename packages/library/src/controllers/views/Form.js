@@ -5,8 +5,8 @@ import {
   INITIALIZE_FORM_REQUEST,
   INITIALIZE_FORM_RESPONSE,
 } from '@js-sdk/elements/src/controllers/Form/messages';
-import { MasterChannel } from '@js-sdk/utils/src/channels/MasterChannel';
-import { Message } from '@js-sdk/utils/src/channels/Message';
+import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
+import { Message } from '@js-sdk/common/src/channels/Message';
 
 
 import { Config } from '../../config';

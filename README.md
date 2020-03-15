@@ -19,4 +19,4 @@ yarn install
  - [JS SDK elements](/packages/elements/README.md)
  - [JS SDK library](/packages/library/README.md)
  - [JS SDK playground](/packages/playground/README.md)
- - [JS SDK utils](/packages/utils/README.md)
+ - [JS SDK common](/packages/common/README.md)

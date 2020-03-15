@@ -27,7 +27,7 @@ module.exports = [
       alias({
         entries: [
           // use browser version of crypto
-          { find: 'crypto', replacement: '@js-sdk/utils/src/helpers/crypto' },
+          { find: 'crypto', replacement: '@js-sdk/common/src/helpers/crypto' },
         ],
       }),
       resolve({
