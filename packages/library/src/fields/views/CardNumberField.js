@@ -16,8 +16,8 @@ class CardNumberField extends ConnectedField {
     super(options);
 
     this.fieldIframe = new IFrameNode({
-      width: this.style.width,
-      height: this.style.height,
+      width: this.field.getStyle('width'),
+      height: this.field.getStyle('height'),
       src: `${Config.elementsOrigin}?${queryString}&${this.fieldGetParams}`,
     });
   }

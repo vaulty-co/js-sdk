@@ -4,7 +4,7 @@ import {
   FIELD_NODE_STATUSES,
   FIELD_VALIDATION_STATUSES,
   FIELD_READINESS_STATUSES, FIELD_FOCUS_STATUSES,
-} from '../../constants';
+} from '../constants';
 
 describe('FieldModel', () => {
   describe('#constructor', () => {

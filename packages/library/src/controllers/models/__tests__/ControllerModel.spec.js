@@ -1,9 +1,5 @@
-import { FieldsCollection } from '@js-sdk/library/src/fields/models/FieldsCollection';
-import { FieldModel } from '@js-sdk/library/src/fields/models/FieldModel';
-import {
-  FIELD_READINESS_STATUSES,
-  FIELD_VALIDATION_STATUSES,
-} from '@js-sdk/library/src/fields/constants';
+import { FieldsCollection } from '@js-sdk/common/src/models/fields/FieldsCollection';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 
 import {
@@ -78,17 +74,17 @@ describe('ControllerModel', () => {
       uniqueId.mockImplementation(() => 'field-1');
       field1 = new FieldModel();
       field1.setStatus({
-        readiness: FIELD_READINESS_STATUSES.READY,
+        readiness: FieldModel.STATUSES.READINESS.READY,
         validation: {
-          status: FIELD_VALIDATION_STATUSES.VALID,
+          status: FieldModel.STATUSES.VALIDATION.VALID,
         },
       });
       uniqueId.mockImplementation(() => 'field-2');
       field2 = new FieldModel();
       field2.setStatus({
-        readiness: FIELD_READINESS_STATUSES.READY,
+        readiness: FieldModel.STATUSES.READINESS.READY,
         validation: {
-          status: FIELD_VALIDATION_STATUSES.VALID,
+          status: FieldModel.STATUSES.VALIDATION.VALID,
         },
       });
 
@@ -98,10 +94,10 @@ describe('ControllerModel', () => {
 
     it('should return readiness of form as LOADING, when one of fields is loading', () => {
       field1 = field1.setStatus({
-        readiness: FIELD_READINESS_STATUSES.LOADING,
+        readiness: FieldModel.STATUSES.READINESS.LOADING,
       });
       field2 = field2.setStatus({
-        readiness: FIELD_READINESS_STATUSES.READY,
+        readiness: FieldModel.STATUSES.READINESS.READY,
       });
 
       const actualResult = controllerModel.getFormStatusByFields(fieldsCollection);
@@ -111,10 +107,10 @@ describe('ControllerModel', () => {
 
     it('should return readiness of form as READY, when all fields are ready', () => {
       field1 = field1.setStatus({
-        readiness: FIELD_READINESS_STATUSES.READY,
+        readiness: FieldModel.STATUSES.READINESS.READY,
       });
       field2 = field2.setStatus({
-        readiness: FIELD_READINESS_STATUSES.READY,
+        readiness: FieldModel.STATUSES.READINESS.READY,
       });
 
       const actualResult = controllerModel.getFormStatusByFields(fieldsCollection);
@@ -125,12 +121,12 @@ describe('ControllerModel', () => {
     it('should return validation of form as INVALID, when one of fields are invalid', () => {
       field1 = field1.setStatus({
         validation: {
-          status: FIELD_VALIDATION_STATUSES.INVALID,
+          status: FieldModel.STATUSES.VALIDATION.INVALID,
         },
       });
       field2 = field2.setStatus({
         validation: {
-          status: FIELD_VALIDATION_STATUSES.VALID,
+          status: FieldModel.STATUSES.VALIDATION.VALID,
         },
       });
 
@@ -142,12 +138,12 @@ describe('ControllerModel', () => {
     it('should return validation of form as VALID, when all fields are valid', () => {
       field1 = field1.setStatus({
         validation: {
-          status: FIELD_VALIDATION_STATUSES.VALID,
+          status: FieldModel.STATUSES.VALIDATION.VALID,
         },
       });
       field2 = field2.setStatus({
         validation: {
-          status: FIELD_VALIDATION_STATUSES.VALID,
+          status: FieldModel.STATUSES.VALIDATION.VALID,
         },
       });
 

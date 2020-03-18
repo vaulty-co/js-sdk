@@ -58,6 +58,20 @@ class FieldsCollection {
       field.setStatus(status);
     }
   }
+
+  /**
+   * Set settings in specific field
+   * @param {Object} options
+   * @param {string} options.fieldId
+   * @param {FieldSettings} options.settings
+   */
+  setFieldSettings(options) {
+    const { fieldId, settings } = options;
+    const field = this.getField(fieldId);
+    if (field) {
+      field.setSettings(settings);
+    }
+  }
 }
 
 export default FieldsCollection;

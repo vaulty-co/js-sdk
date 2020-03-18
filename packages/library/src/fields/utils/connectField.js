@@ -1,10 +1,10 @@
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+
 import {
   addField,
   removeField,
   setFieldStatus,
 } from '../actions';
-import { FieldModel } from '../models/FieldModel';
-import { FIELD_NODE_STATUSES } from '../constants';
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 
 /**
@@ -93,8 +93,14 @@ function connectField(FieldClass) {
      */
     add() {
       if (!this.id) {
+        const { name, style, validators } = this.options;
         const model = new FieldModel({
           type: FieldClass.name,
+          settings: {
+            name,
+            style,
+            validators,
+          },
         });
         this.id = model.id;
         this.dispatchers.addField(model);
@@ -119,7 +125,7 @@ function connectField(FieldClass) {
       this.dispatchers.setFieldStatus({
         fieldId: this.id,
         status: {
-          node: FIELD_NODE_STATUSES.MOUNTED,
+          node: FieldModel.STATUSES.NODE.MOUNTED,
         },
       });
     }

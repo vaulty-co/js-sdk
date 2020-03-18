@@ -1,8 +1,8 @@
 import { immerable } from 'immer';
 import memoizeOne from 'memoize-one';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
-import { FIELD_READINESS_STATUSES, FIELD_VALIDATION_STATUSES } from '../../fields/constants';
 import {
   CONTROLLER_STATUSES,
   CONTROLLER_READINESS_STATUSES,
@@ -91,10 +91,10 @@ class ControllerModel {
       fieldsCollection.getField(fieldId)
     ));
     const isReady = fields.every((field) => (
-      field.status.readiness === FIELD_READINESS_STATUSES.READY
+      field.status.readiness === FieldModel.STATUSES.READINESS.READY
     ));
     const isValid = fields.every((field) => (
-      field.status.validation.status === FIELD_VALIDATION_STATUSES.VALID
+      field.status.validation.status === FieldModel.STATUSES.VALIDATION.VALID
     ));
     if (isReady) {
       return {

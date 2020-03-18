@@ -1,11 +1,11 @@
 import { VALIDATORS_TYPES } from '@js-sdk/elements/src/validators/constants';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
 import { createStore } from './store/index';
 import { TextInputField } from './fields/views/TextInputField';
 import { CardNumberField } from './fields/views/CardNumberField';
 import { CardVerificationCodeField } from './fields/views/CardVerificationCodeField';
 import { CardExpirationDateField } from './fields/views/CardExpirationDateField';
-import { FieldModel } from './fields/models/FieldModel';
 import { ConnectedForm } from './controllers/views/Form';
 import { ControllerModel } from './controllers/models/ControllerModel';
 

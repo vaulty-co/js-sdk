@@ -16,8 +16,8 @@ class TextInputField extends ConnectedField {
     super(options);
 
     this.fieldIframe = new IFrameNode({
-      width: this.style.width,
-      height: this.style.height,
+      width: this.field.settings.style.width,
+      height: this.field.settings.style.height,
       src: `${Config.elementsOrigin}?${queryString}&${this.fieldGetParams}`,
     });
   }

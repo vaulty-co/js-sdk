@@ -2,6 +2,7 @@ import invariant from 'invariant';
 import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import {
   INITIALIZE_FIELD_REQUEST,
   INITIALIZE_FIELD_RESPONSE,
@@ -15,17 +16,6 @@ import {
 
 import { Config } from '../../config';
 import { connectField } from '../utils/connectField';
-import {
-  DEFAULT_FIELD_STYLES,
-  ALLOWED_STYLED_PROPS,
-  FIELD_CONTENT_STATUSES,
-  FIELD_VALIDATION_STATUSES,
-  FIELD_READINESS_STATUSES,
-  FIELD_FOCUS_STATUSES,
-  FIELD_NODE_STATUSES,
-  INITIAL_FIELD_STATUS,
-} from '../constants';
-import { filterStyles } from '../../helpers/filterStyles';
 
 /**
  * @class
@@ -43,29 +33,7 @@ class Field {
    * @param {FieldOptions} options
    */
   constructor(options = {}) {
-    const {
-      name,
-      style = {},
-      validators = [],
-    } = options;
-
-    /**
-     * @type {FieldName}
-     */
-    this.name = name;
-    /**
-     * Styles for field
-     * @type {FieldStyles}
-     */
-    this.style = {
-      ...DEFAULT_FIELD_STYLES,
-      ...filterStyles(style, ALLOWED_STYLED_PROPS),
-    };
-    /**
-     * Validators for field
-     * @type {Array<string>}
-     */
-    this.validators = validators;
+    this.options = options;
     /**
      * @type {EventEmitter}
      */
@@ -156,7 +124,7 @@ class Field {
    */
   openChannel() {
     this.setFieldStatus({
-      readiness: FIELD_READINESS_STATUSES.LOADING,
+      readiness: FieldModel.STATUSES.READINESS.LOADING,
     });
 
     this.fieldMasterChannel = new MasterChannel({
@@ -168,8 +136,8 @@ class Field {
       if (message.payload.success) {
         // Reset field status, if it is reloaded
         this.setFieldStatus({
-          ...INITIAL_FIELD_STATUS,
-          node: FIELD_NODE_STATUSES.MOUNTED,
+          ...FieldModel.STATUSES.INITIAL,
+          node: FieldModel.STATUSES.NODE.MOUNTED,
         });
         this.requestInitialization();
       }
@@ -185,19 +153,17 @@ class Field {
     this.fieldMasterChannel.postMessage(
       new Message(INITIALIZE_FIELD_REQUEST, {
         id: this.id,
-        name: this.name,
-        style: this.style,
-        validators: this.validators,
+        field: this.field,
       }),
     );
     this.fieldMasterChannel.subscribe(INITIALIZE_FIELD_RESPONSE, (message) => {
       if (message.payload.success) {
         this.setFieldStatus({
           validation: {
-            status: FIELD_VALIDATION_STATUSES.VALID,
+            status: FieldModel.STATUSES.VALIDATION.VALID,
             invalidValidators: [],
           },
-          readiness: FIELD_READINESS_STATUSES.READY,
+          readiness: FieldModel.STATUSES.READINESS.READY,
         });
       }
     });
@@ -211,9 +177,17 @@ class Field {
     this.fieldMasterChannel.subscribe(FIELD_DATA_CHANGE_RESPONSE, (message) => {
       const { isDirty, validation: { isValid, validators } = {} } = message.payload;
       this.setFieldStatus({
-        content: isDirty ? FIELD_CONTENT_STATUSES.DIRTY : FIELD_CONTENT_STATUSES.EMPTY,
+        content: (
+          isDirty
+            ? FieldModel.STATUSES.CONTENT.DIRTY
+            : FieldModel.STATUSES.CONTENT.EMPTY
+        ),
         validation: {
-          status: isValid ? FIELD_VALIDATION_STATUSES.VALID : FIELD_VALIDATION_STATUSES.INVALID,
+          status: (
+            isValid
+              ? FieldModel.STATUSES.VALIDATION.VALID
+              : FieldModel.STATUSES.VALIDATION.INVALID
+          ),
           invalidValidators: validators.filter((validator) => !validator.isValid),
         },
       });
@@ -228,7 +202,7 @@ class Field {
     this.fieldMasterChannel.subscribe(FIELD_FOCUS_CHANGE, (message) => {
       const { isFocused } = message.payload;
       this.setFieldStatus({
-        focus: isFocused ? FIELD_FOCUS_STATUSES.FOCUSED : FIELD_FOCUS_STATUSES.UNFOCUSED,
+        focus: isFocused ? FieldModel.STATUSES.FOCUS.FOCUSED : FieldModel.STATUSES.FOCUS.UNFOCUSED,
       });
     });
   }

@@ -2,8 +2,9 @@ import {
   FIELD_CONTENT_STATUSES,
   FIELD_NODE_STATUSES,
   FIELD_VALIDATION_STATUSES,
-  FIELD_READINESS_STATUSES, FIELD_FOCUS_STATUSES,
-} from '../../constants';
+  FIELD_READINESS_STATUSES,
+  FIELD_FOCUS_STATUSES,
+} from '../constants';
 import { FieldModel } from '../FieldModel';
 import { FieldsCollection } from '../FieldsCollection';
 

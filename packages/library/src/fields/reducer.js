@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import produce from 'immer';
+import { FieldsCollection } from '@js-sdk/common/src/models/fields/FieldsCollection';
 
-import { FieldsCollection } from './models/FieldsCollection';
 import {
   addField,
   removeField,

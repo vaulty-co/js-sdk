@@ -182,13 +182,14 @@ class Field {
     this.fieldSlaveChannel.subscribe(INITIALIZE_FIELD_REQUEST, (message) => {
       const {
         payload: {
-          id, name, style = {}, validators = [],
+          id,
+          field: { settings } = {},
         },
       } = message;
       this.id = id;
-      this.name = name;
-      this.composedValidator = this.createValidators(validators);
-      this.fieldNode.setStyle(style);
+      this.name = settings.name;
+      this.composedValidator = this.createValidators(settings.validators);
+      this.fieldNode.setStyle(settings.style);
       this.fieldSlaveChannel.postMessage(
         new Message(INITIALIZE_FIELD_RESPONSE, { success: true }),
       );
