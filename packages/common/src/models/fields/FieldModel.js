@@ -1,15 +1,16 @@
 import { immerable } from 'immer';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
+import { filterStyles } from '@js-sdk/common/src/helpers/filterStyles';
+import { pick } from '@js-sdk/common/src/helpers/pick';
 
-import {
-  filterStyles,
-} from '../../helpers/filterStyles';
 import {
   ALLOWED_STYLED_PROPS,
   FIELD_STATUSES,
   INITIAL_FIELD_STATUS,
-  INITIAL_FIELD_SETTINGS,
+  DEFAULT_FIELD_STYLES,
 } from './constants';
+
+const ALLOWED_MODEL_JSON_PROPERTIES = ['id', 'type', 'status', 'settings'];
 
 /**
  * Field's model
@@ -21,17 +22,26 @@ class FieldModel {
   }
 
   /**
+   * Create FiledModel by its JSON
+   * @param {FieldModelJSON} modelJSON
+   */
+  static of(modelJSON) {
+    /**
+     * @type {FieldModelOptions}
+     */
+    const fieldModelOptions = pick(modelJSON, ALLOWED_MODEL_JSON_PROPERTIES);
+    return new FieldModel(fieldModelOptions);
+  }
+
+  /**
    * @param {FieldModelOptions} [options = {}]
    */
   constructor(options = {}) {
     this[immerable] = true;
 
-    /**
-     * @type {string}
-     */
-    this.id = uniqueId();
+    this.id = options.id || uniqueId();
     this.type = options.type || 'unknown';
-    this.status = INITIAL_FIELD_STATUS;
+    this.status = options.status || INITIAL_FIELD_STATUS;
     this.setSettings(options.settings);
   }
 
@@ -53,8 +63,8 @@ class FieldModel {
   setSettings(newSettings = {}) {
     const previousSettings = this.settings || {};
 
-    const previousStyle = previousSettings.style || INITIAL_FIELD_SETTINGS;
-    const newStyle = newSettings.style || INITIAL_FIELD_SETTINGS;
+    const previousStyle = previousSettings.style || DEFAULT_FIELD_STYLES;
+    const newStyle = newSettings.style || DEFAULT_FIELD_STYLES;
 
     this.settings = {
       ...previousSettings,
@@ -71,26 +81,40 @@ class FieldModel {
   }
 
   /**
+   * Get field name
+   * @returns {?string}
+   */
+  getName() {
+    return this.settings?.name;
+  }
+
+  /**
    * Get field style
-   * @param {string} styleName
-   * @returns {string}
+   * @param {string} [styleName]
+   * @returns {string|Object}
    */
   getStyle(styleName) {
     const style = this.settings?.style ?? {};
+    if (!styleName) {
+      return style;
+    }
     return style[styleName] || '';
   }
 
   /**
-   * Prepare plain object for using in JSON.stringify()
+   * Get field validators
+   * @returns {Array<ValidatorName>}
+   */
+  getValidators() {
+    return this.settings?.validators ?? [];
+  }
+
+  /**
+   * Prepare a plain object for using in JSON.stringify()
    * @returns {FieldModelJSON}
    */
   toJSON() {
-    return {
-      id: this.id,
-      type: this.type,
-      status: this.status,
-      settings: this.settings,
-    };
+    return pick(this, ALLOWED_MODEL_JSON_PROPERTIES);
   }
 }
 

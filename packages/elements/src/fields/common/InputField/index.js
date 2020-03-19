@@ -1,4 +1,5 @@
 import { Message } from '@js-sdk/common/src/channels/Message';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';
@@ -31,8 +32,8 @@ class InputField extends Field {
    */
   getData() {
     return {
-      id: this.id,
-      name: this.name,
+      id: this.fieldModel.id,
+      name: this.fieldModel.getName(),
       data: this.fieldNode.getValue(),
     };
   }
@@ -47,7 +48,7 @@ class InputField extends Field {
      * @type {?Message}
      */
     const message = Message.of(textMessage);
-    if (message.type === GET_FIELD_DATA_REQUEST && this.id === message.payload.fieldId) {
+    if (message.type === GET_FIELD_DATA_REQUEST && this.fieldModel.id === message.payload.fieldId) {
       this.broadcastChannel.postMessage(
         new Message(
           GET_FIELD_DATA_RESPONSE,
@@ -63,10 +64,27 @@ class InputField extends Field {
    */
   handleInputChanges() {
     const value = this.fieldNode.getValue();
-    this.sendDataChanges({
-      isDirty: Boolean(value),
-      validation: this.composedValidator.validate(value),
+    const isDirty = Boolean(value);
+    const { isValid, validators } = this.composedValidator.validate(value);
+
+    this.fieldModel.setStatus({
+      content: (
+        isDirty
+          ? FieldModel.STATUSES.CONTENT.DIRTY
+          : FieldModel.STATUSES.CONTENT.EMPTY
+      ),
+      validation: {
+        status: (
+          isValid
+            ? FieldModel.STATUSES.VALIDATION.VALID
+            : FieldModel.STATUSES.VALIDATION.INVALID
+        ),
+        invalidValidators: validators.filter(
+          (validator) => !validator.isValid,
+        ),
+      },
     });
+    this.sendChanges();
   }
 
   /**
@@ -74,9 +92,10 @@ class InputField extends Field {
    * @protected
    */
   handleInputFocus() {
-    this.sendFocusChanges({
-      isFocused: true,
+    this.fieldModel.setStatus({
+      focus: FieldModel.STATUSES.FOCUS.FOCUSED,
     });
+    this.sendChanges();
   }
 
   /**
@@ -84,9 +103,10 @@ class InputField extends Field {
    * @protected
    */
   handleInputBlur() {
-    this.sendFocusChanges({
-      isFocused: false,
+    this.fieldModel.setStatus({
+      focus: FieldModel.STATUSES.FOCUS.UNFOCUSED,
     });
+    this.sendChanges();
   }
 
   destroy() {

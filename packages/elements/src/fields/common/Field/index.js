@@ -5,16 +5,16 @@ import { Message } from '@js-sdk/common/src/channels/Message';
 import { isSafari } from '@js-sdk/common/src/helpers/isSafari';
 import { Node } from '@js-sdk/common/src/nodes/Node';
 import { ComposedValidator } from '@js-sdk/common/src/validators/ComposedValidator';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
 import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../../validators/registry';
 import {
   FIELD_LOADED,
-  INITIALIZE_FIELD_REQUEST,
-  INITIALIZE_FIELD_RESPONSE,
-  FIELD_DATA_CHANGE_RESPONSE,
-  FIELD_FOCUS_CHANGE,
+  PUT_FIELD_REQUEST,
+  PUT_FIELD_RESPONSE,
+  PATCH_FIELD,
   FOCUS_FIELD,
   BLUR_FIELD,
   CLEAR_FIELD,
@@ -54,6 +54,10 @@ class Field {
     );
 
     this.status = FIELD_STATUSES.INIT;
+    /**
+     * @type {?FieldModel}
+     */
+    this.fieldModel = null;
     this.fieldNode = node;
     this.channelId = options?.channelId;
     this.composedValidator = new ComposedValidator();
@@ -179,19 +183,39 @@ class Field {
    * @private
    */
   registerHandlers() {
-    this.fieldSlaveChannel.subscribe(INITIALIZE_FIELD_REQUEST, (message) => {
+    this.fieldSlaveChannel.subscribe(PUT_FIELD_REQUEST, (message) => {
       const {
         payload: {
-          id,
-          field: { settings } = {},
+          field: fieldModelJson,
         },
       } = message;
-      this.id = id;
-      this.name = settings.name;
-      this.composedValidator = this.createValidators(settings.validators);
-      this.fieldNode.setStyle(settings.style);
+
+      // Prepare model
+      this.fieldModel = FieldModel.of(fieldModelJson);
+      this.fieldModel.setStatus({
+        validation: {
+          status: FieldModel.STATUSES.VALIDATION.VALID,
+          invalidValidators: [],
+        },
+        readiness: FieldModel.STATUSES.READINESS.READY,
+      });
+
+      // Recognize view and validators
+      this.composedValidator = this.createValidators(
+        this.fieldModel.getValidators(),
+      );
+      this.fieldNode.setStyle(
+        this.fieldModel.getStyle(),
+      );
+
+      // Send request back about successfully of operation
       this.fieldSlaveChannel.postMessage(
-        new Message(INITIALIZE_FIELD_RESPONSE, { success: true }),
+        new Message(PUT_FIELD_RESPONSE, {
+          success: true,
+          data: {
+            field: this.fieldModel,
+          },
+        }),
       );
     });
     this.fieldSlaveChannel.subscribe(FOCUS_FIELD, () => {
@@ -207,28 +231,18 @@ class Field {
 
   /**
    * Send field data changes
-   * @param {FieldDataChangePayload} payload
    * @protected
    */
-  sendDataChanges(payload) {
+  sendChanges() {
     this.fieldSlaveChannel.postMessage(
       new Message(
-        FIELD_DATA_CHANGE_RESPONSE,
-        payload,
-      ),
-    );
-  }
-
-  /**
-   * Send field focus
-   * @param {FieldFocusChangePayload} payload
-   * @protected
-   */
-  sendFocusChanges(payload) {
-    this.fieldSlaveChannel.postMessage(
-      new Message(
-        FIELD_FOCUS_CHANGE,
-        payload,
+        PATCH_FIELD,
+        {
+          success: true,
+          data: {
+            field: this.fieldModel,
+          },
+        },
       ),
     );
   }

@@ -4,10 +4,9 @@ import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import {
-  INITIALIZE_FIELD_REQUEST,
-  INITIALIZE_FIELD_RESPONSE,
-  FIELD_DATA_CHANGE_RESPONSE,
-  FIELD_FOCUS_CHANGE,
+  PUT_FIELD_REQUEST,
+  PUT_FIELD_RESPONSE,
+  PATCH_FIELD,
   FIELD_LOADED,
   FOCUS_FIELD,
   BLUR_FIELD,
@@ -49,7 +48,6 @@ class Field {
 
     this.openChannel();
     this.handleChanges();
-    this.handleFocusChanges();
   }
 
   /**
@@ -151,59 +149,27 @@ class Field {
    */
   requestInitialization() {
     this.fieldMasterChannel.postMessage(
-      new Message(INITIALIZE_FIELD_REQUEST, {
+      new Message(PUT_FIELD_REQUEST, {
         id: this.id,
         field: this.field,
       }),
     );
-    this.fieldMasterChannel.subscribe(INITIALIZE_FIELD_RESPONSE, (message) => {
-      if (message.payload.success) {
-        this.setFieldStatus({
-          validation: {
-            status: FieldModel.STATUSES.VALIDATION.VALID,
-            invalidValidators: [],
-          },
-          readiness: FieldModel.STATUSES.READINESS.READY,
-        });
-      }
-    });
+    this.handleChanges(PUT_FIELD_RESPONSE);
   }
 
   /**
    * Handle field changes
+   * @param {string} [messageType = PATCH_FIELD]
    * @private
    */
-  handleChanges() {
-    this.fieldMasterChannel.subscribe(FIELD_DATA_CHANGE_RESPONSE, (message) => {
-      const { isDirty, validation: { isValid, validators } = {} } = message.payload;
-      this.setFieldStatus({
-        content: (
-          isDirty
-            ? FieldModel.STATUSES.CONTENT.DIRTY
-            : FieldModel.STATUSES.CONTENT.EMPTY
-        ),
-        validation: {
-          status: (
-            isValid
-              ? FieldModel.STATUSES.VALIDATION.VALID
-              : FieldModel.STATUSES.VALIDATION.INVALID
-          ),
-          invalidValidators: validators.filter((validator) => !validator.isValid),
-        },
-      });
-    });
-  }
-
-  /**
-   * Handle field focus
-   * @private
-   */
-  handleFocusChanges() {
-    this.fieldMasterChannel.subscribe(FIELD_FOCUS_CHANGE, (message) => {
-      const { isFocused } = message.payload;
-      this.setFieldStatus({
-        focus: isFocused ? FieldModel.STATUSES.FOCUS.FOCUSED : FieldModel.STATUSES.FOCUS.UNFOCUSED,
-      });
+  handleChanges(messageType = PATCH_FIELD) {
+    this.fieldMasterChannel.subscribe(messageType, (message) => {
+      if (message.payload.success) {
+        const { data: { field: fieldModelJson } } = message.payload;
+        this.setFieldStatus(
+          FieldModel.of(fieldModelJson).status,
+        );
+      }
     });
   }
 }

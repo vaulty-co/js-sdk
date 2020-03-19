@@ -26,8 +26,8 @@ class CardExpirationDate extends InputField {
       this.fieldNode.getValue(),
     );
     return {
-      id: this.id,
-      name: this.name,
+      id: this.fieldModel.id,
+      name: this.fieldModel.getName(),
       data: {
         month,
         year,

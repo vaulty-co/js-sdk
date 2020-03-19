@@ -45,7 +45,9 @@
 
 /**
  * @typedef {Object} FieldModelOptions
+ * @property {string} [id = uniqueId()]
  * @property {string} [type='unknown'] - type of field
+ * @property {FieldStatus} [status = INITIAL_FIELD_STATUS]
  * @property {FieldSettings} [settings={}]
  */
 
