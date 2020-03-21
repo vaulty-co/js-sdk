@@ -1,12 +1,16 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, {
+  memo, useEffect, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
-import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
+import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
 
-const FieldComponent = ({ name, label, field, form, className, span }) => {
+const FieldComponent = ({
+  name, label, field, form, className, span,
+}) => {
   const fieldRef = useRef(null);
   const [fieldStatus, setFieldStatus] = useState(
-    { validation: 'valid' }
+    { validation: 'valid' },
   );
 
   useEffect(() => {
@@ -19,9 +23,9 @@ const FieldComponent = ({ name, label, field, form, className, span }) => {
     });
 
     return () => {
-      form.removeFields([ field ]);
+      form.removeFields([field]);
       field.destroy();
-    }
+    };
   }, [name, field, form, setFieldStatus]);
 
   if (!field) {
@@ -47,7 +51,7 @@ const FieldComponent = ({ name, label, field, form, className, span }) => {
         />
       </Col>
     </Row>
-  )
+  );
 };
 
 FieldComponent.displayName = 'FieldComponent';

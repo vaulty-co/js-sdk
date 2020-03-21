@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "CI=true react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint --cache ./src",
     "lint:ci": "eslint ./src"
@@ -35,6 +35,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^18.1.0",
     "husky": "^4.2.3"
   }
 }

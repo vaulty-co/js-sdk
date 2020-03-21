@@ -1,6 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import SDK from '@js-sdk/library/devTmp/js-sdk.esm.js';
-import { Layout, Menu, Icon, Button, Row, Col } from 'antd';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
+import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
+import {
+  Layout, Menu, Icon, Button, Row, Col,
+} from 'antd';
 
 import './App.scss';
 import { Field } from './components/Field';
@@ -205,7 +209,8 @@ function App() {
                 type="default"
                 disabled={appStatus === 'preparing'}
                 loading={isFormReady ? false : { delay: 150 }}
-                onClick={handleResetClick}>
+                onClick={handleResetClick}
+              >
                 Reset
               </Button>
             </Col>
@@ -214,7 +219,8 @@ function App() {
                 type="primary"
                 disabled={appStatus === 'preparing' || !isFormEnabled}
                 loading={isFormReady ? false : { delay: 150 }}
-                onClick={handleSubmitClick}>
+                onClick={handleSubmitClick}
+              >
                 Send
               </Button>
             </Col>
@@ -223,7 +229,8 @@ function App() {
                 type="primary"
                 disabled={appStatus === 'preparing' || !isUserNameReady}
                 loading={isFormReady ? false : { delay: 150 }}
-                onClick={handleUpClick}>
+                onClick={handleUpClick}
+              >
                 Focus User name
               </Button>
             </Col>
@@ -232,7 +239,8 @@ function App() {
                 type="primary"
                 disabled={appStatus === 'preparing' || !isUserNameReady}
                 loading={isUserNameReady ? false : { delay: 150 }}
-                onClick={handleDownClick}>
+                onClick={handleDownClick}
+              >
                 Blur User name
               </Button>
             </Col>
