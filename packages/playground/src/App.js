@@ -2,8 +2,9 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
+import { UserOutlined } from '@ant-design/icons';
 import {
-  Layout, Menu, Icon, Button, Row, Col,
+  Layout, Menu, Button, Row, Col,
 } from 'antd';
 
 import './App.scss';
@@ -149,7 +150,7 @@ function App() {
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
-            <Icon type="user" />
+            <UserOutlined />
             <span>Simple example</span>
           </Menu.Item>
         </Menu>

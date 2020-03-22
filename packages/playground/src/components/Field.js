@@ -48,7 +48,7 @@ const FieldComponent = ({
       <Col
         span={span === 12 ? 10 : span}
         className={
-          fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'has-error' : ''
+          fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'ant-form-item-has-error' : ''
         }
       >
         <label>{label}</label>
