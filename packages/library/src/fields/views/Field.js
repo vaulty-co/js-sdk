@@ -6,7 +6,8 @@ import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import {
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,
-  PATCH_FIELD,
+  PATCH_FIELD_REQUEST,
+  PATCH_FIELD_RESPONSE,
   FIELD_LOADED,
   FOCUS_FIELD,
   BLUR_FIELD,
@@ -48,6 +49,16 @@ class Field {
 
     this.openChannel();
     this.handleChanges();
+  }
+
+  /**
+   * Update field settings
+   * @param {FieldSettings} settings
+   */
+  update(settings) {
+    this.requestPatch({
+      settings,
+    });
   }
 
   /**
@@ -158,11 +169,23 @@ class Field {
   }
 
   /**
+   * Patch field request
+   * @param {FieldModelPatchJSON} fieldModelPatchJSON
+   */
+  requestPatch(fieldModelPatchJSON) {
+    this.fieldMasterChannel.postMessage(
+      new Message(PATCH_FIELD_REQUEST, {
+        fieldPatch: fieldModelPatchJSON,
+      }),
+    );
+  }
+
+  /**
    * Handle field changes
-   * @param {string} [messageType = PATCH_FIELD]
+   * @param {string} [messageType = PATCH_FIELD_RESPONSE]
    * @private
    */
-  handleChanges(messageType = PATCH_FIELD) {
+  handleChanges(messageType = PATCH_FIELD_RESPONSE) {
     this.fieldMasterChannel.subscribe(messageType, (message) => {
       if (message.payload.success) {
         const { data: { field: fieldModelJson } } = message.payload;

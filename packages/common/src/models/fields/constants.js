@@ -59,6 +59,14 @@ const FIELD_FOCUS_STATUSES = {
   UNFOCUSED: 'unfocused',
 };
 
+/**
+ * @enum {string}
+ */
+const FIELD_ENABLING_STATUSES = {
+  DISABLED: 'disabled',
+  ENABLED: 'enabled',
+};
+
 const INITIAL_FIELD_STATUS = {
   node: FIELD_NODE_STATUSES.UNMOUNTED,
   content: FIELD_CONTENT_STATUSES.EMPTY,
@@ -68,6 +76,7 @@ const INITIAL_FIELD_STATUS = {
   },
   readiness: FIELD_READINESS_STATUSES.LOADING,
   focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
+  enabling: FIELD_ENABLING_STATUSES.ENABLED,
 };
 
 /**
@@ -81,10 +90,22 @@ const FIELD_STATUSES = {
   VALIDATION: FIELD_VALIDATION_STATUSES,
   READINESS: FIELD_READINESS_STATUSES,
   FOCUS: FIELD_FOCUS_STATUSES,
+  ENABLING: FIELD_ENABLING_STATUSES,
 };
 
+/**
+ * @type {string[]}
+ */
+const ALLOWED_FIELD_SETTINGS = ['name', 'disabled', 'style', 'validators'];
+
+/**
+ * @type {FieldSettings}
+ */
 const INITIAL_FIELD_SETTINGS = {
+  name: undefined,
+  disabled: false,
   style: DEFAULT_FIELD_STYLES,
+  validators: [],
 };
 
 export {
@@ -96,6 +117,8 @@ export {
   FIELD_VALIDATION_STATUSES,
   FIELD_READINESS_STATUSES,
   FIELD_FOCUS_STATUSES,
+  FIELD_ENABLING_STATUSES,
   INITIAL_FIELD_STATUS,
+  ALLOWED_FIELD_SETTINGS,
   INITIAL_FIELD_SETTINGS,
 };

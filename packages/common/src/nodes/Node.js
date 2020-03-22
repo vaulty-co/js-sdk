@@ -106,6 +106,14 @@ class Node {
   }
 
   /**
+   * Set attributes to node
+   * @param {Object} attributes
+   */
+  // eslint-disable-next-line no-unused-vars
+  setAttributes(attributes) {
+  }
+
+  /**
    * Get node value
    * @returns {null}
    */

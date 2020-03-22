@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldsCollection #setFieldStatus should set field status, if field exists 1`] = `
+Object {
+  "content": "empty",
+  "enabling": "enabled",
+  "focus": "unfocused",
+  "node": "unmounted",
+  "readiness": "loading",
+  "validation": Object {
+    "invalidValidators": Array [],
+    "status": "unknown",
+  },
+}
+`;

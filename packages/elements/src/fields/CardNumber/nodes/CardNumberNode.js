@@ -160,6 +160,18 @@ class CardNumberNode extends Node {
   }
 
   /**
+   * Set attributes to input
+   * @param {FieldAttributes} fieldAttributes
+   */
+  setAttributes(fieldAttributes) {
+    if (fieldAttributes.disabled) {
+      this.input.setAttribute('disabled', '');
+    } else {
+      this.input.removeAttribute('disabled');
+    }
+  }
+
+  /**
    * Destroy component
    */
   destroy() {

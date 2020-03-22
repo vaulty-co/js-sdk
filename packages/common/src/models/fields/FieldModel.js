@@ -1,14 +1,14 @@
 import { immerable } from 'immer';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
-import { filterStyles } from '@js-sdk/common/src/helpers/filterStyles';
 import { pick } from '@js-sdk/common/src/helpers/pick';
 
 import {
-  ALLOWED_STYLED_PROPS,
   FIELD_STATUSES,
   INITIAL_FIELD_STATUS,
-  DEFAULT_FIELD_STYLES,
 } from './constants';
+import {
+  updateSettings,
+} from './updaters/updateSettings';
 
 const ALLOWED_MODEL_JSON_PROPERTIES = ['id', 'type', 'status', 'settings'];
 
@@ -61,23 +61,14 @@ class FieldModel {
    * @param {FieldSettings} [newSettings = {}]
    */
   setSettings(newSettings = {}) {
-    const previousSettings = this.settings || {};
-
-    const previousStyle = previousSettings.style || DEFAULT_FIELD_STYLES;
-    const newStyle = newSettings.style || DEFAULT_FIELD_STYLES;
-
-    this.settings = {
-      ...previousSettings,
-      ...newSettings,
-      validators: [
-        ...(previousSettings.validators || []),
-        ...(newSettings.validators || []),
-      ],
-      style: {
-        ...previousStyle,
-        ...filterStyles(newStyle, ALLOWED_STYLED_PROPS),
-      },
-    };
+    this.settings = updateSettings(this.settings, newSettings);
+    this.setStatus({
+      enabling: (
+        this.settings.disabled
+          ? FIELD_STATUSES.ENABLING.DISABLED
+          : FIELD_STATUSES.ENABLING.ENABLED
+      ),
+    });
   }
 
   /**
@@ -107,6 +98,16 @@ class FieldModel {
    */
   getValidators() {
     return this.settings?.validators ?? [];
+  }
+
+  /**
+   * Get field attributes
+   * @returns {FieldAttributes}
+   */
+  getAttributes() {
+    return {
+      disabled: this.settings?.disabled ?? false,
+    };
   }
 
   /**

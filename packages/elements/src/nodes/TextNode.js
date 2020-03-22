@@ -28,6 +28,18 @@ class TextNode extends Node {
   }
 
   /**
+   * Set attributes to input
+   * @param {FieldAttributes} fieldAttributes
+   */
+  setAttributes(fieldAttributes) {
+    if (fieldAttributes.disabled) {
+      this.node.setAttribute('disabled', '');
+    } else {
+      this.node.removeAttribute('disabled');
+    }
+  }
+
+  /**
    * Get text input value
    */
   getValue() {

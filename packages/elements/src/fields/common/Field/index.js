@@ -14,7 +14,8 @@ import {
   FIELD_LOADED,
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,
-  PATCH_FIELD,
+  PATCH_FIELD_REQUEST,
+  PATCH_FIELD_RESPONSE,
   FOCUS_FIELD,
   BLUR_FIELD,
   CLEAR_FIELD,
@@ -200,23 +201,7 @@ class Field {
         readiness: FieldModel.STATUSES.READINESS.READY,
       });
 
-      // Recognize view and validators
-      this.composedValidator = this.createValidators(
-        this.fieldModel.getValidators(),
-      );
-      this.fieldNode.setStyle(
-        this.fieldModel.getStyle(),
-      );
-
-      // Send request back about successfully of operation
-      this.fieldSlaveChannel.postMessage(
-        new Message(PUT_FIELD_RESPONSE, {
-          success: true,
-          data: {
-            field: this.fieldModel,
-          },
-        }),
-      );
+      this.applyFieldModel();
     });
     this.fieldSlaveChannel.subscribe(FOCUS_FIELD, () => {
       this.focusField();
@@ -227,6 +212,55 @@ class Field {
     this.fieldSlaveChannel.subscribe(CLEAR_FIELD, () => {
       this.clearField();
     });
+    this.fieldSlaveChannel.subscribe(PATCH_FIELD_REQUEST, (message) => {
+      const {
+        payload: {
+          /**
+           * @type {FieldModelPatchJSON}
+           */
+          fieldPatch: fieldModelPatchJSON,
+        },
+      } = message;
+      const { settings } = fieldModelPatchJSON;
+
+      // FIXME - model should have method update for that
+      this.fieldModel = FieldModel.of({
+        ...this.fieldModel.toJSON(),
+        ...fieldModelPatchJSON,
+        settings: this.fieldModel.settings,
+      });
+      this.fieldModel.setSettings(settings);
+
+      this.applyFieldModel();
+    });
+  }
+
+  /**
+   * Apply field model to view
+   * @private
+   */
+  applyFieldModel() {
+    // TODO - think about applying validators to value, because it could be changed in patch
+    // Recognize view and validators
+    this.composedValidator = this.createValidators(
+      this.fieldModel.getValidators(),
+    );
+    this.fieldNode.setAttributes(
+      this.fieldModel.getAttributes(),
+    );
+    this.fieldNode.setStyle(
+      this.fieldModel.getStyle(),
+    );
+
+    // Send request back about successfully of operation
+    this.fieldSlaveChannel.postMessage(
+      new Message(PUT_FIELD_RESPONSE, {
+        success: true,
+        data: {
+          field: this.fieldModel,
+        },
+      }),
+    );
   }
 
   /**
@@ -236,7 +270,7 @@ class Field {
   sendChanges() {
     this.fieldSlaveChannel.postMessage(
       new Message(
-        PATCH_FIELD,
+        PATCH_FIELD_RESPONSE,
         {
           success: true,
           data: {

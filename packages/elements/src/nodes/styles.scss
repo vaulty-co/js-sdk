@@ -6,4 +6,9 @@
   border: 0 none;
   outline: 0 none;
   box-sizing: border-box;
+  background: transparent;
+}
+
+.input:disabled {
+  cursor: not-allowed;
 }

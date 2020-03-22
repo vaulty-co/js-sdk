@@ -1,9 +1,6 @@
 import { FieldModel } from '../FieldModel';
 import {
-  FIELD_CONTENT_STATUSES,
-  FIELD_NODE_STATUSES,
-  FIELD_VALIDATION_STATUSES,
-  FIELD_READINESS_STATUSES, FIELD_FOCUS_STATUSES,
+  FIELD_READINESS_STATUSES,
 } from '../constants';
 
 describe('FieldModel', () => {
@@ -29,16 +26,7 @@ describe('FieldModel', () => {
         readiness: FIELD_READINESS_STATUSES.LOADING,
       });
 
-      expect(field.status).toEqual({
-        node: FIELD_NODE_STATUSES.UNMOUNTED,
-        content: FIELD_CONTENT_STATUSES.EMPTY,
-        validation: {
-          status: FIELD_VALIDATION_STATUSES.UNKNOWN,
-          invalidValidators: [],
-        },
-        readiness: FIELD_READINESS_STATUSES.LOADING,
-        focus: FIELD_FOCUS_STATUSES.UNFOCUSED,
-      });
+      expect(field.status).toMatchSnapshot();
     });
   });
 });

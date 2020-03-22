@@ -1,4 +1,6 @@
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { pick } from '@js-sdk/common/src/helpers/pick';
+import { ALLOWED_FIELD_SETTINGS } from '@js-sdk/common/src/models/fields/constants';
 
 import {
   addField,
@@ -93,14 +95,10 @@ function connectField(FieldClass) {
      */
     add() {
       if (!this.id) {
-        const { name, style, validators } = this.options;
+        const settings = pick(this.options, ALLOWED_FIELD_SETTINGS);
         const model = new FieldModel({
           type: FieldClass.name,
-          settings: {
-            name,
-            style,
-            validators,
-          },
+          settings,
         });
         this.id = model.id;
         this.dispatchers.addField(model);

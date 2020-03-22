@@ -24,6 +24,7 @@
 /**
  * @typedef {Object} FieldSettings
  * @property {FieldName} name
+ * @property {boolean} disabled
  * @property {FieldStyles} [style = {}] - field's styles
  * @property {Array<ValidatorName>} [validators = []] - validators for field
  */
@@ -44,6 +45,11 @@
  */
 
 /**
+ * @typedef {Object} FieldAttributes
+ * @property {boolean} [disabled = false]
+ */
+
+/**
  * @typedef {Object} FieldModelOptions
  * @property {string} [id = uniqueId()]
  * @property {string} [type='unknown'] - type of field
@@ -57,4 +63,12 @@
  * @property {string} type
  * @property {FieldStatus} status
  * @property {FieldSettings} settings
+ */
+
+/**
+ * @typedef {Object} FieldModelPatchJSON
+ * @property {string} [id]
+ * @property {string} [type]
+ * @property {FieldStatus} [status]
+ * @property {FieldSettings} [settings]
  */
