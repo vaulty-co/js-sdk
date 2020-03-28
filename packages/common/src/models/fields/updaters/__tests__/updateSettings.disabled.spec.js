@@ -27,6 +27,6 @@ describe('updateSettings.disabled', () => {
     const prevSettings = {};
     const settings = {};
 
-    expect(disabled(prevSettings, settings)).toBe(INITIAL_FIELD_SETTINGS.disabled);
+    expect(disabled(prevSettings, settings)).toEqual(INITIAL_FIELD_SETTINGS.disabled);
   });
 });

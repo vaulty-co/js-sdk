@@ -16,6 +16,22 @@ const name = (prevSettings, settings) => (
   settings.name || prevSettings.name || INITIAL_FIELD_SETTINGS.name
 );
 
+
+const parsePlaceholder = (placeholder) => (
+  typeof placeholder === 'string' ? placeholder : null
+);
+/**
+ * Placeholder updater
+ * @param {FieldSettings} prevSettings
+ * @param {FieldSettings} settings
+ * @returns {FieldPlaceholder}
+ */
+const placeholder = (prevSettings, settings) => (
+  parsePlaceholder(settings.placeholder)
+  || parsePlaceholder(prevSettings.placeholder)
+  || INITIAL_FIELD_SETTINGS.placeholder
+);
+
 /**
  * Disabled updater
  * @param {FieldSettings} prevSettings
@@ -69,6 +85,7 @@ const validators = (prevSettings, settings) => (
 
 const updateSettings = combineUpdaters({
   name,
+  placeholder,
   disabled,
   style,
   validators,
@@ -76,6 +93,7 @@ const updateSettings = combineUpdaters({
 
 export {
   name,
+  placeholder,
   disabled,
   style,
   validators,

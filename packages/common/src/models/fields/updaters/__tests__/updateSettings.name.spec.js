@@ -27,6 +27,6 @@ describe('updateSettings.name', () => {
     const prevSettings = {};
     const settings = {};
 
-    expect(name(prevSettings, settings)).toBeUndefined(INITIAL_FIELD_SETTINGS.name);
+    expect(name(prevSettings, settings)).toEqual(INITIAL_FIELD_SETTINGS.name);
   });
 });

@@ -37,6 +37,12 @@ class TextNode extends Node {
     } else {
       this.node.removeAttribute('disabled');
     }
+
+    if (fieldAttributes.placeholder) {
+      this.node.setAttribute('placeholder', fieldAttributes.placeholder);
+    } else {
+      this.node.removeAttribute('placeholder');
+    }
   }
 
   /**

@@ -18,13 +18,20 @@
  */
 
 /**
+ * @typedef {string} FieldPlaceholder
+ * @description
+ * Placeholder data for field.
+ */
+
+/**
  * @typedef {string} ValidatorName
  */
 
 /**
  * @typedef {Object} FieldSettings
  * @property {FieldName} name
- * @property {boolean} disabled
+ * @property {?FieldPlaceholder} [placeholder = null]
+ * @property {boolean} [disabled = false]
  * @property {FieldStyles} [style = {}] - field's styles
  * @property {Array<ValidatorName>} [validators = []] - validators for field
  */
@@ -47,6 +54,7 @@
 /**
  * @typedef {Object} FieldAttributes
  * @property {boolean} [disabled = false]
+ * @property {?FieldPlaceholder} [placeholder = null]
  */
 
 /**

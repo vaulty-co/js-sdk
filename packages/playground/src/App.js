@@ -39,6 +39,7 @@ function App() {
   useEffect(() => {
     userName.current = sdk.createField('textInput', {
       name: 'user.name',
+      placeholder: 'Mister',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,
@@ -46,10 +47,12 @@ function App() {
     });
     lastName.current = sdk.createField('textInput', {
       name: 'user.lastName',
+      placeholder: 'X',
       style: fieldStyle,
     });
     email.current = sdk.createField('textInput', {
       name: 'user.email',
+      placeholder: 'email@example.com',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,
@@ -65,6 +68,7 @@ function App() {
     });
     cardVerificationCode.current = sdk.createField('cardVerificationCode', {
       name: 'card.cvc',
+      placeholder: '***',
       style: fieldStyle,
       validators: [
         SDK.VALIDATORS.REQUIRED,

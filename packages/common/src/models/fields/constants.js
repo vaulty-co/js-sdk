@@ -96,13 +96,20 @@ const FIELD_STATUSES = {
 /**
  * @type {string[]}
  */
-const ALLOWED_FIELD_SETTINGS = ['name', 'disabled', 'style', 'validators'];
+const ALLOWED_FIELD_SETTINGS = [
+  'name',
+  'placeholder',
+  'disabled',
+  'style',
+  'validators',
+];
 
 /**
  * @type {FieldSettings}
  */
 const INITIAL_FIELD_SETTINGS = {
   name: undefined,
+  placeholder: null,
   disabled: false,
   style: DEFAULT_FIELD_STYLES,
   validators: [],

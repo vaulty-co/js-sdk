@@ -107,6 +107,7 @@ class FieldModel {
   getAttributes() {
     return {
       disabled: this.settings?.disabled ?? false,
+      placeholder: this.settings?.placeholder ?? null,
     };
   }
 
