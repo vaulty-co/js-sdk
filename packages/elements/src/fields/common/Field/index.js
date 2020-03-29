@@ -14,8 +14,8 @@ import {
   FIELD_LOADED,
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,
-  PATCH_FIELD_REQUEST,
-  PATCH_FIELD_RESPONSE,
+  PATCH_FIELD_SETTINGS_REQUEST,
+  PATCH_FIELD_STATUS_RESPONSE,
   FOCUS_FIELD,
   BLUR_FIELD,
   CLEAR_FIELD,
@@ -212,25 +212,17 @@ class Field {
     this.fieldSlaveChannel.subscribe(CLEAR_FIELD, () => {
       this.clearField();
     });
-    this.fieldSlaveChannel.subscribe(PATCH_FIELD_REQUEST, (message) => {
+    this.fieldSlaveChannel.subscribe(PATCH_FIELD_SETTINGS_REQUEST, (message) => {
       const {
         payload: {
           /**
-           * @type {FieldModelPatchJSON}
+           * @type {FieldSettings}
            */
-          fieldPatch: fieldModelPatchJSON,
+          fieldSettingsPatch,
         },
       } = message;
-      const { settings } = fieldModelPatchJSON;
 
-      // FIXME - model should have method update for that
-      this.fieldModel = FieldModel.of({
-        ...this.fieldModel.toJSON(),
-        ...fieldModelPatchJSON,
-        settings: this.fieldModel.settings,
-      });
-      this.fieldModel.setSettings(settings);
-
+      this.fieldModel.setSettings(fieldSettingsPatch);
       this.applyFieldModel();
     });
   }
@@ -257,7 +249,7 @@ class Field {
       new Message(PUT_FIELD_RESPONSE, {
         success: true,
         data: {
-          field: this.fieldModel,
+          fieldStatusPatch: this.fieldModel.status,
         },
       }),
     );
@@ -270,11 +262,11 @@ class Field {
   sendChanges() {
     this.fieldSlaveChannel.postMessage(
       new Message(
-        PATCH_FIELD_RESPONSE,
+        PATCH_FIELD_STATUS_RESPONSE,
         {
           success: true,
           data: {
-            field: this.fieldModel,
+            fieldStatusPatch: this.fieldModel.status,
           },
         },
       ),

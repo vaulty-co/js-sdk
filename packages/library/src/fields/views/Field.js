@@ -6,8 +6,8 @@ import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import {
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,
-  PATCH_FIELD_REQUEST,
-  PATCH_FIELD_RESPONSE,
+  PATCH_FIELD_SETTINGS_REQUEST,
+  PATCH_FIELD_STATUS_RESPONSE,
   FIELD_LOADED,
   FOCUS_FIELD,
   BLUR_FIELD,
@@ -56,9 +56,7 @@ class Field {
    * @param {FieldSettings} settings
    */
   update(settings) {
-    this.requestPatch({
-      settings,
-    });
+    this.requestPatchFieldSettings(settings);
   }
 
   /**
@@ -170,28 +168,26 @@ class Field {
 
   /**
    * Patch field request
-   * @param {FieldModelPatchJSON} fieldModelPatchJSON
+   * @param {FieldSettings} fieldSettingsPatch
    */
-  requestPatch(fieldModelPatchJSON) {
+  requestPatchFieldSettings(fieldSettingsPatch) {
     this.fieldMasterChannel.postMessage(
-      new Message(PATCH_FIELD_REQUEST, {
-        fieldPatch: fieldModelPatchJSON,
+      new Message(PATCH_FIELD_SETTINGS_REQUEST, {
+        fieldSettingsPatch,
       }),
     );
   }
 
   /**
    * Handle field changes
-   * @param {string} [messageType = PATCH_FIELD_RESPONSE]
+   * @param {string} [messageType = PATCH_FIELD_STATUS_RESPONSE]
    * @private
    */
-  handleChanges(messageType = PATCH_FIELD_RESPONSE) {
+  handleChanges(messageType = PATCH_FIELD_STATUS_RESPONSE) {
     this.fieldMasterChannel.subscribe(messageType, (message) => {
       if (message.payload.success) {
-        const { data: { field: fieldModelJson } } = message.payload;
-        this.setFieldStatus(
-          FieldModel.of(fieldModelJson).status,
-        );
+        const { data: { fieldStatusPatch } } = message.payload;
+        this.setFieldStatus(fieldStatusPatch);
       }
     });
   }
