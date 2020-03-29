@@ -132,6 +132,33 @@ class Field {
   }
 
   /**
+   * Validate field value
+   */
+  validate() {
+    const value = this.fieldNode.getValue();
+    const isDirty = Boolean(value);
+    const { isValid, validators } = this.composedValidator.validate(value);
+
+    this.fieldModel.setStatus({
+      content: (
+        isDirty
+          ? FieldModel.STATUSES.CONTENT.DIRTY
+          : FieldModel.STATUSES.CONTENT.EMPTY
+      ),
+      validation: {
+        status: (
+          isValid
+            ? FieldModel.STATUSES.VALIDATION.VALID
+            : FieldModel.STATUSES.VALIDATION.INVALID
+        ),
+        invalidValidators: validators.filter(
+          (validator) => !validator.isValid,
+        ),
+      },
+    });
+  }
+
+  /**
    * Destroy field and remove its from parent, if it is specified
    */
   destroy() {
@@ -201,7 +228,17 @@ class Field {
         readiness: FieldModel.STATUSES.READINESS.READY,
       });
 
-      this.applyFieldModel();
+      this.updateByModel({ silentValidation: true });
+
+      // Send request back about successfully of operation
+      this.fieldSlaveChannel.postMessage(
+        new Message(PUT_FIELD_RESPONSE, {
+          success: true,
+          data: {
+            fieldStatusPatch: this.fieldModel.status,
+          },
+        }),
+      );
     });
     this.fieldSlaveChannel.subscribe(FOCUS_FIELD, () => {
       this.focusField();
@@ -223,35 +260,30 @@ class Field {
       } = message;
 
       this.fieldModel.setSettings(fieldSettingsPatch);
-      this.applyFieldModel();
+      this.updateByModel();
+      this.sentStatusChanges();
     });
   }
 
   /**
-   * Apply field model to view
+   * Update field view by model data
+   * @param {Object} [options = {}]
+   * @param {boolean} [options.silentValidation = false]
    * @private
    */
-  applyFieldModel() {
-    // TODO - think about applying validators to value, because it could be changed in patch
+  updateByModel({ silentValidation = false } = {}) {
     // Recognize view and validators
     this.composedValidator = this.createValidators(
       this.fieldModel.getValidators(),
     );
+    if (!silentValidation) {
+      this.validate();
+    }
     this.fieldNode.setAttributes(
       this.fieldModel.getAttributes(),
     );
     this.fieldNode.setStyle(
       this.fieldModel.getStyle(),
-    );
-
-    // Send request back about successfully of operation
-    this.fieldSlaveChannel.postMessage(
-      new Message(PUT_FIELD_RESPONSE, {
-        success: true,
-        data: {
-          fieldStatusPatch: this.fieldModel.status,
-        },
-      }),
     );
   }
 
@@ -259,7 +291,7 @@ class Field {
    * Send field data changes
    * @protected
    */
-  sendChanges() {
+  sentStatusChanges() {
     this.fieldSlaveChannel.postMessage(
       new Message(
         PATCH_FIELD_STATUS_RESPONSE,

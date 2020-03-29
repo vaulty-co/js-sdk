@@ -63,28 +63,8 @@ class InputField extends Field {
    * @protected
    */
   handleInputChanges() {
-    const value = this.fieldNode.getValue();
-    const isDirty = Boolean(value);
-    const { isValid, validators } = this.composedValidator.validate(value);
-
-    this.fieldModel.setStatus({
-      content: (
-        isDirty
-          ? FieldModel.STATUSES.CONTENT.DIRTY
-          : FieldModel.STATUSES.CONTENT.EMPTY
-      ),
-      validation: {
-        status: (
-          isValid
-            ? FieldModel.STATUSES.VALIDATION.VALID
-            : FieldModel.STATUSES.VALIDATION.INVALID
-        ),
-        invalidValidators: validators.filter(
-          (validator) => !validator.isValid,
-        ),
-      },
-    });
-    this.sendChanges();
+    this.validate();
+    this.sentStatusChanges();
   }
 
   /**
@@ -95,7 +75,7 @@ class InputField extends Field {
     this.fieldModel.setStatus({
       focus: FieldModel.STATUSES.FOCUS.FOCUSED,
     });
-    this.sendChanges();
+    this.sentStatusChanges();
   }
 
   /**
@@ -106,7 +86,7 @@ class InputField extends Field {
     this.fieldModel.setStatus({
       focus: FieldModel.STATUSES.FOCUS.UNFOCUSED,
     });
-    this.sendChanges();
+    this.sentStatusChanges();
   }
 
   destroy() {
