@@ -1,6 +1,6 @@
+import { CONTROLLER_VALIDATION_STATUSES } from '../constants';
 import { ControllersCollection } from '../ControllersCollection';
 import { ControllerModel } from '../ControllerModel';
-import { CONTROLLER_VALIDATION_STATUSES } from '../../constants';
 
 describe('ControllersCollection', () => {
   let controllersCollection;

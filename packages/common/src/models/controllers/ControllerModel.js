@@ -8,20 +8,18 @@ import {
   CONTROLLER_READINESS_STATUSES,
   CONTROLLER_VALIDATION_STATUSES,
   INITIAL_CONTROLLER_STATUS,
-} from '../constants';
-
-/**
- * @typedef {Object} ControllerStatus
- * @property {CONTROLLER_NODE_STATUSES} [node]
- * @property {CONTROLLER_VALIDATION_STATUSES} [validation]
- * @property {CONTROLLER_READINESS_STATUSES} [readiness]
- */
+} from './constants';
 
 /**
  * Controller's model
  * @class
  */
 class ControllerModel {
+  /**
+   * Get controller statuses
+   * @return {Object}
+   * @constructor
+   */
   static get STATUSES() {
     return CONTROLLER_STATUSES;
   }

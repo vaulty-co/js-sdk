@@ -17,6 +17,11 @@ const ALLOWED_MODEL_JSON_PROPERTIES = ['id', 'type', 'status', 'settings'];
  * @class
  */
 class FieldModel {
+  /**
+   * Get field's statuses
+   * @return {Object}
+   * @constructor
+   */
   static get STATUSES() {
     return FIELD_STATUSES;
   }

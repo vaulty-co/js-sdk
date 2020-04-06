@@ -7,17 +7,14 @@ import {
 } from '@js-sdk/elements/src/controllers/Form/messages';
 import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
+import {
+  CONTROLLER_STATUSES,
+  INITIAL_CONTROLLER_STATUS,
+} from '@js-sdk/common/src/models/controllers/constants';
 
 
 import { Config } from '../../config';
 import { Controller } from './Controller';
-import {
-  CONTROLLER_STATUSES,
-  CONTROLLER_READINESS_STATUSES,
-  CONTROLLER_VALIDATION_STATUSES,
-  CONTROLLER_NODE_STATUSES,
-  INITIAL_CONTROLLER_STATUS,
-} from '../constants';
 import { connectForm } from '../utils/connectForm';
 import { NO_FIELDS_ERROR } from '../events/noFieldsError';
 
@@ -101,7 +98,7 @@ class Form extends Controller {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
           status: {
-            readiness: CONTROLLER_READINESS_STATUSES.LOADING,
+            readiness: CONTROLLER_STATUSES.READINESS.LOADING,
           },
         });
         this.controllerMasterChannel.postMessage(
@@ -155,7 +152,7 @@ class Form extends Controller {
       if (message.payload.success) {
         this.dispatchers.setControllerStatus({
           ...INITIAL_CONTROLLER_STATUS,
-          node: CONTROLLER_NODE_STATUSES.MOUNTED,
+          node: CONTROLLER_STATUSES.NODE.MOUNTED,
         });
         this.requestInitialization();
       }
@@ -176,8 +173,8 @@ class Form extends Controller {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
           status: {
-            validation: CONTROLLER_VALIDATION_STATUSES.VALID,
-            readiness: CONTROLLER_READINESS_STATUSES.READY,
+            validation: CONTROLLER_STATUSES.VALIDATION.VALID,
+            readiness: CONTROLLER_STATUSES.READINESS.READY,
           },
         });
       }
@@ -195,7 +192,7 @@ class Form extends Controller {
         this.dispatchers.setControllerStatus({
           controllerId: this.id,
           status: {
-            readiness: CONTROLLER_READINESS_STATUSES.READY,
+            readiness: CONTROLLER_STATUSES.READINESS.READY,
           },
         });
         this.events.emit('submit', { success: true });

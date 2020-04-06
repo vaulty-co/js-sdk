@@ -6,7 +6,7 @@ import {
   CONTROLLER_NODE_STATUSES,
   CONTROLLER_READINESS_STATUSES,
   CONTROLLER_VALIDATION_STATUSES,
-} from '../../constants';
+} from '../constants';
 import { ControllerModel } from '../ControllerModel';
 
 jest.mock('@js-sdk/common/src/helpers/uniqueId', () => {

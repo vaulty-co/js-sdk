@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import produce from 'immer';
+import { ControllersCollection } from '@js-sdk/common/src/models/controllers/ControllersCollection';
 
-import { ControllersCollection } from './models/ControllersCollection';
 import {
   addController,
   removeController,

@@ -1,5 +1,10 @@
 import { queryString } from '@js-sdk/elements/src/controllers/Form/route/queryString';
 import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
+import {
+  CONTROLLER_NODE_STATUSES,
+  CONTROLLER_READINESS_STATUSES,
+} from '@js-sdk/common/src/models/controllers/constants';
+import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import {
@@ -9,11 +14,6 @@ import {
   removeFieldsFromController,
   setControllerStatus,
 } from '../actions';
-import {
-  CONTROLLER_NODE_STATUSES,
-  CONTROLLER_READINESS_STATUSES,
-} from '../constants';
-import { ControllerModel } from '../models/ControllerModel';
 import { Config } from '../../config';
 
 const getFieldsIds = (fields = []) => (
