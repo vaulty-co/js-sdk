@@ -3,6 +3,8 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Row } from 'antd';
+// FIXME - it should be switched by dev and prod versions
+/* eslint import/no-unresolved:0 */
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
 
 const FieldComponent = ({

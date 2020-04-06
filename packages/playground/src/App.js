@@ -1,6 +1,7 @@
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
+/* eslint import/no-unresolved:0 */
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
 import { UserOutlined } from '@ant-design/icons';
 import {
