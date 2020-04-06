@@ -1,4 +1,7 @@
+import { BroadcastChannel } from 'broadcast-channel';
+
 import { Message } from './Message';
+import { isSafari } from '../helpers/isSafari';
 
 /**
  * Create message channel
@@ -22,7 +25,29 @@ function createMessagePortHandler(callback) {
   };
 }
 
+/**
+ * Create broadcast channel
+ * @param {string} channelId
+ * @return {BroadcastChannel}
+ */
+function createBroadcastChannel(channelId) {
+  let broadcastChannelOptions = {};
+  // Notice: Safari does not allow IndexDB fallback in iFrame and we should manually
+  // use localStorage
+  if (isSafari()) {
+    broadcastChannelOptions = {
+      type: 'localstorage',
+    };
+  }
+
+  return new BroadcastChannel(
+    channelId,
+    broadcastChannelOptions,
+  );
+}
+
 export {
   createMessageChannel,
   createMessagePortHandler,
+  createBroadcastChannel,
 };

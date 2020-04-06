@@ -1,8 +1,7 @@
 import invariant from 'invariant';
-import { BroadcastChannel } from 'broadcast-channel';
 import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
-import { isSafari } from '@js-sdk/common/src/helpers/isSafari';
+import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
 import { Node } from '@js-sdk/common/src/nodes/Node';
 import { ComposedValidator } from '@js-sdk/common/src/validators/ComposedValidator';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
@@ -62,19 +61,7 @@ class Field {
     this.fieldNode = node;
     this.channelId = options?.channelId;
     this.composedValidator = new ComposedValidator();
-
-    let broadcastChannelOptions = {};
-    // Notice: Safari does not allow IndexDB fallback in iFrame and we should manually
-    // use localStorage
-    if (isSafari()) {
-      broadcastChannelOptions = {
-        type: 'localstorage',
-      };
-    }
-    this.broadcastChannel = new BroadcastChannel(
-      options?.sdkId,
-      broadcastChannelOptions,
-    );
+    this.broadcastChannel = createBroadcastChannel(options?.sdkId);
   }
 
   /**
