@@ -8,12 +8,8 @@ import { ControllerModel } from '@js-sdk/common/src/models/controllers/Controlle
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import {
-  addController,
-  removeController,
-  addFieldsToController,
-  removeFieldsFromController,
-  setControllerStatus,
-} from '../actions';
+  actions,
+} from '../store';
 import { Config } from '../../config';
 
 const getFieldsIds = (fields = []) => (
@@ -45,13 +41,7 @@ function connectForm(FormClass) {
 
       this.store = options.store;
 
-      this.dispatchers = actionsToDispatch(options.store)({
-        addController,
-        removeController,
-        addFieldsToController,
-        removeFieldsFromController,
-        setControllerStatus,
-      });
+      this.dispatchers = actionsToDispatch(options.store)(actions);
 
       this.add();
       this.subscribeToStore();

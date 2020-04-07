@@ -3,10 +3,8 @@ import { pick } from '@js-sdk/common/src/helpers/pick';
 import { ALLOWED_FIELD_SETTINGS } from '@js-sdk/common/src/models/fields/constants';
 
 import {
-  addField,
-  removeField,
-  setFieldStatus,
-} from '../actions';
+  actions,
+} from '../store';
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 
 /**
@@ -30,11 +28,7 @@ function connectField(FieldClass) {
        * @type {Object<Function>}
        * @protected
        */
-      this.dispatchers = actionsToDispatch(options.store)({
-        addField,
-        removeField,
-        setFieldStatus,
-      });
+      this.dispatchers = actionsToDispatch(options.store)(actions);
 
       this.add();
     }
