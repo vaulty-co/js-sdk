@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getReduxInstancesByModel should throw error, when methods do not exist in model 1`] = `"[getReduxInstances] Can not create action for unspecified method 'someNonExistMethod' of model 'Model'"`;

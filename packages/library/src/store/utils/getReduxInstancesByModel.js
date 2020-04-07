@@ -22,7 +22,7 @@ const methodsToActions = (Model, methods) => (
   methods.reduce((resultActions, method) => {
     innerInvariant(
       Model.prototype[method],
-      `Can not create action but unspecified method '${method}' for model '${Model.name}'`,
+      `Can not create action for unspecified method '${method}' of model '${Model.name}'`,
     );
 
     return {
