@@ -6,11 +6,11 @@
   "module": "build/js-sdk.esm.js",
   "browser": "build/js-sdk.min.js",
   "scripts": {
-    "start": "rimraf ./devTmp && rollup -c ./internals/rollup/rollup.config.js -w",
+    "start": "rimraf ./devTmp && NODE_ENV=development rollup -c ./internals/rollup/rollup.config.js -w",
     "lint": "eslint --cache ./src ./internals",
     "lint:ci": "eslint ./src ./internals",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",
-    "build": "rimraf ./build && rollup -c ./internals/rollup/rollup.config.js"
+    "build": "rimraf ./build && NODE_ENV=production rollup -c ./internals/rollup/rollup.config.js"
   },
   "author": "Aliaksei Simanchyk <alex@vaulty.co>",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-jest": "^25.2.3",
     "jest": "^25.2.3",
+    "redux-devtools-extension": "^2.13.8",
     "rimraf": "^3.0.2",
     "rollup": "^2.2.0",
     "rollup-plugin-babel": "^4.4.0",
