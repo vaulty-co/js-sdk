@@ -1,16 +1,8 @@
-import invariant from 'invariant';
+import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 
-/**
- * Inner invariant with specified prefix
- * @param {boolean} condition
- * @param {string} message
- */
-const innerInvariant = (condition, message) => invariant(
-  condition,
-  `[getReduxInstances] ${message}`,
-);
+const innerInvariant = createInvariant('getReduxInstances');
 
 /**
  * Convert methods list to actions

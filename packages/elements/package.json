@@ -39,7 +39,6 @@
     "card-validator": "^6.2.0",
     "history": "^4.10.1",
     "imask": "^6.0.3",
-    "invariant": "^2.2.4",
     "object-path": "^0.11.4",
     "url-search-params-polyfill": "^8.0.0"
   }

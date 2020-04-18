@@ -1,10 +1,10 @@
-import invariant from 'invariant';
 import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
 import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
 import { Node } from '@js-sdk/common/src/nodes/Node';
 import { ComposedValidator } from '@js-sdk/common/src/validators/ComposedValidator';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
@@ -31,12 +31,8 @@ const FIELD_STATUSES = {
  * @extends {ElementsInstance}
  */
 class Field {
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   static get STATUSES() {

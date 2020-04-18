@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import { staticInvariant } from '../helpers/invariant';
 
 /**
  * @typedef {Object} NodeOptions
@@ -22,12 +22,8 @@ const NODE_TYPES = {
 
 
 class Node {
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   /**

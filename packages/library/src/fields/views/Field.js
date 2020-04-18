@@ -1,4 +1,3 @@
-import invariant from 'invariant';
 import EventEmitter from 'events';
 import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
 import { Message } from '@js-sdk/common/src/channels/Message';
@@ -13,6 +12,7 @@ import {
   BLUR_FIELD,
   CLEAR_FIELD,
 } from '@js-sdk/elements/src/fields/common/Field/messages';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import { Config } from '../../config';
 import { connectField } from '../utils/connectField';
@@ -21,12 +21,8 @@ import { connectField } from '../utils/connectField';
  * @class
  */
 class Field {
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   /**

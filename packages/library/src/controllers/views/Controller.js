@@ -1,18 +1,12 @@
-// FIXME - disabling eslint should be removed after creating behavior for methods
-/* eslint-disable class-methods-use-this */
-import invariant from 'invariant';
 import EventEmitter from 'events';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 /**
  * @class
  */
 class Controller {
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   constructor() {

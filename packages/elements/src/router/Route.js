@@ -1,13 +1,12 @@
 import 'url-search-params-polyfill';
-import invariant from 'invariant';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 /**
  * Create route by query params and can render instance, when route has match with query params
  */
 class Route {
-  // FIXME - add decorator for that
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   /**

@@ -1,6 +1,6 @@
-import invariant from 'invariant';
 import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
 import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import { Config } from '../../config';
 
@@ -19,12 +19,8 @@ class Controller {
     return CONTROLLER_STATUSES;
   }
 
-  /**
-   * @param {boolean} condition
-   * @param {string} message
-   */
-  static invariant(condition, message) {
-    invariant(condition, `[${this.name}] ${message}`);
+  static get invariant() {
+    return staticInvariant;
   }
 
   /**
