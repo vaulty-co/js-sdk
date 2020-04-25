@@ -64,7 +64,7 @@ class InputField extends Field {
    */
   handleInputChanges() {
     this.validate();
-    this.sentStatusChanges();
+    this.sendStatusChanges();
   }
 
   /**
@@ -75,7 +75,7 @@ class InputField extends Field {
     this.fieldModel.setStatus({
       focus: FieldModel.STATUSES.FOCUS.FOCUSED,
     });
-    this.sentStatusChanges();
+    this.sendStatusChanges();
   }
 
   /**
@@ -86,7 +86,7 @@ class InputField extends Field {
     this.fieldModel.setStatus({
       focus: FieldModel.STATUSES.FOCUS.UNFOCUSED,
     });
-    this.sentStatusChanges();
+    this.sendStatusChanges();
   }
 
   destroy() {

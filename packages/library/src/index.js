@@ -3,10 +3,10 @@ import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
 
 import { createStore } from './store/index';
-import { TextInputField } from './fields/views/TextInputField';
-import { CardNumberField } from './fields/views/CardNumberField';
-import { CardVerificationCodeField } from './fields/views/CardVerificationCodeField';
-import { CardExpirationDateField } from './fields/views/CardExpirationDateField';
+import { TextInputField } from './fields/instances/TextInputField';
+import { CardNumberField } from './fields/instances/CardNumberField';
+import { CardVerificationCodeField } from './fields/instances/CardVerificationCodeField';
+import { CardExpirationDateField } from './fields/instances/CardExpirationDateField';
 import { ConnectedForm } from './controllers/views/Form';
 
 /**

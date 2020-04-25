@@ -9,15 +9,15 @@ import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../../validators/registry';
+import { putFieldHandler } from '../handlers/putField';
+import { pathStatusHandler } from '../handlers/patchStatus';
+import { patchSettingsHandler } from '../handlers/patchSettings';
 import {
-  FIELD_LOADED,
   PUT_FIELD_REQUEST,
-  PUT_FIELD_RESPONSE,
   PATCH_FIELD_SETTINGS_REQUEST,
-  PATCH_FIELD_STATUS_RESPONSE,
-  FOCUS_FIELD,
-  BLUR_FIELD,
-  CLEAR_FIELD,
+  PATCH_FIELD_STATUS_REQUEST,
+  FIELD_STATUS_WATCHER,
+  FIELD_LOADED_WATCHER,
 } from './messages';
 
 const FIELD_STATUSES = {
@@ -183,9 +183,7 @@ class Field {
     });
     this.fieldSlaveChannel.connect();
     this.fieldSlaveChannel.postMessage(
-      new Message(FIELD_LOADED, {
-        success: true,
-      }),
+      new Message(FIELD_LOADED_WATCHER),
     );
   }
 
@@ -194,58 +192,9 @@ class Field {
    * @private
    */
   registerHandlers() {
-    this.fieldSlaveChannel.subscribe(PUT_FIELD_REQUEST, (message) => {
-      const {
-        payload: {
-          field: fieldModelJson,
-        },
-      } = message;
-
-      // Prepare model
-      this.fieldModel = FieldModel.of(fieldModelJson);
-      this.fieldModel.setStatus({
-        validation: {
-          status: FieldModel.STATUSES.VALIDATION.VALID,
-          invalidValidators: [],
-        },
-        readiness: FieldModel.STATUSES.READINESS.READY,
-      });
-
-      this.updateByModel({ silentValidation: true });
-
-      // Send request back about successfully of operation
-      this.fieldSlaveChannel.postMessage(
-        new Message(PUT_FIELD_RESPONSE, {
-          success: true,
-          data: {
-            fieldStatusPatch: this.fieldModel.status,
-          },
-        }),
-      );
-    });
-    this.fieldSlaveChannel.subscribe(FOCUS_FIELD, () => {
-      this.focusField();
-    });
-    this.fieldSlaveChannel.subscribe(BLUR_FIELD, () => {
-      this.blurField();
-    });
-    this.fieldSlaveChannel.subscribe(CLEAR_FIELD, () => {
-      this.clearField();
-    });
-    this.fieldSlaveChannel.subscribe(PATCH_FIELD_SETTINGS_REQUEST, (message) => {
-      const {
-        payload: {
-          /**
-           * @type {FieldSettings}
-           */
-          fieldSettingsPatch,
-        },
-      } = message;
-
-      this.fieldModel.setSettings(fieldSettingsPatch);
-      this.updateByModel();
-      this.sentStatusChanges();
-    });
+    this.fieldSlaveChannel.subscribe(PUT_FIELD_REQUEST, putFieldHandler.bind(this));
+    this.fieldSlaveChannel.subscribe(PATCH_FIELD_STATUS_REQUEST, pathStatusHandler.bind(this));
+    this.fieldSlaveChannel.subscribe(PATCH_FIELD_SETTINGS_REQUEST, patchSettingsHandler.bind(this));
   }
 
   /**
@@ -271,15 +220,14 @@ class Field {
   }
 
   /**
-   * Send field data changes
+   * Send field status changes
    * @protected
    */
-  sentStatusChanges() {
+  sendStatusChanges() {
     this.fieldSlaveChannel.postMessage(
       new Message(
-        PATCH_FIELD_STATUS_RESPONSE,
+        FIELD_STATUS_WATCHER,
         {
-          success: true,
           data: {
             fieldStatusPatch: this.fieldModel.status,
           },

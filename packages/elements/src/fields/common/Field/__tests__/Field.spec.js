@@ -3,7 +3,7 @@ import { Node } from '@js-sdk/common/src/nodes/Node';
 import { Message } from '@js-sdk/common/src/channels/Message';
 
 import { Field } from '../index';
-import { FIELD_LOADED } from '../messages';
+import { FIELD_LOADED_WATCHER } from '../messages';
 
 jest.mock('@js-sdk/common/src/channels/SlaveChannel', () => {
   const connectMock = jest.fn();
@@ -102,7 +102,7 @@ describe('Field', () => {
       field.mount(parentNode);
 
       expect(field.fieldSlaveChannel.postMessage).toBeCalledWith(
-        new Message(FIELD_LOADED, { success: true }),
+        new Message(FIELD_LOADED_WATCHER),
       );
     });
 

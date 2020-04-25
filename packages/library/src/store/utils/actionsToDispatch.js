@@ -5,8 +5,8 @@
  */
 const actionsToDispatch = (store) => (
   /**
-   * @param {Object<ActionCreator>} actionMap
-   * @returns {Object<Function>}
+   * @param {Object.<string, ActionCreator|operation>} actionMap
+   * @returns {Object.<string, Function>}
    */
   (actionMap = {}) => (
     Object

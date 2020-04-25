@@ -1,18 +1,24 @@
-import { createStore as reduxCreateStore, combineReducers } from 'redux';
+import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from 'redux';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { fields } from '../fields/store';
+import { fields, fieldMiddleware } from '../fields/common/store/index';
 import { controllers } from '../controllers/store';
 
-let middleware;
+let middleware = applyMiddleware(
+  fieldMiddleware,
+);
 if (process.env.NODE_ENV === 'development') {
-  middleware = composeWithDevTools();
+  middleware = composeWithDevTools(
+    applyMiddleware(
+      fieldMiddleware,
+    ),
+  );
 }
 
 /**
  * Create store for SDK
- * @returns {Store<{}, AnyAction>}
+ * @returns {Store<SDKState, AnyAction>}
  */
 const createStore = () => {
   const initialSdkId = uniqueId();

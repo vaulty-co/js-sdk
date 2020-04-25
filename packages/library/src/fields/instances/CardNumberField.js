@@ -2,23 +2,27 @@ import { queryString } from '@js-sdk/elements/src/fields/CardNumber/route/queryS
 import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
 
 import { Config } from '../../config';
-import { ConnectedField } from './Field';
+import { Field } from '../common/Field';
+import { makeFieldParamsSelector } from '../common/store/selectors';
 
 /**
  * Create CardNumber field
  * @class
  */
-class CardNumberField extends ConnectedField {
+class CardNumberField extends Field {
   /**
    * @param {FieldOptions} options
    */
   constructor(options) {
     super(options);
 
+    const state = options.store.getState();
+    const field = this.fieldSelector(state);
+    const fieldParams = makeFieldParamsSelector(this.id)(state);
     this.fieldIframe = new IFrameNode({
-      width: this.field.getStyle('width'),
-      height: this.field.getStyle('height'),
-      src: `${Config.elementsOrigin}?${queryString}&${this.fieldGetParams}`,
+      width: field.getStyle('width'),
+      height: field.getStyle('height'),
+      src: `${Config.elementsOrigin}?${queryString}&${fieldParams}`,
     });
   }
 }
