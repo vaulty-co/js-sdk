@@ -15,14 +15,14 @@ const innerInvariant = createInvariant('operationPutField');
  * @param {string} id
  * @return {operationResult}
  */
-const operationPutField = ({ id }) => (dispatch, getState, fieldsChannels) => {
+const operationPutField = ({ id }) => (dispatch, getState, channels) => {
   const field = makeFieldSelector(id)(getState());
   innerInvariant(
     field,
     `Field ${id} should be created before put.`,
   );
 
-  const fieldChannel = fieldsChannels.getChannel(id);
+  const fieldChannel = channels.getChannel(id);
   fieldChannel.postMessage(new Message(
     PUT_FIELD_REQUEST,
     {

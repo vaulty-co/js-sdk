@@ -2,16 +2,17 @@ import { createStore as reduxCreateStore, combineReducers, applyMiddleware } fro
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { fields, fieldMiddleware } from '../fields/common/store/index';
+import { fields } from '../fields/common/store/index';
 import { controllers } from '../controllers/store';
+import { operationsMiddleware } from './middleware/operationsMiddleware/index';
 
 let middleware = applyMiddleware(
-  fieldMiddleware,
+  operationsMiddleware,
 );
 if (process.env.NODE_ENV === 'development') {
   middleware = composeWithDevTools(
     applyMiddleware(
-      fieldMiddleware,
+      operationsMiddleware,
     ),
   );
 }

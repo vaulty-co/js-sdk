@@ -13,14 +13,14 @@ const innerInvariant = createInvariant('operationDestroyField');
  * @return {operationResult}
  */
 const operationDestroyField = ({ id }) => (
-  (dispatch, getState, fieldsChannels) => {
+  (dispatch, getState, channels) => {
     const field = makeFieldSelector(id)(getState());
     innerInvariant(
       field,
       `Field ${id} should be created before destroying`,
     );
 
-    fieldsChannels.unregister({ channelId: id });
+    channels.unregister({ channelId: id });
     dispatch(actions.removeField(field));
   }
 );

@@ -3,7 +3,7 @@
  */
 
 /**
- * @typedef {function(dispatch: Function, getState: getStateResult, fieldsChannels: FieldsChannels): undefined} operationResult
+ * @typedef {function(dispatch: Function, getState: getStateResult, channels: Channels): undefined} operationResult
  */
 
 /**

@@ -13,8 +13,8 @@ import { actions } from '../storeArtifacts';
  * @return {operationResult}
  */
 const operationUpdateFieldSettings = ({ id, settings }) => (
-  (dispatch, getState, fieldsChannels) => {
-    const fieldChannel = fieldsChannels.getChannel(id);
+  (dispatch, getState, channels) => {
+    const fieldChannel = channels.getChannel(id);
     dispatch(actions.setFieldSettings({ fieldId: id, settings }));
     fieldChannel.postMessage(new Message(
       PATCH_FIELD_SETTINGS_REQUEST,

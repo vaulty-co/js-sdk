@@ -14,8 +14,8 @@ import { makeFieldSelector } from '../selectors';
  * @return {operationResult}
  */
 const operationUpdateFieldStatus = ({ id, status }) => (
-  (dispatch, getState, fieldsChannels) => {
-    const fieldChannel = fieldsChannels.getChannel(id);
+  (dispatch, getState, channels) => {
+    const fieldChannel = channels.getChannel(id);
     const field = makeFieldSelector(id)(getState());
     const previousStatus = field.status;
 

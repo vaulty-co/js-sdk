@@ -31,7 +31,7 @@ class Field {
      */
     this.id = uniqueId();
     /**
-     * @type {string}
+     * @type {FieldOptions}
      * @protected
      */
     this.options = options;

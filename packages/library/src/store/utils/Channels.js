@@ -6,7 +6,7 @@ import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
  * Control fields' channels
  * @class
  */
-class FieldsChannels {
+class Channels {
   static get invariant() {
     return staticInvariant;
   }
@@ -71,7 +71,7 @@ class FieldsChannels {
   }
 }
 
-export default FieldsChannels;
+export default Channels;
 export {
-  FieldsChannels,
+  Channels,
 };

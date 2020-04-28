@@ -18,7 +18,7 @@ const innerInvariant = createInvariant('operationMountField');
  * @return {operationResult}
  */
 const operationMountField = ({ id, iframeDomNode }) => (
-  (dispatch, getState, fieldsChannels) => {
+  (dispatch, getState, channels) => {
     const field = makeFieldSelector(id)(getState());
     innerInvariant(
       field,
@@ -29,7 +29,7 @@ const operationMountField = ({ id, iframeDomNode }) => (
       `Field ${id} can not be mounted twice and more times.`,
     );
 
-    const fieldChannel = fieldsChannels.register({ channelId: id, iframeDomNode });
+    const fieldChannel = channels.register({ channelId: id, iframeDomNode });
     fieldChannel.connect();
 
     /*
