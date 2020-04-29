@@ -1,5 +1,5 @@
 import { enforceOptions } from 'broadcast-channel';
-import { Controller } from '@js-sdk/elements/src/controllers/Controller';
+import { Controller } from '@js-sdk/elements/src/controllers/common/Controller';
 
 import { ControllerRoute } from '../ControllerRoute';
 

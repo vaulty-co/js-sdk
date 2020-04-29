@@ -7,7 +7,7 @@ import { inputTextRoute } from './fields/TextInput/route';
 import { cardNumberRoute } from './fields/CardNumber/route';
 import { cardVerificationCodeRoute } from './fields/CardVerificationCode/route';
 import { cardExpirationDateRoute } from './fields/CardExpirationDate/route';
-import { formRoute } from './controllers/Form/route';
+import { formRoute } from './controllers/instances/Form/route';
 
 const appNode = document.getElementById(CONSTANTS.APP_ID);
 const router = new Router(appNode);

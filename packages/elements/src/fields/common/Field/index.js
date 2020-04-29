@@ -10,7 +10,7 @@ import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';
 import { VALIDATORS_REGISTRY } from '../../../validators/registry';
 import { putFieldHandler } from '../handlers/putField';
-import { pathStatusHandler } from '../handlers/patchStatus';
+import { patchStatusHandler } from '../handlers/patchStatus';
 import { patchSettingsHandler } from '../handlers/patchSettings';
 import {
   PUT_FIELD_REQUEST,
@@ -193,7 +193,7 @@ class Field {
    */
   registerHandlers() {
     this.fieldSlaveChannel.subscribe(PUT_FIELD_REQUEST, putFieldHandler.bind(this));
-    this.fieldSlaveChannel.subscribe(PATCH_FIELD_STATUS_REQUEST, pathStatusHandler.bind(this));
+    this.fieldSlaveChannel.subscribe(PATCH_FIELD_STATUS_REQUEST, patchStatusHandler.bind(this));
     this.fieldSlaveChannel.subscribe(PATCH_FIELD_SETTINGS_REQUEST, patchSettingsHandler.bind(this));
   }
 

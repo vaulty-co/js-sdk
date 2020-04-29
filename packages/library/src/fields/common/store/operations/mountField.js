@@ -12,7 +12,7 @@ import { operationPutField } from './putField';
 const innerInvariant = createInvariant('operationMountField');
 
 /**
- * Operation for creating field
+ * Operation for mounting field
  * @param {string} id
  * @param {HTMLIFrameElement} iframeDomNode
  * @return {operationResult}

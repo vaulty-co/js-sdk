@@ -1,8 +1,7 @@
 import { ControllersCollection } from '@js-sdk/common/src/models/controllers/ControllersCollection';
+import { getReduxInstancesByModel } from '@js-sdk/library/src/store/utils/getReduxInstancesByModel';
 
-import { getReduxInstancesByModel } from '../store/utils/getReduxInstancesByModel';
-
-const { actions, reducer: controllers } = getReduxInstancesByModel(
+const { actions, reducer } = getReduxInstancesByModel(
   ControllersCollection,
   [
     'addController',
@@ -16,9 +15,9 @@ const { actions, reducer: controllers } = getReduxInstancesByModel(
 
 export default {
   actions,
-  controllers,
+  reducer,
 };
 export {
   actions,
-  controllers,
+  reducer,
 };

@@ -1,8 +1,20 @@
 import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
 import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
 import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { Message } from '@js-sdk/common/src/channels/Message';
 
-import { Config } from '../../config';
+import { Config } from '../../../config';
+import {
+  PUT_CONTROLLER_REQUEST,
+  ADD_FIELDS_IDS_TO_CONTROLLER_REQUEST,
+  REMOVE_FIELDS_IDS_FROM_CONTROLLER_REQUEST,
+  PATCH_CONTROLLER_STATUS_REQUEST,
+  CONTROLLER_LOADED_WATCHER,
+} from './messages';
+import { putControllerHandler } from './handlers/putController';
+import { addFieldsIdsHandler } from './handlers/addFields';
+import { removeFieldsIdsHandler } from './handlers/removeFields';
+import { patchStatusHandler } from './handlers/patchStatus';
 
 const CONTROLLER_STATUSES = {
   INIT: 'init',
@@ -30,6 +42,10 @@ class Controller {
   constructor(options) {
     this.status = CONTROLLER_STATUSES.INIT;
     this.channelId = options?.channelId;
+    /**
+     * @type {?ControllerModel}
+     */
+    this.controllerModel = null;
     this.broadcastChannel = createBroadcastChannel(options?.sdkId);
   }
 
@@ -63,15 +79,32 @@ class Controller {
       targetOrigin: Config.sdkOrigin,
     });
     this.controllerSlaveChannel.connect();
+    this.controllerSlaveChannel.postMessage(
+      new Message(CONTROLLER_LOADED_WATCHER),
+    );
   }
 
   /**
    * Register allowed messages by master frame and give response by this messages
-   * @private
+   * @protected
    */
-  // eslint-disable-line class-methods-use-this
   registerHandlers() {
-
+    this.controllerSlaveChannel.subscribe(
+      PUT_CONTROLLER_REQUEST,
+      putControllerHandler.bind(this),
+    );
+    this.controllerSlaveChannel.subscribe(
+      ADD_FIELDS_IDS_TO_CONTROLLER_REQUEST,
+      addFieldsIdsHandler.bind(this),
+    );
+    this.controllerSlaveChannel.subscribe(
+      REMOVE_FIELDS_IDS_FROM_CONTROLLER_REQUEST,
+      removeFieldsIdsHandler.bind(this),
+    );
+    this.controllerSlaveChannel.subscribe(
+      PATCH_CONTROLLER_STATUS_REQUEST,
+      patchStatusHandler.bind(this),
+    );
   }
 
   /**
@@ -91,6 +124,8 @@ class Controller {
 
     this.broadcastChannel.close();
     this.broadcastChannel = null;
+
+    this.controllerModel = null;
   }
 }
 

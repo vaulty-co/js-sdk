@@ -1,5 +1,5 @@
 import pick from '@js-sdk/common/src/helpers/pick';
-import FieldModel from '@js-sdk/common/src/models/fields/FieldModel';
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { ALLOWED_FIELD_SETTINGS } from '@js-sdk/common/src/models/fields/constants';
 
 import { actions } from '../storeArtifacts';

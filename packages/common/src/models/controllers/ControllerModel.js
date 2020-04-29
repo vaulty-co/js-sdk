@@ -1,14 +1,13 @@
 import { immerable } from 'immer';
-import memoizeOne from 'memoize-one';
 import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { pick } from '../../helpers/pick';
 
 import {
   CONTROLLER_STATUSES,
-  CONTROLLER_READINESS_STATUSES,
-  CONTROLLER_VALIDATION_STATUSES,
   INITIAL_CONTROLLER_STATUS,
 } from './constants';
+
+const ALLOWED_MODEL_JSON_PROPERTIES = ['id', 'fieldsIds', 'status'];
 
 /**
  * Controller's model
@@ -24,6 +23,21 @@ class ControllerModel {
     return CONTROLLER_STATUSES;
   }
 
+  /**
+   * Create ControllerModel by its JSON
+   * @param {ControllerModelJSON} modelJSON
+   */
+  static of(modelJSON) {
+    /**
+     * @type {ControllerModelOptions}
+     */
+    const controllerModelOptions = pick(modelJSON, ALLOWED_MODEL_JSON_PROPERTIES);
+    return new ControllerModel(controllerModelOptions);
+  }
+
+  /**
+   * @param {ControllerModelOptions} options
+   */
   constructor(options = {}) {
     const {
       fieldsIds = [],
@@ -34,7 +48,7 @@ class ControllerModel {
     /**
      * @type {string}
      */
-    this.id = uniqueId();
+    this.id = options.id || uniqueId();
     /**
      * @type {Array<string>}
      */
@@ -42,26 +56,7 @@ class ControllerModel {
     /**
      * @type {ControllerStatus}
      */
-    this.status = INITIAL_CONTROLLER_STATUS;
-
-    this.getFormStatusByFields = memoizeOne(
-      this.getFormStatusByFields,
-      /**
-       * Compare fields collections in controller context
-       * @param {FieldsCollection} newCollection
-       * @param {FieldsCollection} lastCollection
-       * @returns {boolean}
-       */
-      ([newCollection], [lastCollection]) => {
-        if (newCollection === lastCollection) {
-          return true;
-        }
-
-        return this.fieldsIds.every((fieldId) => (
-          newCollection.getField(fieldId) === lastCollection.getField(fieldId)
-        ));
-      },
-    );
+    this.status = options.status || INITIAL_CONTROLLER_STATUS;
   }
 
   /**
@@ -79,37 +74,6 @@ class ControllerModel {
   }
 
   /**
-   * Get form status by fields status
-   * Notice: memoized
-   * @param {FieldsCollection} fieldsCollection
-   * @return {ControllerStatus}
-   */
-  getFormStatusByFields(fieldsCollection) {
-    const fields = this.fieldsIds.map((fieldId) => (
-      fieldsCollection.getField(fieldId)
-    ));
-    const isReady = fields.every((field) => (
-      field.status.readiness === FieldModel.STATUSES.READINESS.READY
-    ));
-    const isValid = fields.every((field) => (
-      field.status.validation.status === FieldModel.STATUSES.VALIDATION.VALID
-    ));
-    if (isReady) {
-      return {
-        readiness: CONTROLLER_READINESS_STATUSES.READY,
-        validation: isValid
-          ? CONTROLLER_VALIDATION_STATUSES.VALID
-          : CONTROLLER_VALIDATION_STATUSES.INVALID,
-      };
-    }
-    return {
-      ...this.status,
-      readiness: CONTROLLER_READINESS_STATUSES.LOADING,
-      validation: CONTROLLER_VALIDATION_STATUSES.UNKNOWN,
-    };
-  }
-
-  /**
    * Set controller status
    * @param {ControllerStatus} status
    */
@@ -118,6 +82,14 @@ class ControllerModel {
       ...this.status,
       ...status,
     };
+  }
+
+  /**
+   * Prepare a plain object for using in JSON.stringify()
+   * @returns {ControllerModelJSON}
+   */
+  toJSON() {
+    return pick(this, ALLOWED_MODEL_JSON_PROPERTIES);
   }
 }
 

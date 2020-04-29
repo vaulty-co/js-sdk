@@ -3,7 +3,7 @@ import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { fields } from '../fields/common/store/index';
-import { controllers } from '../controllers/store';
+import { controllers } from '../controllers/common/store/index';
 import { operationsMiddleware } from './middleware/operationsMiddleware/index';
 
 let middleware = applyMiddleware(

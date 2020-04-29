@@ -1,5 +1,5 @@
 import { Route } from './Route';
-import { Controller } from '../controllers/Controller';
+import { Controller } from '../controllers/common/Controller';
 
 /**
  * Route for Controller

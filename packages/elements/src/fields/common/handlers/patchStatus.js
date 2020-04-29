@@ -8,7 +8,7 @@ import { PATCH_FIELD_STATUS_RESPONSE } from '../Field/messages';
  * @this Field
  * @param {Message} message
  */
-function pathStatusHandler(message) {
+function patchStatusHandler(message) {
   const {
     payload: {
       /**
@@ -75,7 +75,7 @@ function pathStatusHandler(message) {
   }
 }
 
-export default pathStatusHandler;
+export default patchStatusHandler;
 export {
-  pathStatusHandler,
+  patchStatusHandler,
 };

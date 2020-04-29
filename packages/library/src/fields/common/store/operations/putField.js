@@ -1,4 +1,4 @@
-import Message from '@js-sdk/common/src/channels/Message';
+import { Message } from '@js-sdk/common/src/channels/Message';
 import {
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,

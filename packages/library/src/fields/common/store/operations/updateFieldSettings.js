@@ -1,4 +1,4 @@
-import Message from '@js-sdk/common/src/channels/Message';
+import { Message } from '@js-sdk/common/src/channels/Message';
 import {
   PATCH_FIELD_SETTINGS_REQUEST,
   PATCH_FIELD_STATUS_RESPONSE,

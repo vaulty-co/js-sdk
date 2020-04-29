@@ -7,7 +7,7 @@ import { TextInputField } from './fields/instances/TextInputField';
 import { CardNumberField } from './fields/instances/CardNumberField';
 import { CardVerificationCodeField } from './fields/instances/CardVerificationCodeField';
 import { CardExpirationDateField } from './fields/instances/CardExpirationDateField';
-import { ConnectedForm } from './controllers/views/Form';
+import { Form } from './controllers/instances/Form/index';
 
 /**
  * @typedef {Object} SDKOptions
@@ -69,7 +69,7 @@ class SDK {
    * @returns {Form}
    */
   createForm(options) {
-    return new ConnectedForm({
+    return new Form({
       ...options,
       store: this.store,
     });
