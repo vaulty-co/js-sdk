@@ -1,0 +1,35 @@
+import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+
+/**
+ * @class
+ */
+class DestroyedField {
+  appendTo() {}
+
+  update() {}
+
+  /**
+   * Get field status
+   * @returns {FieldStatus}
+   */
+  getStatus() {
+    return FieldModel.STATUSES.DESTROYED;
+  }
+
+  on() {}
+
+  off() {}
+
+  focus() {}
+
+  blur() {}
+
+  clear() {}
+
+  destroy() {}
+}
+
+export default DestroyedField;
+export {
+  DestroyedField,
+};

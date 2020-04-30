@@ -8,7 +8,13 @@ import { Button, Col, Row } from 'antd';
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
 
 const FieldComponent = ({
-  name, label, field, form, className, span,
+  name,
+  label,
+  field,
+  form,
+  className,
+  span,
+  onDelete,
 }) => {
   const fieldRef = useRef(null);
   const [fieldStatus, setFieldStatus] = useState(
@@ -25,7 +31,6 @@ const FieldComponent = ({
     });
 
     return () => {
-      form.removeFields([field]);
       field.destroy();
     };
   }, [name, field, form, setFieldStatus]);
@@ -41,6 +46,14 @@ const FieldComponent = ({
     [field, isDisabled],
   );
 
+  const handleDeleteField = useCallback(
+    (e) => {
+      e.preventDefault();
+      onDelete(name);
+    },
+    [name, onDelete],
+  );
+
   if (!field) {
     return null;
   }
@@ -48,7 +61,7 @@ const FieldComponent = ({
   return (
     <Row className="row" gutter={4}>
       <Col
-        span={span === 12 ? 10 : span}
+        span={span >= 11 ? 8 : span}
         className={
           fieldStatus.validation.status === SDK.FIELD_STATUSES.VALIDATION.INVALID ? 'ant-form-item-has-error' : ''
         }
@@ -65,7 +78,7 @@ const FieldComponent = ({
           ref={fieldRef}
         />
       </Col>
-      <Col span={2}>
+      <Col span={3}>
         <label>&nbsp;</label>
         <div>
           <Button
@@ -73,6 +86,13 @@ const FieldComponent = ({
             onClick={toggleDisabledState}
           >
             {isDisabled ? 'Enable' : 'Disable'}
+          </Button>
+          &nbsp;
+          <Button
+            type="secondary"
+            onClick={handleDeleteField}
+          >
+            Delete
           </Button>
         </div>
       </Col>
@@ -89,6 +109,7 @@ FieldComponent.propTypes = {
   form: PropTypes.object,
   className: PropTypes.string,
   span: PropTypes.number,
+  onDelete: PropTypes.func,
 };
 
 FieldComponent.defaultProps = {
@@ -96,6 +117,7 @@ FieldComponent.defaultProps = {
   form: null,
   className: '',
   span: 12,
+  onDelete: Function.prototype,
 };
 
 const Field = memo(FieldComponent);

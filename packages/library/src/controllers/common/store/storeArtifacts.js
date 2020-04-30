@@ -8,6 +8,7 @@ const { actions, reducer } = getReduxInstancesByModel(
     'removeController',
     'addFieldsToController',
     'removeFieldsFromController',
+    'removeFieldsFromControllers',
     'setControllerStatus',
   ],
   new ControllersCollection(),

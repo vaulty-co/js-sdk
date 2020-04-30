@@ -3,23 +3,13 @@ import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
 
 import { createStore } from './store/index';
-import { TextInputField } from './fields/instances/TextInputField';
-import { CardNumberField } from './fields/instances/CardNumberField';
-import { CardVerificationCodeField } from './fields/instances/CardVerificationCodeField';
-import { CardExpirationDateField } from './fields/instances/CardExpirationDateField';
+import { FieldProxy } from './fields/FieldProxy';
 import { Form } from './controllers/instances/Form/index';
 
 /**
  * @typedef {Object} SDKOptions
  * @property {string} authKey - key for authorization SDK services
  */
-
-const FIELDS = {
-  textInput: TextInputField,
-  cardNumber: CardNumberField,
-  cardVerificationCode: CardVerificationCodeField,
-  cardExpirationDate: CardExpirationDateField,
-};
 
 /**
  * @class
@@ -48,19 +38,15 @@ class SDK {
   /**
    * Create field instance
    * @param {string} type - field type
-   * @param {Object} options
-   * @returns {?Field}
+   * @param {FieldOptions} options
+   * @returns {?FieldProxy}
    */
   createField(type, options) {
-    const FieldInstance = FIELDS[type];
-    if (FieldInstance) {
-      return new FieldInstance({
-        ...options,
-        store: this.store,
-      });
-    }
-    // FIXME - here should be some error handler for SDK user
-    return null;
+    const resultOptions = {
+      ...options,
+      store: this.store,
+    };
+    return new FieldProxy(type, resultOptions);
   }
 
   /**

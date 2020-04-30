@@ -33,6 +33,16 @@ class ControllersCollection {
   }
 
   /**
+   * Iterate by controllers
+   * @param {function(ControllerModel): undefined} iterator
+   */
+  forEach(iterator) {
+    Object.keys(this.controllers).forEach((controllerId) => {
+      iterator(this.controllers[controllerId]);
+    });
+  }
+
+  /**
    * Get controller by its id
    * @param {string} controllerId
    * @returns {?ControllerModel}
@@ -71,6 +81,21 @@ class ControllersCollection {
     if (controller) {
       controller.removeFields(fieldsIds);
     }
+  }
+
+  /**
+   * Remove fields from controllers
+   * @param {Object} options
+   * @param {Array<string>} options.fieldsIds
+   */
+  removeFieldsFromControllers(options = {}) {
+    const { fieldsIds } = options;
+    Object
+      .keys(this.controllers)
+      .forEach((controllerId) => {
+        const controller = this.controllers[controllerId];
+        controller.removeFields(fieldsIds);
+      });
   }
 
   /**

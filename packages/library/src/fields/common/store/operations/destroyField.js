@@ -1,6 +1,9 @@
 import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import {
+  operationRemoveFieldsFromControllers,
+} from '../../../../controllers/common/store/operations/removeFieldsFromControllers';
+import {
   makeFieldSelector,
 } from '../selectors';
 import { actions } from '../storeArtifacts';
@@ -14,10 +17,17 @@ const innerInvariant = createInvariant('operationDestroyField');
  */
 const operationDestroyField = ({ id }) => (
   (dispatch, getState, channels) => {
-    const field = makeFieldSelector(id)(getState());
+    const state = getState();
+    const field = makeFieldSelector(id)(state);
     innerInvariant(
       field,
       `Field ${id} should be created before destroying`,
+    );
+
+    dispatch(
+      operationRemoveFieldsFromControllers({
+        fieldsIds: [field.id],
+      }),
     );
 
     channels.unregister({ channelId: id });

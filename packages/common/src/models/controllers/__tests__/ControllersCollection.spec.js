@@ -34,6 +34,20 @@ describe('ControllersCollection', () => {
     });
   });
 
+  describe('#forEach', () => {
+    it('should iterate by controllers', () => {
+      controllersCollection.addController(firstController);
+      controllersCollection.addController(secondController);
+
+      const result = [];
+      controllersCollection.forEach((controller) => {
+        result.push(controller);
+      });
+
+      expect(result).toEqual([firstController, secondController]);
+    });
+  });
+
   describe('#getController', () => {
     beforeEach(() => {
       controllersCollection.addController(firstController);
@@ -131,6 +145,33 @@ describe('ControllersCollection', () => {
           fieldsIds: ['field-1', 'field-2'],
         });
       }).not.toThrowError();
+    });
+  });
+
+  describe('#removeFieldsFromControllers', () => {
+    beforeEach(() => {
+      controllersCollection.addController(firstController);
+      controllersCollection.addController(secondController);
+      firstController.addFields(['field-1', 'field-2']);
+      secondController.addFields(['field-1']);
+    });
+
+    it('should remove fields from controllers by fields` ids', () => {
+      controllersCollection.removeFieldsFromControllers({
+        fieldsIds: ['field-1'],
+      });
+
+      expect(firstController.fieldsIds).toEqual(['field-2']);
+      expect(secondController.fieldsIds).toEqual([]);
+    });
+
+    it('should remove nothing from controllers when fields are not found', () => {
+      controllersCollection.removeFieldsFromControllers({
+        fieldsIds: ['field-3'],
+      });
+
+      expect(firstController.fieldsIds).toEqual(['field-1', 'field-2']);
+      expect(secondController.fieldsIds).toEqual(['field-1']);
     });
   });
 });

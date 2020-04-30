@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import uniqueId from '@js-sdk/common/src/helpers/uniqueId';
+import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
 import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
@@ -27,7 +27,6 @@ class Field {
   constructor(options = {}) {
     /**
      * @type {string}
-     * @protected
      */
     this.id = uniqueId();
     /**

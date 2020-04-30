@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 /* eslint import/no-unresolved:0 */
+/* eslint react/jsx-props-no-spreading:0 */
 import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
 import { UserOutlined } from '@ant-design/icons';
 import {
@@ -28,74 +29,79 @@ const fieldStyle = {
 
 function App() {
   const form = useRef(null);
-  const userName = useRef(null);
-  const lastName = useRef(null);
-  const email = useRef(null);
-  const cardNumber = useRef(null);
-  const cardVerificationCode = useRef(null);
-  const cardExpirationDate = useRef(null);
+  const [fields, setFields] = useState([
+    { name: 'userName', label: 'User name' },
+    { name: 'lastName', label: 'Last name' },
+    { name: 'email', label: 'Email' },
+    { name: 'cardNumber', label: 'Card number', className: 'cardNumber' },
+    { name: 'cardVerificationCode', label: 'CVC', span: 1 },
+    { name: 'cardExpirationDate', label: 'Expiration date', span: 2 },
+  ]);
+  const fieldsRefs = useRef({});
   const [appStatus, setAppStatus] = useState('preparing');
   const [formStatus, setFormStatus] = useState(null);
 
   useEffect(() => {
-    userName.current = sdk.createField('textInput', {
-      name: 'user.name',
-      placeholder: 'Mister',
-      style: fieldStyle,
-      validators: [
-        SDK.VALIDATORS.REQUIRED,
-      ],
-    });
-    lastName.current = sdk.createField('textInput', {
-      name: 'user.lastName',
-      placeholder: 'X',
-      style: fieldStyle,
-    });
-    email.current = sdk.createField('textInput', {
-      name: 'user.email',
-      placeholder: 'email@example.com',
-      style: fieldStyle,
-      validators: [
-        SDK.VALIDATORS.REQUIRED,
-      ],
-    });
-    cardNumber.current = sdk.createField('cardNumber', {
-      name: 'card.number',
-      style: fieldStyle,
-      validators: [
-        SDK.VALIDATORS.REQUIRED,
-        SDK.VALIDATORS.CARD_NUMBER,
-      ],
-    });
-    cardVerificationCode.current = sdk.createField('cardVerificationCode', {
-      name: 'card.cvc',
-      placeholder: '***',
-      style: fieldStyle,
-      validators: [
-        SDK.VALIDATORS.REQUIRED,
-        SDK.VALIDATORS.CARD_VERIFICATION_CODE,
-      ],
-    });
-    cardExpirationDate.current = sdk.createField('cardExpirationDate', {
-      name: 'card.expirationDate',
-      style: fieldStyle,
-      validators: [
-        SDK.VALIDATORS.REQUIRED,
-        SDK.VALIDATORS.CARD_EXPIRATION_DATE,
+    fieldsRefs.current = {
+      userName: sdk.createField('textInput', {
+        name: 'user.name',
+        placeholder: 'Mister',
+        style: fieldStyle,
+        validators: [
+          SDK.VALIDATORS.REQUIRED,
+        ],
+      }),
+      lastName: sdk.createField('textInput', {
+        name: 'user.lastName',
+        placeholder: 'X',
+        style: fieldStyle,
+      }),
+      email: sdk.createField('textInput', {
+        name: 'user.email',
+        placeholder: 'email@example.com',
+        style: fieldStyle,
+        validators: [
+          SDK.VALIDATORS.REQUIRED,
+        ],
+      }),
+      cardNumber: sdk.createField('cardNumber', {
+        name: 'card.number',
+        style: fieldStyle,
+        validators: [
+          SDK.VALIDATORS.REQUIRED,
+          SDK.VALIDATORS.CARD_NUMBER,
+        ],
+      }),
+      cardVerificationCode: sdk.createField('cardVerificationCode', {
+        name: 'card.cvc',
+        placeholder: '***',
+        style: fieldStyle,
+        validators: [
+          SDK.VALIDATORS.REQUIRED,
+          SDK.VALIDATORS.CARD_VERIFICATION_CODE,
+        ],
+      }),
+      cardExpirationDate: sdk.createField('cardExpirationDate', {
+        name: 'card.expirationDate',
+        style: fieldStyle,
+        validators: [
+          SDK.VALIDATORS.REQUIRED,
+          SDK.VALIDATORS.CARD_EXPIRATION_DATE,
+        ],
+      }),
+    };
+
+    const resultForm = sdk.createForm({
+      fields: [
+        fieldsRefs.current.userName,
+        fieldsRefs.current.lastName,
+        fieldsRefs.current.email,
+        fieldsRefs.current.cardNumber,
+        fieldsRefs.current.cardVerificationCode,
+        fieldsRefs.current.cardExpirationDate,
       ],
     });
 
-    // FIXME - think about appendTo call method outside of form controller
-    const resultForm = sdk.createForm({
-      fields: [
-        userName.current,
-        lastName.current,
-        email.current,
-        cardNumber.current,
-        cardVerificationCode.current,
-        cardExpirationDate.current,
-      ],
-    });
     resultForm.on('status', (nextFormStatus) => {
       setFormStatus(nextFormStatus);
     });
@@ -118,25 +124,35 @@ function App() {
   const handleResetClick = useCallback((e) => {
     e.preventDefault();
 
-    userName.current.clear();
-    lastName.current.clear();
-    email.current.clear();
-    cardNumber.current.clear();
-    cardVerificationCode.current.clear();
-    cardExpirationDate.current.clear();
-  }, [userName, lastName, email, cardNumber, cardVerificationCode, cardExpirationDate]);
+    fieldsRefs.current.userName.clear();
+    fieldsRefs.current.lastName.clear();
+    fieldsRefs.current.email.clear();
+    fieldsRefs.current.cardNumber.clear();
+    fieldsRefs.current.cardVerificationCode.clear();
+    fieldsRefs.current.cardExpirationDate.clear();
+  }, [fieldsRefs]);
+
+  const handleDelete = useCallback((fieldName) => {
+    fieldsRefs.current[fieldName].destroy();
+
+    setFields(
+      fields.filter(
+        (field) => field.name !== fieldName,
+      ),
+    );
+  }, [fields]);
 
   const handleUpClick = useCallback((e) => {
     e.preventDefault();
 
-    userName.current.focus();
-  }, [userName]);
+    fieldsRefs.current.userName.focus();
+  }, [fieldsRefs]);
 
   const handleDownClick = useCallback((e) => {
     e.preventDefault();
 
-    userName.current.blur();
-  }, [userName]);
+    fieldsRefs.current.userName.blur();
+  }, [fieldsRefs]);
 
   const isFormReady = formStatus
     && formStatus.readiness === SDK.FORM_STATUSES.READINESS.READY;
@@ -144,8 +160,8 @@ function App() {
   const isFormEnabled = isFormReady
     && formStatus.validation === SDK.FORM_STATUSES.VALIDATION.VALID;
 
-  const isUserNameReady = userName.current
-    && userName.current.getStatus().readiness === SDK.FIELD_STATUSES.READINESS.READY;
+  const isUserNameReady = fieldsRefs.current.userName
+    && fieldsRefs.current.userName.getStatus().readiness === SDK.FIELD_STATUSES.READINESS.READY;
 
   return (
     <Layout>
@@ -170,45 +186,16 @@ function App() {
             minHeight: 280,
           }}
         >
-          <Field
-            name="userName"
-            label="User name"
-            field={userName.current}
-            form={form.current}
-          />
-          <Field
-            name="lastName"
-            label="Last name"
-            field={lastName.current}
-            form={form.current}
-          />
-          <Field
-            name="email"
-            label="Email"
-            field={email.current}
-            form={form.current}
-          />
-          <Field
-            name="cardNumber"
-            label="Card Number"
-            field={cardNumber.current}
-            form={form.current}
-            className="cardNumber"
-          />
-          <Field
-            name="cardVerificationCode"
-            label="CVC"
-            field={cardVerificationCode.current}
-            form={form.current}
-            span={1}
-          />
-          <Field
-            name="cardExpirationDate"
-            label="Expiration date"
-            field={cardExpirationDate.current}
-            form={form.current}
-            span={2}
-          />
+          {
+            fields.map((fieldProps) => (
+              <Field
+                key={fieldProps.name}
+                {...fieldProps}
+                field={fieldsRefs.current[fieldProps.name]}
+                onDelete={handleDelete}
+              />
+            ))
+          }
           <Row className="row">
             <Col span={2}>
               <Button
