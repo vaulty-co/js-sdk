@@ -3,7 +3,8 @@ import { InputField } from '../common/InputField';
 
 /**
  * It renders simple text input node
- * @class
+ * @class CardNumberElement
+ * @extends InputFieldElement
  */
 class CardNumber extends InputField {
   constructor(options) {

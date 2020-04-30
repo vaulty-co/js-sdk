@@ -10,7 +10,8 @@ import { makeControllerParamsSelector } from '../../common/store/selectors';
 import { operationSubmitForm } from './operations/submitForm';
 
 /**
- * @class
+ * @class SDKForm
+ * @extends SDKController
  */
 class Form extends Controller {
   static get STATUSES() {
@@ -18,7 +19,7 @@ class Form extends Controller {
   }
 
   /**
-   * @param {FormOptions} options
+   * @param {SDKFormOptions} options
    */
   constructor(options) {
     super(options);

@@ -38,7 +38,7 @@ class SDK {
   /**
    * Create field instance
    * @param {string} type - field type
-   * @param {FieldOptions} options
+   * @param {SDKFieldOptions} options
    * @returns {?FieldProxy}
    */
   createField(type, options) {
@@ -51,7 +51,7 @@ class SDK {
 
   /**
    * Create form for controlling fields
-   * @param {FormOptions} options
+   * @param {SDKFormOptions} options
    * @returns {Form}
    */
   createForm(options) {

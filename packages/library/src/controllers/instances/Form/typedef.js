@@ -1,6 +1,5 @@
 /**
- * @typedef {Object} FormOptions
- * @extends ControllerOptions
+ * @typedef {Object & SDKControllerOptions} SDKFormOptions
  * @property {string} action - URL, where data should be submitted
  * @property {string} encode - type of submitting data (url encode, json etc.)
  * @property {string} method - method of sending data (POST, GET etc.)

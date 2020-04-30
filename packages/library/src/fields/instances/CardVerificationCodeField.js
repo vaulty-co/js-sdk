@@ -7,11 +7,12 @@ import { makeFieldParamsSelector } from '../common/store/selectors';
 
 /**
  * Create CardVerificationCode field
- * @class
+ * @class SDKCardVerificationCodeField
+ * @extends SDKField
  */
 class CardVerificationCodeField extends Field {
   /**
-   * @param {FieldOptions} options
+   * @param {SDKFieldOptions} options
    */
   constructor(options) {
     super(options);

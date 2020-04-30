@@ -14,12 +14,12 @@ const FIELD_TYPES = {
 };
 
 /**
- * @class
+ * @class SDKFieldProxy
  */
 class FieldProxy {
   /**
    * @param {fieldType} type
-   * @param {FieldOptions} options
+   * @param {SDKFieldOptions} options
    */
   constructor(type, options = {}) {
     const FieldInstance = FIELD_TYPES[type];
@@ -35,7 +35,7 @@ class FieldProxy {
     this.id = this.field.id;
     /**
      * Field selector
-     * @type {function(SDKState): ?FieldModel}
+     * @type {fieldSelector}
      * @protected
      */
     this.fieldSelector = makeFieldSelector(this.field.id);

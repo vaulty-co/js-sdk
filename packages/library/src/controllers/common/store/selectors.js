@@ -13,7 +13,7 @@ const controllersSelector = (state) => state.controllers;
 
 /**
  * @param {string} controllerId
- * @return {function(state: SDKState): ?ControllerModel}
+ * @return {controllerSelector}
  */
 const makeControllerSelector = (controllerId) => (
   createSelector(
@@ -24,7 +24,7 @@ const makeControllerSelector = (controllerId) => (
 
 /**
  * @param {string} controllerId
- * @return {function(state: SDKState): string}
+ * @return {controllerParamsSelector}
  */
 const makeControllerParamsSelector = (controllerId) => (
   createSelector(
@@ -35,7 +35,7 @@ const makeControllerParamsSelector = (controllerId) => (
 
 /**
  * @param {string} controllerId
- * @return {function(state: SDKState): ComputedControllerStatus}
+ * @return {controllerStatusSelector}
  */
 const makeControllerStatusSelector = (controllerId) => {
   const controllerSelector = makeControllerSelector(controllerId);

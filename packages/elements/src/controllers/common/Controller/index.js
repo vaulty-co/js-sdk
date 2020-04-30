@@ -23,8 +23,8 @@ const CONTROLLER_STATUSES = {
 
 /**
  * Controller base class
- * @class
- * @extends {ElementsInstance}
+ * @class ControllerElement
+ * @extends ElementsInstance
  */
 class Controller {
   static get STATUSES() {

@@ -6,11 +6,12 @@ import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messag
 
 /**
  * It renders simple input like node
- * @class
+ * @class InputFieldElement
+ * @extends FieldElement
  */
 class InputField extends Field {
   /**
-   * @param {FieldOptions} options
+   * @param {FieldElementOptions} options
    */
   constructor(options) {
     super(options);

@@ -5,7 +5,8 @@ import { InputField } from '../common/InputField';
 
 /**
  * It renders card expiration date input
- * @class
+ * @class CardExpirationDateElement
+ * @extends InputFieldElement
  */
 class CardExpirationDate extends InputField {
   constructor(options) {

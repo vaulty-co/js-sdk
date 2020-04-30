@@ -3,7 +3,8 @@ import { InputField } from '../common/InputField';
 
 /**
  * It renders card verification code input
- * @class
+ * @class CardVerificationCodeElement
+ * @extends InputFieldElement
  */
 class CardVerificationCode extends InputField {
   constructor(options) {

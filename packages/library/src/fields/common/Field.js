@@ -14,7 +14,7 @@ import {
 } from './store/selectors';
 
 /**
- * @class
+ * @class SDKField
  */
 class Field {
   static get invariant() {
@@ -22,7 +22,7 @@ class Field {
   }
 
   /**
-   * @param {FieldOptions} options
+   * @param {SDKFieldOptions} options
    */
   constructor(options = {}) {
     /**
@@ -30,7 +30,7 @@ class Field {
      */
     this.id = uniqueId();
     /**
-     * @type {FieldOptions}
+     * @type {SDKFieldOptions}
      * @protected
      */
     this.options = options;
@@ -46,7 +46,7 @@ class Field {
     this.fieldIframe = null;
     /**
      * Field selector
-     * @type {function(SDKState): ?FieldModel}
+     * @type {fieldSelector}
      * @protected
      */
     this.fieldSelector = makeFieldSelector(this.id);

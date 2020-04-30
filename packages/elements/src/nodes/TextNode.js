@@ -2,11 +2,6 @@ import { Node } from '@js-sdk/common/src/nodes/Node';
 import styles from './styles.scss';
 
 /**
- * @typedef {Object} TextNodeOptions
- * @property {string} type - type of text node
- */
-
-/**
  * Create text node with using <input /> element
  * @class
  */

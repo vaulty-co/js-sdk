@@ -8,7 +8,7 @@ import { sdkIdSelector } from '../../../store/selectors';
 const fieldsSelector = (state) => state.fields;
 /**
  * @param {string} fieldId
- * @return {function(state: SDKState): ?FieldModel}
+ * @return {fieldSelector}
  */
 const makeFieldSelector = (fieldId) => (
   createSelector(
@@ -18,7 +18,7 @@ const makeFieldSelector = (fieldId) => (
 );
 /**
  * @param {string} fieldId
- * @return {function(state: SDKState): string}
+ * @return {fieldParamsSelector}
  */
 const makeFieldParamsSelector = (fieldId) => (
   createSelector(

@@ -7,11 +7,12 @@ import { makeFieldParamsSelector } from '../common/store/selectors';
 
 /**
  * Create TextInput field
- * @class
+ * @class SDKTextInputField
+ * @extends SDKField
  */
 class TextInputField extends Field {
   /**
-   * @param {FieldOptions} options
+   * @param {SDKFieldOptions} options
    */
   constructor(options) {
     super(options);

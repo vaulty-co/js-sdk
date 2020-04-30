@@ -4,7 +4,8 @@ import { InputField } from '../common/InputField';
 
 /**
  * It renders simple text input node
- * @class
+ * @class TextInputElement
+ * @extends InputFieldElement
  */
 class TextInput extends InputField {
   constructor(options) {

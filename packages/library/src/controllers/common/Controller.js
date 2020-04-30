@@ -22,7 +22,7 @@ const getFieldsIds = (fields) => (
 );
 
 /**
- * @class
+ * @class SDKController
  */
 class Controller {
   static get invariant() {
@@ -30,7 +30,7 @@ class Controller {
   }
 
   /**
-   * @param {ControllerOptions} options
+   * @param {SDKControllerOptions|SDKFormOptions} options
    */
   constructor(options) {
     /**
@@ -39,7 +39,7 @@ class Controller {
      */
     this.id = uniqueId();
     /**
-     * @type {ControllerOptions}
+     * @type {SDKControllerOptions}
      * @protected
      */
     this.options = options;

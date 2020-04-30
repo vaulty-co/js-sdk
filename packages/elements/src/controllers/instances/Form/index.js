@@ -6,6 +6,8 @@ import { submitHandler } from './handlers/submit';
 
 /**
  * Form controller for submitting data from fields
+ * @class FormElement
+ * @extends ControllerElement
  */
 class Form extends Controller {
   /**

@@ -27,8 +27,8 @@ const FIELD_STATUSES = {
 
 /**
  * Base class for Field
- * @class
- * @extends {ElementsInstance}
+ * @class FieldElement
+ * @extends ElementsInstance
  */
 class Field {
   static get invariant() {
@@ -40,7 +40,7 @@ class Field {
   }
 
   /**
-   * @param {FieldOptions} options
+   * @param {FieldElementOptions} options
    */
   constructor(options) {
     const node = options?.node;
