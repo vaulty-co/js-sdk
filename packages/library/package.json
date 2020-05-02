@@ -19,10 +19,10 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
-    "@rollup/plugin-alias": "^3.0.1",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-jest": "^25.2.3",
+    "babel-plugin-transform-define": "^2.0.0",
     "jest": "^25.2.3",
     "redux-devtools-extension": "^2.13.8",
     "rimraf": "^3.0.2",
@@ -32,6 +32,8 @@
     "rollup-plugin-visualizer": "^3.3.2"
   },
   "dependencies": {
+    "@js-sdk/common": "0.1.0",
+    "@js-sdk/elements": "0.1.0",
     "events": "^3.1.0",
     "immer": "^6.0.2",
     "redux": "^4.0.5",

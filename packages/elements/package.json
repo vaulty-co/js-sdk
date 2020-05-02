@@ -36,6 +36,7 @@
     "rollup-plugin-visualizer": "^3.3.2"
   },
   "dependencies": {
+    "@js-sdk/common": "0.1.0",
     "card-validator": "^6.2.0",
     "history": "^4.10.1",
     "imask": "^6.0.3",

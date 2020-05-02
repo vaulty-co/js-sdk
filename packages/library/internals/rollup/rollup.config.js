@@ -2,11 +2,14 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
-import alias from '@rollup/plugin-alias';
 import visualizer from 'rollup-plugin-visualizer';
 
 import pkg from '../../package.json';
 
+const dependenciesToList = (dependencies) => (
+  Object.keys(dependencies)
+    .filter((dependency) => !dependency.includes('@js-sdk'))
+);
 const devBuildAssets = {
   main: 'devTmp/js-sdk.cjs.js',
   module: 'devTmp/js-sdk.esm.js',
@@ -14,6 +17,10 @@ const devBuildAssets = {
 };
 const isDevelopmentBuild = Boolean(process.env.ROLLUP_WATCH);
 const sourcemap = isDevelopmentBuild ? 'inline' : false;
+const externalDependencies = [
+  ...dependenciesToList(pkg.dependencies),
+  ...dependenciesToList(pkg.devDependencies),
+];
 
 export default [
   // browser-friendly UMD build
@@ -22,17 +29,12 @@ export default [
     output: {
       name: 'SDK',
       file: isDevelopmentBuild ? devBuildAssets.browser : pkg.browser,
-      format: 'umd',
+      format: 'iife',
       sourcemap,
     },
     plugins: [
-      alias({
-        entries: [
-          // use browser version of crypto
-          { find: 'crypto', replacement: '@js-sdk/common/src/helpers/crypto' },
-        ],
-      }),
       resolve({
+        browser: true,
         preferBuiltins: false,
       }),
       commonjs({
@@ -54,6 +56,12 @@ export default [
         plugins: [
           '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-nullish-coalescing-operator',
+          [
+            'transform-define',
+            {
+              'process.env.NODE_ENV': process.env.NODE_ENV,
+            },
+          ],
         ],
         exclude: ['node_modules/**'],
       }),
@@ -94,7 +102,17 @@ export default [
         sourcemap,
       },
     ],
+    external: [
+      ...externalDependencies,
+      'crypto',
+    ],
     plugins: [
+      resolve({
+        preferBuiltins: true,
+      }),
+      commonjs({
+        include: /node_modules/,
+      }),
       babel({
         babelrc: false,
         presets: [
