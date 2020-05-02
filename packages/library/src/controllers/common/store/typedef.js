@@ -5,6 +5,12 @@
  */
 
 /**
+ * @callback controllerFieldsSelector
+ * @param {SDKState}
+ * @return {?Array<FieldModel>}
+ */
+
+/**
  * @callback controllerStatusSelector
  * @param {SDKState}
  * @return {ComputedControllerStatus}

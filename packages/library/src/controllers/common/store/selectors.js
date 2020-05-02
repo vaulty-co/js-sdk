@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
 
+import { createShallowEqualSelector } from '../../../store/utils/createShallowEqualSelector';
 import { sdkIdSelector } from '../../../store/selectors';
 import { fieldsSelector } from '../../../fields/common/store/selectors';
 
@@ -24,6 +25,26 @@ const makeControllerSelector = (controllerId) => (
 
 /**
  * @param {string} controllerId
+ * @return {controllerFieldsSelector}
+ */
+const makeControllerFieldsSelector = (controllerId) => {
+  const controllerSelector = makeControllerSelector(controllerId);
+  const controllerFieldsSelector = createSelector(
+    [fieldsSelector, controllerSelector],
+    (fieldsCollection, controller) => (
+      controller.fieldsIds.map((fieldId) => (
+        fieldsCollection.getField(fieldId)
+      ))
+    ),
+  );
+  return createShallowEqualSelector(
+    controllerFieldsSelector,
+    (fields) => fields,
+  );
+};
+
+/**
+ * @param {string} controllerId
  * @return {controllerParamsSelector}
  */
 const makeControllerParamsSelector = (controllerId) => (
@@ -39,16 +60,14 @@ const makeControllerParamsSelector = (controllerId) => (
  */
 const makeControllerStatusSelector = (controllerId) => {
   const controllerSelector = makeControllerSelector(controllerId);
-  return createSelector(
-    [fieldsSelector, controllerSelector],
-    (fieldsCollection, controller) => {
-      const fields = controller.fieldsIds.map((fieldId) => (
-        fieldsCollection.getField(fieldId)
-      ));
-      const isFieldsReady = fields.every((field) => (
+  const controllerFieldsSelector = makeControllerFieldsSelector(controllerId);
+  const controllerStatusSelector = createSelector(
+    [controllerFieldsSelector, controllerSelector],
+    (controllerFields, controller) => {
+      const isFieldsReady = controllerFields.every((field) => (
         field.status.readiness === FieldModel.STATUSES.READINESS.READY
       ));
-      const isFieldsValid = fields.every((field) => (
+      const isFieldsValid = controllerFields.every((field) => (
         field.status.validation.status === FieldModel.STATUSES.VALIDATION.VALID
       ));
       return {
@@ -64,6 +83,10 @@ const makeControllerStatusSelector = (controllerId) => {
           : ControllerModel.STATUSES.VALIDATION.INVALID,
       };
     },
+  );
+  return createShallowEqualSelector(
+    controllerStatusSelector,
+    (status) => status,
   );
 };
 

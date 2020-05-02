@@ -95,8 +95,6 @@ class Controller {
         const previousStatus = currentStatus;
         currentStatus = this.controllerStatusSelector(newState);
         if (previousStatus !== currentStatus) {
-          // FIXME - improve calling once, when status is the same.
-          //  It happens, because field could change status, but computed value still the same
           this.events.emit('status', currentStatus);
         }
       }
@@ -180,7 +178,7 @@ class Controller {
   /**
    * Destroy controller and its DOM tree. It does not destroy parent, where controller have been placed.
    * Controller is not usable after destroy
-   * @param {boolean} [withFields = false] - destroy form with its fields
+   * @param {boolean} [withFields = false] - destroy controller with its fields
    */
   destroy(withFields = false) {
     this.operations.destroyController({ id: this.id, withFields });
