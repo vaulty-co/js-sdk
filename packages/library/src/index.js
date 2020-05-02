@@ -4,7 +4,7 @@ import { ControllerModel } from '@js-sdk/common/src/models/controllers/Controlle
 
 import { createStore } from './store/index';
 import { FieldProxy } from './fields/FieldProxy';
-import { Form } from './controllers/instances/Form/index';
+import { FormProxy } from './controllers/FormProxy';
 
 /**
  * @typedef {Object} SDKOptions
@@ -52,10 +52,10 @@ class SDK {
   /**
    * Create form for controlling fields
    * @param {SDKFormOptions} options
-   * @returns {Form}
+   * @returns {FormProxy}
    */
   createForm(options) {
-    return new Form({
+    return new FormProxy({
       ...options,
       store: this.store,
     });

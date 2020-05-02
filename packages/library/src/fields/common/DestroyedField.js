@@ -1,7 +1,7 @@
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 
 /**
- * @class
+ * @class SDKDestroyedField
  */
 class DestroyedField {
   appendTo() {}

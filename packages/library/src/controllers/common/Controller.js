@@ -12,10 +12,10 @@ import { operationDestroyController } from './store/operations/destroyController
 
 /**
  * Get fields ids by field instances
- * @param {Array<Field>}fields
+ * @param {Array<Field>} [fields = []]
  * @return {Array<string>}
  */
-const getFieldsIds = (fields) => (
+const getFieldsIds = (fields = []) => (
   fields.map(
     (field) => field.id,
   )
@@ -180,7 +180,11 @@ class Controller {
    * Controller is not usable after destroy
    * @param {boolean} [withFields = false] - destroy controller with its fields
    */
-  destroy(withFields = false) {
+  destroy(withFields) {
+    if (typeof withFields === 'undefined') {
+      /* eslint no-param-reassign:0 */
+      withFields = false;
+    }
     this.operations.destroyController({ id: this.id, withFields });
   }
 }

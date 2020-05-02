@@ -52,7 +52,7 @@ class ControllerModel {
     /**
      * @type {Array<string>}
      */
-    this.fieldsIds = fieldsIds;
+    this.fieldsIds = fieldsIds || [];
     /**
      * @type {ControllerStatus}
      */
