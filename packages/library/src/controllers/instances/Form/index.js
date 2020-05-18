@@ -42,11 +42,16 @@ class Form extends Controller {
 
   /**
    * Submit form in options specified URL
-   * @param {FormSubmitOptions} options
+   * @param {string} path
+   * @param {FormSubmitOptions} [options = {}]
    */
-  submit(options) {
+  submit(path, options = {}) {
     this.operations.submitForm(
-      { id: this.id, options },
+      {
+        id: this.id,
+        path,
+        options,
+      },
       () => {
         this.events.emit('submit', { success: true });
       },

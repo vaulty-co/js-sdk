@@ -118,7 +118,14 @@ function App() {
   const handleSubmitClick = useCallback((e) => {
     e.preventDefault();
 
-    form.current.submit();
+    form.current.submit('/pay', {
+      data: {
+        timestamp: Date.now(),
+      },
+      headers: {
+        'x-header': 'some-x-header-value',
+      },
+    });
   }, [form]);
 
   const handleResetClick = useCallback((e) => {

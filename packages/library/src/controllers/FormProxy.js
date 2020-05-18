@@ -10,10 +10,11 @@ class FormProxy extends ControllerProxy {
 
   /**
    * Submit form in options specified URL
+   * @param {string} path
    * @param {FormSubmitOptions} options
    */
-  submit(options) {
-    return this.controller.submit(options);
+  submit(path, options) {
+    return this.controller.submit(path, options);
   }
 }
 

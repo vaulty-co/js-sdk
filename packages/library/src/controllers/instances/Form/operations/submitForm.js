@@ -10,6 +10,7 @@ import {
   FORM_HAS_UNFINISHED_PROCESS,
   FORM_IS_NOT_VALID,
   NO_FIELDS_ERROR,
+  FORM_HAS_REQUESTING_ERROR,
 } from '../events/noFieldsError';
 import {
   makeControllerSelector,
@@ -19,13 +20,14 @@ import {
 /**
  * Operation for submitting form controller
  * @param {string} id
+ * @param {string} path
  * @param {FormSubmitOptions} options
  * @param {Function} successCallback
  * @param {Function} errorCallback
  * @return {operationResult}
  */
 const operationSubmitForm = (
-  { id, options },
+  { id, path, options },
   successCallback = Function.prototype,
   errorCallback = Function.prototype,
 ) => (
@@ -58,18 +60,23 @@ const operationSubmitForm = (
 
     const controllerChannel = channels.getChannel(id);
     controllerChannel.postMessage(
-      new Message(SUBMIT_REQUEST, options),
+      new Message(SUBMIT_REQUEST, {
+        path,
+        options,
+      }),
     );
     controllerChannel.subscribe(SUBMIT_RESPONSE, (message) => {
+      const { data: { controllerStatusPatch } } = message.payload;
+      dispatch(
+        actions.setControllerStatus({
+          controllerId: id,
+          status: controllerStatusPatch,
+        }),
+      );
       if (message.payload.success) {
-        const { data: { controllerStatusPatch } } = message.payload;
-        dispatch(
-          actions.setControllerStatus({
-            controllerId: id,
-            status: controllerStatusPatch,
-          }),
-        );
         successCallback();
+      } else {
+        errorCallback(FORM_HAS_REQUESTING_ERROR);
       }
     });
   }
