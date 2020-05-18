@@ -1694,10 +1694,10 @@
     "@testing-library/dom" "^7.2.2"
     "@types/testing-library__react" "^10.0.1"
 
-"@testing-library/user-event@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-10.3.0.tgz#37f8421a90c9dc604541b6bb4271dc9e930825b5"
-  integrity sha512-v7wceaRwwWlAnl5jP5SB1jzlC2z/7ASwUVXUo3hIksAn1Ml4xV8QTHkp1pfUux+fe7xIMQBwyhGIN5Bv2sqGqg==
+"@testing-library/user-event@^10.3.1":
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-10.3.1.tgz#8ed6fbfa40fbb866fa4666c9a62d7f7ff151f93b"
+  integrity sha512-HozvWlr/xHmkoJrrDdZBbUOXAC/STAeXGyNU+g5KgEwWBpLJi1RPCHJKbTjwz8hp2jDFsk/jjfD0530eZjcFEg==
 
 "@types/babel__core@^7.1.0", "@types/babel__core@^7.1.7":
   version "7.1.7"
@@ -2291,10 +2291,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-4.2.3.tgz#ee9b218cb04acb990a113a78ded934318a782a94"
-  integrity sha512-U7QVJLN9wtSsNVBdrCmQkT8dE6VihNHYIT48/UMty8RE8FtCwljgjJe0PGKOj/tHiPTJv20jiknXotr8rj6J4Q==
+antd@4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-4.2.4.tgz#0a75e178643858960189912b8fe48bf7e8f6abf8"
+  integrity sha512-g61c1+Ji/tbY+G1GMdk0LsCN3S1ZfoHyj+zcjXmvqZjWfdkJ/bBEzw08I3ytTe5TV8RFued0nnSjT51ruagpSA==
   dependencies:
     "@ant-design/css-animation" "^1.7.2"
     "@ant-design/icons" "^4.1.0"
@@ -2327,7 +2327,7 @@ antd@4.2.3:
     rc-select "~10.3.0"
     rc-slider "~9.2.3"
     rc-steps "~3.6.0"
-    rc-switch "~2.0.0"
+    rc-switch "~3.0.0"
     rc-table "~7.5.3"
     rc-tabs "~10.1.1"
     rc-tooltip "~4.0.2"
@@ -4827,10 +4827,10 @@ eslint-plugin-import@^2.20.2:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@^23.13.0:
-  version "23.13.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.13.0.tgz#a80ec992b155dd15260bf1131bad666e5123e551"
-  integrity sha512-AG18G0qFCgFOdhMibl4cTuKTCBVjzm/hEPYMOPCTj3Yh2GQ53q5u5Jj3a4nl1JH1BxqPsXIrZR1oRE+TdptfHw==
+eslint-plugin-jest@^23.13.1:
+  version "23.13.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.13.1.tgz#b2ce83f76064ad8ba1f1f26f322b86a86e44148e"
+  integrity sha512-TRLJH6M6EDvGocD98a7yVThrAOCK9WJfo9phuUb0MJptcrOYZeCKzC9aOzZCD93sxXCsiJVZywaTHdI/mAi0FQ==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -10742,10 +10742,10 @@ rc-steps@~3.6.0:
     classnames "^2.2.3"
     lodash "^4.17.5"
 
-rc-switch@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/rc-switch/-/rc-switch-2.0.0.tgz#4a29c8dc13a1a9d59259c87f1612137cf497a302"
-  integrity sha512-x4ypcYbFh5uQY26GdAl7xvwbdVYp4IRZp63rguH41Jd697y63ESn2hlgo6CQp9AyAAu4puwQwNqK2wFBezjicg==
+rc-switch@~3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rc-switch/-/rc-switch-3.0.1.tgz#6729a022ca968ddcb3d7b5d3ef3865869db03558"
+  integrity sha512-gPrR8PSXpa4xMFGwcdEUsy6oLvCne/qWQjk4x8J+CMocIGsWYXU5cAm9CkjbPYGoff391h1s02ORrqFPbMVuaw==
   dependencies:
     classnames "^2.2.1"
 
@@ -11577,10 +11577,10 @@ rollup-pluginutils@^2.8.1, rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.10.2:
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.10.2.tgz#9adfcf8ab36861b5b0f8ca7b436f5866e3e9e200"
-  integrity sha512-tivFM8UXBlYOUqpBYD3pRktYpZvK/eiCQ190eYlrAyrpE/lzkyG2gbawroNdbwmzyUc7Y4eT297xfzv0BDh9qw==
+rollup@^2.10.3:
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.10.3.tgz#b024155a93a13412ff547764f8fd4f67fbf64f51"
+  integrity sha512-Pw4isow3qDZvIozWtEBSZckSxpZgAj11hLijykaO/qZLNq4VGZVZOANBzoWlMabTtg9edQTe3pkLU39PoIkOeg==
   optionalDependencies:
     fsevents "~2.1.2"
 
