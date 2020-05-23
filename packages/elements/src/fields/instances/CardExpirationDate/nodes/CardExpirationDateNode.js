@@ -1,5 +1,5 @@
 import IMask from 'imask';
-import { TextNode } from '../../../nodes/TextNode';
+import { TextNode } from '../../../../nodes/TextNode';
 
 /**
  * Create card expiration date node

@@ -1,5 +1,5 @@
 import { CardNumberNode } from './nodes/CardNumberNode';
-import { InputField } from '../common/InputField';
+import { InputField } from '../../common/InputField';
 
 /**
  * It renders simple text input node

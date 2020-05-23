@@ -1,6 +1,6 @@
 import { TextNode } from '@js-sdk/elements/src/nodes/TextNode';
 
-import { InputField } from '../common/InputField';
+import { InputField } from '../../common/InputField';
 
 /**
  * It renders simple text input node

@@ -1,4 +1,4 @@
-import { queryString } from '@js-sdk/elements/src/fields/CardExpirationDate/route/queryString';
+import { queryString } from '@js-sdk/elements/src/fields/instances/CardExpirationDate/route/queryString';
 import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
 
 import { configSelector } from '../../store/config/selectors';

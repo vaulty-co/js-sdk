@@ -1,5 +1,5 @@
 import { CardVerificationCodeNode } from './nodes/CardVerificationCodeNode';
-import { InputField } from '../common/InputField';
+import { InputField } from '../../common/InputField';
 
 /**
  * It renders card verification code input

@@ -1,7 +1,7 @@
 import cardValidator from 'card-validator';
 
 import { CardExpirationDateNode } from './nodes/CardExpirationDateNode';
-import { InputField } from '../common/InputField';
+import { InputField } from '../../common/InputField';
 
 /**
  * It renders card expiration date input
