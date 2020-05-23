@@ -1,6 +1,7 @@
 import { VALIDATORS_TYPES } from '@js-sdk/elements/src/validators/constants';
 import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
 import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import { createStore } from './store/index';
 import { FieldProxy } from './fields/FieldProxy';
@@ -29,10 +30,22 @@ class SDK {
     return VALIDATORS_TYPES;
   }
 
+  static get invariant() {
+    return staticInvariant;
+  }
+
   /**
    * @param {SDKConfig} config
    */
   constructor(config) {
+    this.constructor.invariant(
+      Boolean(config.sdkOrigin),
+      'Options "sdkOrigin" is required',
+    );
+    this.constructor.invariant(
+      Boolean(config.elementsOrigin),
+      'Options "elementsOrigin" is required',
+    );
     /**
      * SDK redux store
      * @type {Store} - redux store
