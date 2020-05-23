@@ -28,7 +28,7 @@ export default [
     input: 'src/index.js',
     output: {
       name: 'SDK',
-      file: isDevelopmentBuild ? devBuildAssets.browser : pkg.browser,
+      file: isDevelopmentBuild ? devBuildAssets.browser : pkg.browser[pkg.main],
       format: 'iife',
       sourcemap,
     },
