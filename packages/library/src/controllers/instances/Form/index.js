@@ -4,7 +4,7 @@ import {
   CONTROLLER_STATUSES,
 } from '@js-sdk/common/src/models/controllers/constants';
 
-import { Config } from '../../../config';
+import { configSelector } from '../../../store/config/selectors';
 import { Controller } from '../../common/Controller';
 import { makeControllerParamsSelector } from '../../common/store/selectors';
 import { operationSubmitForm } from './operations/submitForm';
@@ -31,11 +31,12 @@ class Form extends Controller {
     );
 
     const state = options.store.getState();
+    const config = configSelector(state);
     const controllerParams = makeControllerParamsSelector(this.id)(state);
     this.controllerIframe = new IFrameNode({
       width: 0,
       height: 0,
-      src: `${Config.elementsOrigin}/?${queryString}&${controllerParams}`,
+      src: `${config.elementsOrigin}/?${queryString}&${controllerParams}`,
     });
     this.appendTo(document.body);
   }

@@ -4,17 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { fields } from '../fields/common/store/index';
 import { controllers } from '../controllers/common/store/index';
+import { config } from './config/index';
 import { operationsMiddleware } from './middleware/operationsMiddleware/index';
 
 let middleware = applyMiddleware(
   operationsMiddleware,
 );
 if (process.env.NODE_ENV === 'development') {
-  middleware = composeWithDevTools(
-    applyMiddleware(
-      operationsMiddleware,
-    ),
-  );
+  middleware = composeWithDevTools(middleware);
 }
 
 /**
@@ -27,6 +24,7 @@ const createStore = () => {
   return reduxCreateStore(
     combineReducers({
       sdkId: (state = initialSdkId) => state,
+      config,
       fields,
       controllers,
     }),

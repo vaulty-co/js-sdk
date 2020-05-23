@@ -2,10 +2,14 @@ import thunk from 'redux-thunk';
 
 import { Channels } from '../../utils/Channels';
 
-const channels = new Channels();
-const operationsMiddleware = thunk.withExtraArgument(channels);
+const operationsMiddleware = (store) => {
+  const channels = new Channels(store);
+  return thunk.withExtraArgument(channels)(store);
+};
 
+export default {
+  operationsMiddleware,
+};
 export {
   operationsMiddleware,
-  channels,
 };

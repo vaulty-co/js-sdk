@@ -14,7 +14,8 @@ import { Field } from './components/Field';
 
 const { Header, Sider, Content } = Layout;
 const sdk = new SDK({
-  authKey: 'some-auth-key',
+  sdkOrigin: 'http://localhost:3000',
+  elementsOrigin: 'http://localhost:3001',
 });
 
 const fieldStyle = {

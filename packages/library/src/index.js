@@ -5,10 +5,12 @@ import { ControllerModel } from '@js-sdk/common/src/models/controllers/Controlle
 import { createStore } from './store/index';
 import { FieldProxy } from './fields/FieldProxy';
 import { FormProxy } from './controllers/FormProxy';
+import { actions } from './store/config/index';
 
 /**
- * @typedef {Object} SDKOptions
- * @property {string} authKey - key for authorization SDK services
+ * @typedef {Object} SDKConfig
+ * @property {string} sdkOrigin - origin of sdk, when it is run
+ * @property {string} elementsOrigin - origin, when elements is hosted
  */
 
 /**
@@ -27,12 +29,18 @@ class SDK {
     return VALIDATORS_TYPES;
   }
 
-  constructor() {
+  /**
+   * @param {SDKConfig} config
+   */
+  constructor(config) {
     /**
      * SDK redux store
      * @type {Store} - redux store
      */
     this.store = createStore();
+    this.store.dispatch(
+      actions.addConfig(config),
+    );
   }
 
   /**

@@ -1,6 +1,7 @@
 import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
-import { Config } from '@js-sdk/library/src/config';
 import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+
+import { configSelector } from '../config/selectors';
 
 /**
  * Control fields' channels
@@ -11,7 +12,11 @@ class Channels {
     return staticInvariant;
   }
 
-  constructor() {
+  /**
+   * @param {Store} store
+   */
+  constructor(store) {
+    this.store = store;
     /**
      * @type {Object.<string, MasterChannel>}
      */
@@ -28,10 +33,11 @@ class Channels {
    */
   register({ channelId, iframeDomNode }) {
     this.unregister({ channelId });
+    const config = configSelector(this.store.getState());
     this.channels[channelId] = new MasterChannel({
       channelId,
       target: iframeDomNode,
-      targetOrigin: Config.elementsOrigin,
+      targetOrigin: config.elementsOrigin,
     });
     return this.channels[channelId];
   }
