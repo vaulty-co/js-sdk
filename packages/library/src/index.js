@@ -63,6 +63,14 @@ class SDK {
    * @returns {?FieldProxy}
    */
   createField(type, options) {
+    this.constructor.invariant(
+      Boolean(type),
+      'Field "type" is required',
+    );
+    this.constructor.invariant(
+      Boolean(options?.name),
+      'Field "options.name" is required',
+    );
     const resultOptions = {
       ...options,
       store: this.store,

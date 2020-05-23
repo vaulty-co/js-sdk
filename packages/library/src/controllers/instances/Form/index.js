@@ -3,6 +3,7 @@ import { queryString } from '@js-sdk/elements/src/controllers/instances/Form/rou
 import {
   CONTROLLER_STATUSES,
 } from '@js-sdk/common/src/models/controllers/constants';
+import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
 
 import { configSelector } from '../../../store/config/selectors';
 import { Controller } from '../../common/Controller';
@@ -16,6 +17,10 @@ import { operationSubmitForm } from './operations/submitForm';
 class Form extends Controller {
   static get STATUSES() {
     return CONTROLLER_STATUSES;
+  }
+
+  static get invariant() {
+    return staticInvariant;
   }
 
   /**
@@ -47,6 +52,11 @@ class Form extends Controller {
    * @param {FormSubmitOptions} [options = {}]
    */
   submit(path, options = {}) {
+    this.constructor.invariant(
+      Boolean(path),
+      'Option "path" is required for submitting form',
+    );
+
     this.operations.submitForm(
       {
         id: this.id,
