@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "JS SDK elements (fields and its controllers)",
   "scripts": {
-    "start": "rimraf ./devTmp && NODE_ENV=development node ./server",
+    "dev": "rimraf ./devTmp && NODE_ENV=development node ./server/dev",
+    "prod": "yarn build && NODE_ENV=production node ./server/prod",
+    "start": "node ./server/prod",
     "lint": "eslint --cache ./src ./internals ./server",
     "lint:ci": "eslint ./src ./internals ./server",
     "test": "jest --config=./internals/tests/jest.config.js --passWithNoTests",

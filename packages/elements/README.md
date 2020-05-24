@@ -16,7 +16,7 @@ yarn install
 ## Start Dev version of elements controller
 
 ```sh
-yarn start
+yarn dev
 ```
 
 ## Run linting
@@ -35,4 +35,16 @@ yarn test
 
 ```sh
 yarn build
+```
+
+## Run production build and start the server
+
+```sh
+yarn prod
+```
+
+## Start production ready build
+
+```sh
+yarn start
 ```

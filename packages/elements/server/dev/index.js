@@ -5,11 +5,11 @@ const reload = require('reload');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const rollup = require('rollup');
-const rollupConfig = require('../internals/rollup/rollup.config');
+const rollupConfig = require('../../internals/rollup/rollup.config');
 
 const app = express();
 const rootDir = __dirname;
-const devBuildDir = path.join(__dirname, '../devTmp');
+const devBuildDir = path.join(__dirname, '../../devTmp');
 
 app.set('port', process.env.PORT || 3001);
 app.use(express.static(devBuildDir));
