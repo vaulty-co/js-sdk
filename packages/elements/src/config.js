@@ -1,9 +1,6 @@
-// FIXME - should be provided by some API call
-const Config = {
-  elementsOrigin: 'http://localhost:3001',
-  sdkOrigin: 'http://localhost:3000',
-  apiOrigin: 'http://localhost:3001',
-};
+/* eslint no-underscore-dangle:0 */
+
+const Config = window.__SDK_ELEMENTS_CONFIG__ || {};
 
 export default Config;
 export {

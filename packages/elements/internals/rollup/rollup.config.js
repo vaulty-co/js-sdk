@@ -73,7 +73,7 @@ module.exports = [
       // enable terser for production
       ...(
         isDevelopmentBuild
-          ? undefined
+          ? []
           : [
             terser({
               output: {
@@ -84,7 +84,7 @@ module.exports = [
       ),
       ...(
         isDevelopmentBuild
-          ? undefined
+          ? []
           : [
             // GZIP compression as .gz files
             gzipPlugin(),
@@ -100,7 +100,7 @@ module.exports = [
       // enable build analyzer (visualizer)
       ...(
         isDevelopmentBuild
-          ? undefined
+          ? []
           : [
             visualizer({
               title: 'SDK library',

@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    meta(charset="utf-8")
+  body
+    div(id="app")
+    script.
+      window['__SDK_ELEMENTS_CONFIG__'] = !{config}
+    each src in scripts
+        script(src= src)
