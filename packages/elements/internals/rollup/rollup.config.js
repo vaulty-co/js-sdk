@@ -6,6 +6,8 @@ const postcss = require('rollup-plugin-postcss');
 const alias = require('@rollup/plugin-alias');
 const visualizer = require('rollup-plugin-visualizer');
 const image = require('@rollup/plugin-image');
+const { default: gzipPlugin } = require('rollup-plugin-gzip');
+const { brotliCompressSync } = require('zlib');
 
 const prodBuildAssetName = 'build/js-sdk-elements.min.js';
 const devBuildAssetName = 'devTmp/js-sdk-elements.js';
@@ -69,23 +71,42 @@ module.exports = [
         minimize: true,
       }),
       // enable terser for production
-      (
+      ...(
         isDevelopmentBuild
           ? undefined
-          : terser({
-            output: {
-              comments: false,
-            },
-          })
+          : [
+            terser({
+              output: {
+                comments: false,
+              },
+            }),
+          ]
+      ),
+      ...(
+        isDevelopmentBuild
+          ? undefined
+          : [
+            // GZIP compression as .gz files
+            gzipPlugin(),
+            // Brotli compression as .br files
+            gzipPlugin({
+              customCompression: (content) => (
+                brotliCompressSync(Buffer.from(content))
+              ),
+              fileName: '.br',
+            }),
+          ]
       ),
       // enable build analyzer (visualizer)
-      (
+      ...(
         isDevelopmentBuild
           ? undefined
-          : visualizer({
-            title: 'SDK library',
-            filename: './build/stats.html',
-          })
+          : [
+            visualizer({
+              title: 'SDK library',
+              filename: './build/stats.html',
+            }),
+          ]
       ),
     ],
   },
