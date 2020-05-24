@@ -56,7 +56,9 @@ class Channel {
      */
     this.status = status;
 
-    console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'status:', this.status);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'status:', this.status);
+    }
   }
 
   /**
@@ -152,7 +154,9 @@ class Channel {
    */
   postingMessage(message) {
     this.port.postMessage(`${message}`);
-    console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[${this.constructor.name}]`, 'channelId:', this.channelId, 'message:', message.type, 'payload:', message.payload);
+    }
     this.setStatus(CHANNEL_STATUSES.OPENED);
 
     this.executeQueue();

@@ -123,6 +123,12 @@ export default [
         plugins: [
           '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-nullish-coalescing-operator',
+          [
+            'transform-define',
+            {
+              'process.env.NODE_ENV': process.env.NODE_ENV,
+            },
+          ],
         ],
         exclude: ['node_modules/**'],
       }),
