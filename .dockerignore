@@ -1,0 +1,54 @@
+# Project directories and files #
+##################################
+.git
+
+**/src
+**/internals
+**/stats.html
+
+**/.eslintrc.js
+**/babel.config.js
+**/README.md
+
+.eslintrc.js
+README.md
+bitbucket-pipelines.yml
+.gitignore
+
+# IDEA and editors #
+#####################
+.idea
+
+# OS generated files #
+######################
+DS_Store
+.DS_Store
+**/.DS_Store
+.DS_Store?
+**/.DS_Store?
+._*
+.Spotlight-V100
+**/.Spotlight-V100
+.Trashes
+**/.Trashes
+
+# Logs and temp #
+######################
+*.log
+
+# Vendors #
+######################
+node_modules
+**/node_modules
+
+# Build #
+######################
+devTmp
+**/devTmp
+
+# Tests and linting #
+######################
+coverage
+**/coverage
+.eslintcache
+**/.eslintcache
