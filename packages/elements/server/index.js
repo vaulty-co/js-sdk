@@ -1,9 +1,8 @@
+/* eslint global-require:0 */
 const path = require('path');
 const express = require('express');
 
 const { config } = require('./config');
-const { initEnvironment: initDevEnvironment } = require('./envs/dev');
-const { applyMiddleware: initProdEnvironment } = require('./envs/prod');
 
 const app = express();
 
@@ -13,8 +12,10 @@ app.set('view engine', 'pug');
 
 let env;
 if (process.env.NODE_ENV === 'development') {
+  const { initEnvironment: initDevEnvironment } = require('./envs/dev');
   env = initDevEnvironment(app);
 } else {
+  const { initEnvironment: initProdEnvironment } = require('./envs/prod');
   env = initProdEnvironment(app);
 }
 

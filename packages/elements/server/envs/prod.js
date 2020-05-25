@@ -3,7 +3,7 @@ const expressStaticGzip = require('express-static-gzip');
 
 const buildDir = path.join(__dirname, '../../build');
 
-function applyMiddleware(app) {
+function initEnvironment(app) {
   app.use('/', expressStaticGzip(buildDir, {
     enableBrotli: true,
     customCompressions: [{
@@ -31,5 +31,5 @@ function applyMiddleware(app) {
 }
 
 module.exports = {
-  applyMiddleware,
+  initEnvironment,
 };
