@@ -10,4 +10,4 @@ cd ../../
 
 echo "Build Docker image $1"
 
-docker build . --tag $1 --file ./dockerfiles/Dockerfile.elements
+docker build . --tag $1 --file ./packages/elements/Dockerfile
