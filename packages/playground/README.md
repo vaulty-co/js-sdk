@@ -18,7 +18,7 @@ Before that, you should run development build for elements and library:
 
 ```
 cd ../elements
-yarn start
+yarn dev
 ```
 
 ```
