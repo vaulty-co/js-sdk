@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
-import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { uniqueId } from '@vaulty/common/src/helpers/uniqueId';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import { operationCreateField } from './store/operations/createField';

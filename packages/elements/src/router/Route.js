@@ -1,5 +1,5 @@
 import 'url-search-params-polyfill';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
 
 /**
  * Create route by query params and can render instance, when route has match with query params

@@ -1,8 +1,8 @@
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 import {
   CONTROLLER_LOADED_WATCHER,
-} from '@js-sdk/elements/src/controllers/common/Controller/messages';
-import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
+} from '@vaulty/elements/src/controllers/common/Controller/messages';
+import { createInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { makeControllerSelector } from '../selectors';
 import { actions } from '../storeArtifacts';

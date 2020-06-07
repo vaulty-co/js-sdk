@@ -1,4 +1,4 @@
-import { ControllerRoute } from '@js-sdk/elements/src/router/ControllerRoute';
+import { ControllerRoute } from '@vaulty/elements/src/router/ControllerRoute';
 
 import { Form } from '../index';
 import { FORM_PARAMS } from './constants';

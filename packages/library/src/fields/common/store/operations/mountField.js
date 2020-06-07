@@ -1,9 +1,9 @@
 import {
   FIELD_LOADED_WATCHER,
   FIELD_STATUS_WATCHER,
-} from '@js-sdk/elements/src/fields/common/Field/messages';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
+} from '@vaulty/elements/src/fields/common/Field/messages';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { createInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { makeFieldSelector } from '../selectors';
 import { actions } from '../storeArtifacts';

@@ -1,7 +1,7 @@
 {
-  "name": "@js-sdk/common",
+  "name": "@vaulty/common",
   "version": "0.1.0",
-  "description": "JS SDK shared utils for packages",
+  "description": "Vaulty shared utils for packages",
   "scripts": {
     "lint": "eslint --cache ./src ./internals",
     "lint:ci": "eslint ./src ./internals",

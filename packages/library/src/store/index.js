@@ -1,5 +1,5 @@
 import { createStore as reduxCreateStore, combineReducers, applyMiddleware } from 'redux';
-import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
+import { uniqueId } from '@vaulty/common/src/helpers/uniqueId';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { fields } from '../fields/common/store/index';

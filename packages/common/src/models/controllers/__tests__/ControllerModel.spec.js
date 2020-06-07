@@ -1,4 +1,4 @@
-import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
+import { uniqueId } from '@vaulty/common/src/helpers/uniqueId';
 
 import {
   CONTROLLER_NODE_STATUSES,
@@ -7,8 +7,8 @@ import {
 } from '../constants';
 import { ControllerModel } from '../ControllerModel';
 
-jest.mock('@js-sdk/common/src/helpers/uniqueId', () => {
-  const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/common/src/helpers/uniqueId');
+jest.mock('@vaulty/common/src/helpers/uniqueId', () => {
+  const { uniqueId: uniqueIdActual } = jest.requireActual('@vaulty/common/src/helpers/uniqueId');
   return {
     uniqueId: jest.fn(uniqueIdActual),
   };
@@ -24,7 +24,7 @@ describe('ControllerModel', () => {
   });
 
   afterEach(() => {
-    const { uniqueId: uniqueIdActual } = jest.requireActual('@js-sdk/common/src/helpers/uniqueId');
+    const { uniqueId: uniqueIdActual } = jest.requireActual('@vaulty/common/src/helpers/uniqueId');
     uniqueId.mockImplementation(uniqueIdActual);
   });
 

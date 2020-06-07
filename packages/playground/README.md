@@ -1,4 +1,4 @@
-## Playground for JS SDK library
+## Playground for Vaulty JS SDK
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

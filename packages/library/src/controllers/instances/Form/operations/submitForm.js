@@ -1,9 +1,9 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { Message } from '@vaulty/common/src/channels/Message';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 import {
   SUBMIT_REQUEST,
   SUBMIT_RESPONSE,
-} from '@js-sdk/elements/src/controllers/instances/Form/messages';
+} from '@vaulty/elements/src/controllers/instances/Form/messages';
 
 import { actions } from '../../../common/store/index';
 import {

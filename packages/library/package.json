@@ -1,12 +1,12 @@
 {
-  "name": "@js-sdk/library",
+  "name": "@vaulty/library",
   "version": "0.1.0",
-  "description": "JS SDK library, which are used by customer.",
-  "main": "./build/js-sdk.cjs.js",
-  "module": "./build/js-sdk.esm.js",
+  "description": "Vaulty library, which are used by customer.",
+  "main": "./build/vaulty-library.cjs.js",
+  "module": "./build/vaulty-library.esm.js",
   "browser": {
-    "./build/js-sdk.cjs.js": "./build/js-sdk.min.js",
-    "./build/js-sdk.esm.js": "./build/js-sdk.esm.js"
+    "./build/vaulty-library.cjs.js": "./build/vaulty-library.min.js",
+    "./build/vaulty-library.esm.js": "./build/vaulty-library.esm.js"
   },
   "scripts": {
     "start": "rimraf ./devTmp && NODE_ENV=development rollup -c ./internals/rollup/rollup.config.js -w",
@@ -35,8 +35,8 @@
     "rollup-plugin-visualizer": "^4.0.4"
   },
   "dependencies": {
-    "@js-sdk/common": "0.1.0",
-    "@js-sdk/elements": "0.1.0",
+    "@vaulty/common": "0.1.0",
+    "@vaulty/elements": "0.1.0",
     "events": "^3.1.0",
     "immer": "^6.0.9",
     "redux": "^4.0.5",

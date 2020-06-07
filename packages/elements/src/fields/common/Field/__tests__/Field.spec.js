@@ -1,11 +1,11 @@
 import { enforceOptions } from 'broadcast-channel';
-import { Node } from '@js-sdk/common/src/nodes/Node';
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Node } from '@vaulty/common/src/nodes/Node';
+import { Message } from '@vaulty/common/src/channels/Message';
 
 import { Field } from '../index';
 import { FIELD_LOADED_WATCHER } from '../messages';
 
-jest.mock('@js-sdk/common/src/channels/SlaveChannel', () => {
+jest.mock('@vaulty/common/src/channels/SlaveChannel', () => {
   const connectMock = jest.fn();
   const subscribeMock = jest.fn();
   const postMessageMock = jest.fn();

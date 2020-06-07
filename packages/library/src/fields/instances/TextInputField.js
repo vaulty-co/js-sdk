@@ -1,5 +1,5 @@
-import { queryString } from '@js-sdk/elements/src/fields/instances/TextInput/route/queryString';
-import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
+import { queryString } from '@vaulty/elements/src/fields/instances/TextInput/route/queryString';
+import { IFrameNode } from '@vaulty/common/src/nodes/IFrameNode';
 
 import { configSelector } from '../../store/config/selectors';
 import { Field } from '../common/Field';

@@ -1,5 +1,5 @@
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { Message } from '@vaulty/common/src/channels/Message';
 
 import { PATCH_FIELD_STATUS_RESPONSE } from '../Field/messages';
 

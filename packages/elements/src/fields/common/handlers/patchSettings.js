@@ -1,4 +1,4 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import { PATCH_FIELD_SETTINGS_RESPONSE } from '../Field/messages';
 
 function patchSettingsHandler(message) {

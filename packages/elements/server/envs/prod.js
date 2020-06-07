@@ -25,7 +25,7 @@ function initEnvironment(app) {
 
   return {
     scripts: [
-      'js-sdk-elements.min.js',
+      'vaulty-elements.min.js',
     ],
   };
 }

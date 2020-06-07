@@ -1,5 +1,5 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { Message } from '@vaulty/common/src/channels/Message';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 
 import { PUT_CONTROLLER_RESPONSE } from '../messages';
 

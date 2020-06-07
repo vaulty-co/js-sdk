@@ -1,10 +1,10 @@
-import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
-import { Message } from '@js-sdk/common/src/channels/Message';
-import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
-import { Node } from '@js-sdk/common/src/nodes/Node';
-import { ComposedValidator } from '@js-sdk/common/src/validators/ComposedValidator';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { SlaveChannel } from '@vaulty/common/src/channels/SlaveChannel';
+import { Message } from '@vaulty/common/src/channels/Message';
+import { createBroadcastChannel } from '@vaulty/common/src/channels/utils';
+import { Node } from '@vaulty/common/src/nodes/Node';
+import { ComposedValidator } from '@vaulty/common/src/validators/ComposedValidator';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { Config } from '../../../config';
 import { VALIDATORS_TYPES } from '../../../validators/constants';

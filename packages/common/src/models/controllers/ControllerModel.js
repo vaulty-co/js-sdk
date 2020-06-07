@@ -1,5 +1,5 @@
 import { immerable } from 'immer';
-import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
+import { uniqueId } from '@vaulty/common/src/helpers/uniqueId';
 import { pick } from '../../helpers/pick';
 
 import {

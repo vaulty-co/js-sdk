@@ -1,4 +1,4 @@
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 
 import { actions } from '../storeArtifacts';
 

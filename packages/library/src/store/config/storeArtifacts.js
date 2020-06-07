@@ -1,4 +1,4 @@
-import { getReduxInstancesByModel } from '@js-sdk/library/src/store/utils/getReduxInstancesByModel';
+import { getReduxInstancesByModel } from '@vaulty/library/src/store/utils/getReduxInstancesByModel';
 
 import { ConfigModel } from './model';
 

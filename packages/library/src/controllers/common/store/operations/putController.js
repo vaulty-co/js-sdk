@@ -1,9 +1,9 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import {
   PUT_CONTROLLER_REQUEST,
   PUT_CONTROLLER_RESPONSE,
-} from '@js-sdk/elements/src/controllers/common/Controller/messages';
-import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
+} from '@vaulty/elements/src/controllers/common/Controller/messages';
+import { createInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { actions } from '../storeArtifacts';
 import { makeControllerSelector } from '../selectors';

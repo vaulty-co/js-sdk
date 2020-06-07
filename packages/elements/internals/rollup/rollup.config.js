@@ -9,8 +9,8 @@ const image = require('@rollup/plugin-image');
 const { default: gzipPlugin } = require('rollup-plugin-gzip');
 const { brotliCompressSync } = require('zlib');
 
-const prodBuildAssetName = 'build/js-sdk-elements.min.js';
-const devBuildAssetName = 'devTmp/js-sdk-elements.js';
+const prodBuildAssetName = 'build/vaulty-elements.min.js';
+const devBuildAssetName = 'devTmp/vaulty-elements.js';
 
 const isDevelopmentBuild = process.env.NODE_ENV === 'development';
 const sourcemap = isDevelopmentBuild ? 'inline' : false;
@@ -29,7 +29,7 @@ module.exports = [
       alias({
         entries: [
           // use browser version of crypto
-          { find: 'crypto', replacement: '@js-sdk/common/src/helpers/crypto' },
+          { find: 'crypto', replacement: '@vaulty/common/src/helpers/crypto' },
         ],
       }),
       resolve({

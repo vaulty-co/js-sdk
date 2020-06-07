@@ -1,7 +1,7 @@
-import { SlaveChannel } from '@js-sdk/common/src/channels/SlaveChannel';
-import { createBroadcastChannel } from '@js-sdk/common/src/channels/utils';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { SlaveChannel } from '@vaulty/common/src/channels/SlaveChannel';
+import { createBroadcastChannel } from '@vaulty/common/src/channels/utils';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
+import { Message } from '@vaulty/common/src/channels/Message';
 
 import { Config } from '../../../config';
 import {

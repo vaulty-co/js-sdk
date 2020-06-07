@@ -1,6 +1,6 @@
 # Vaulty JS SDK
 
-It is mono repository for Vaulty JS SDK library and playground.
+It is mono repository for Vaulty JS SDK and its playground.
 For controlling that, we use [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
 ## Technical requirements
@@ -16,7 +16,7 @@ yarn install
  
 ## Packages
 
- - [JS SDK elements](/packages/elements/README.md)
- - [JS SDK library](/packages/library/README.md)
- - [JS SDK playground](/packages/playground/README.md)
- - [JS SDK common](/packages/common/README.md)
+ - [Vaulty Elements](/packages/elements/README.md)
+ - [Vaulty JS SDK](/packages/library/README.md)
+ - [Vaulty JS SDK playground](/packages/playground/README.md)
+ - [Vaulty common](/packages/common/README.md)

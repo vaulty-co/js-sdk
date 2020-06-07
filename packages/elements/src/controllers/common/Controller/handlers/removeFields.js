@@ -1,4 +1,4 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 
 import {
   REMOVE_FIELDS_IDS_FROM_CONTROLLER_RESPONSE,

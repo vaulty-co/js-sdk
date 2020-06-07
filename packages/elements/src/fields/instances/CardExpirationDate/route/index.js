@@ -1,4 +1,4 @@
-import { FieldRoute } from '@js-sdk/elements/src/router/FieldRoute';
+import { FieldRoute } from '@vaulty/elements/src/router/FieldRoute';
 
 import { CardExpirationDate } from '../index';
 import { CARD_EXPIRATION_DATE_PARAMS } from './constants';

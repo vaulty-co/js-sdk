@@ -1,9 +1,9 @@
-import { IFrameNode } from '@js-sdk/common/src/nodes/IFrameNode';
-import { queryString } from '@js-sdk/elements/src/controllers/instances/Form/route/queryString';
+import { IFrameNode } from '@vaulty/common/src/nodes/IFrameNode';
+import { queryString } from '@vaulty/elements/src/controllers/instances/Form/route/queryString';
 import {
   CONTROLLER_STATUSES,
-} from '@js-sdk/common/src/models/controllers/constants';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+} from '@vaulty/common/src/models/controllers/constants';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { configSelector } from '../../../store/config/selectors';
 import { Controller } from '../../common/Controller';

@@ -1,6 +1,6 @@
 import { immerable } from 'immer';
-import { uniqueId } from '@js-sdk/common/src/helpers/uniqueId';
-import { pick } from '@js-sdk/common/src/helpers/pick';
+import { uniqueId } from '@vaulty/common/src/helpers/uniqueId';
+import { pick } from '@vaulty/common/src/helpers/pick';
 
 import {
   FIELD_STATUSES,

@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
-import uniqueId from '@js-sdk/common/src/helpers/uniqueId';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
+import uniqueId from '@vaulty/common/src/helpers/uniqueId';
 
 import { actionsToDispatch } from '../../store/utils/actionsToDispatch';
 import { makeControllerSelector, makeControllerStatusSelector } from './store/selectors';

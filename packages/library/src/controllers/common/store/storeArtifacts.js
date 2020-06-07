@@ -1,5 +1,5 @@
-import { ControllersCollection } from '@js-sdk/common/src/models/controllers/ControllersCollection';
-import { getReduxInstancesByModel } from '@js-sdk/library/src/store/utils/getReduxInstancesByModel';
+import { ControllersCollection } from '@vaulty/common/src/models/controllers/ControllersCollection';
+import { getReduxInstancesByModel } from '@vaulty/library/src/store/utils/getReduxInstancesByModel';
 
 const { actions, reducer } = getReduxInstancesByModel(
   ControllersCollection,

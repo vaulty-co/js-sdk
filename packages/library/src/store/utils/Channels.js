@@ -1,5 +1,5 @@
-import { MasterChannel } from '@js-sdk/common/src/channels/MasterChannel';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { MasterChannel } from '@vaulty/common/src/channels/MasterChannel';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { configSelector } from '../config/selectors';
 

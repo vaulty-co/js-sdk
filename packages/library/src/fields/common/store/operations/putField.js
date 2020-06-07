@@ -1,9 +1,9 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import {
   PUT_FIELD_REQUEST,
   PUT_FIELD_RESPONSE,
-} from '@js-sdk/elements/src/fields/common/Field/messages';
-import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
+} from '@vaulty/elements/src/fields/common/Field/messages';
+import { createInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { actions } from '../storeArtifacts';
 import { makeFieldSelector } from '../selectors';

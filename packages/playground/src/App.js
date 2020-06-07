@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-props-no-spreading:0 */
-import SDK from '@js-sdk/library/devTmp/js-sdk.esm';
+import SDK from '@vaulty/library/devTmp/vaulty-library.esm';
 import { UserOutlined } from '@ant-design/icons';
 import {
   Layout, Menu, Button, Row, Col,
@@ -175,7 +175,7 @@ function App() {
     <Layout>
       <Sider trigger={null} collapsible>
         <div className="logo">
-          JS SDK Playground
+          Vaulty JS SDK Playground
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">

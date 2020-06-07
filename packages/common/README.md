@@ -1,4 +1,4 @@
-# JS SDK shared common instances for packages
+# Vaulty shared common instances for packages
 
 ## Technical requirements
 

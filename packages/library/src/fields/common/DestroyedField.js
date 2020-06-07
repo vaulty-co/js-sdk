@@ -1,4 +1,4 @@
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
 
 /**
  * @class SDKDestroyedField

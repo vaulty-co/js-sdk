@@ -1,7 +1,7 @@
-import { VALIDATORS_TYPES } from '@js-sdk/elements/src/validators/constants';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
-import { staticInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { VALIDATORS_TYPES } from '@vaulty/elements/src/validators/constants';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
+import { staticInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import { createStore } from './store/index';
 import { FieldProxy } from './fields/FieldProxy';

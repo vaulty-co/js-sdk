@@ -1,5 +1,5 @@
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { Message } from '@vaulty/common/src/channels/Message';
 import { PUT_FIELD_RESPONSE } from '../Field/messages';
 
 function putFieldHandler(message) {

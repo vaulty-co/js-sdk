@@ -8,12 +8,12 @@ import pkg from '../../package.json';
 
 const dependenciesToList = (dependencies) => (
   Object.keys(dependencies)
-    .filter((dependency) => !dependency.includes('@js-sdk'))
+    .filter((dependency) => !dependency.includes('@vaulty'))
 );
 const devBuildAssets = {
-  main: 'devTmp/js-sdk.cjs.js',
-  module: 'devTmp/js-sdk.esm.js',
-  browser: 'devTmp/js-sdk.min.js',
+  main: 'devTmp/vaulty-library.cjs.js',
+  module: 'devTmp/vaulty-library.esm.js',
+  browser: 'devTmp/vaulty-library.min.js',
 };
 const isDevelopmentBuild = Boolean(process.env.ROLLUP_WATCH);
 const sourcemap = isDevelopmentBuild ? 'inline' : false;

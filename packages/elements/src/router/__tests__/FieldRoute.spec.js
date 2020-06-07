@@ -1,7 +1,7 @@
 import { enforceOptions } from 'broadcast-channel';
-import { Node } from '@js-sdk/common/src/nodes/Node';
+import { Node } from '@vaulty/common/src/nodes/Node';
 
-import { Field } from '@js-sdk/elements/src/fields/common/Field';
+import { Field } from '@vaulty/elements/src/fields/common/Field';
 import { FieldRoute } from '../FieldRoute';
 
 beforeAll(() => {

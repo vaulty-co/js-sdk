@@ -1,4 +1,4 @@
-import { Validator } from '@js-sdk/common/src/validators/Validator';
+import { Validator } from '@vaulty/common/src/validators/Validator';
 
 import { VALIDATORS_TYPES } from './constants';
 

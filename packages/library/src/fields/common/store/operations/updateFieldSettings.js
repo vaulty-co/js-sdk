@@ -1,8 +1,8 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import {
   PATCH_FIELD_SETTINGS_REQUEST,
   PATCH_FIELD_STATUS_RESPONSE,
-} from '@js-sdk/elements/src/fields/common/Field/messages';
+} from '@vaulty/elements/src/fields/common/Field/messages';
 
 import { actions } from '../storeArtifacts';
 

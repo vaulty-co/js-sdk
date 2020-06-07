@@ -1,8 +1,8 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import {
   PATCH_CONTROLLER_STATUS_REQUEST,
   PATCH_CONTROLLER_STATUS_RESPONSE,
-} from '@js-sdk/elements/src/controllers/common/Controller/messages';
+} from '@vaulty/elements/src/controllers/common/Controller/messages';
 
 import { actions } from '../storeArtifacts';
 import { makeControllerSelector } from '../selectors';

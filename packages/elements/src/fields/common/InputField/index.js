@@ -1,5 +1,5 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
+import { Message } from '@vaulty/common/src/channels/Message';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
 
 import { Field } from '../Field';
 import { GET_FIELD_DATA_REQUEST, GET_FIELD_DATA_RESPONSE } from '../Field/messages';

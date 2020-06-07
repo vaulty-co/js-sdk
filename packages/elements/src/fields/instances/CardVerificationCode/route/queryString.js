@@ -1,4 +1,4 @@
-import { getQueryString } from '@js-sdk/elements/src/router/utils/getQueryString';
+import { getQueryString } from '@vaulty/elements/src/router/utils/getQueryString';
 
 import { CARD_VERIFICATION_CODE_PARAMS } from './constants';
 

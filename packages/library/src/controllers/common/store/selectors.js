@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 
 import { createShallowEqualSelector } from '../../../store/utils/createShallowEqualSelector';
 import { sdkIdSelector } from '../../../store/selectors';

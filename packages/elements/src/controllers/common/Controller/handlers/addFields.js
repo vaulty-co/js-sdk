@@ -1,4 +1,4 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 
 import { ADD_FIELDS_IDS_TO_CONTROLLER_RESPONSE } from '../messages';
 

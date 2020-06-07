@@ -1,4 +1,4 @@
-import { FieldRoute } from '@js-sdk/elements/src/router/FieldRoute';
+import { FieldRoute } from '@vaulty/elements/src/router/FieldRoute';
 
 import { CardVerificationCode } from '../index';
 import { CARD_VERIFICATION_CODE_PARAMS } from './constants';

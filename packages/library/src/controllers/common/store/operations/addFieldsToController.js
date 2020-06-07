@@ -1,8 +1,8 @@
-import { Message } from '@js-sdk/common/src/channels/Message';
+import { Message } from '@vaulty/common/src/channels/Message';
 import {
   ADD_FIELDS_IDS_TO_CONTROLLER_REQUEST,
   ADD_FIELDS_IDS_TO_CONTROLLER_RESPONSE,
-} from '@js-sdk/elements/src/controllers/common/Controller/messages';
+} from '@vaulty/elements/src/controllers/common/Controller/messages';
 
 import { actions } from '../storeArtifacts';
 

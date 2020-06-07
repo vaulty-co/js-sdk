@@ -14,7 +14,7 @@ RUN yarn install --frozen-lockfile --production
 
 RUN cd packages && ls -1 | grep -v "elements" | xargs rm -rf
 
-# Start @js-sdk/elements server
+# Start @vaulty/elements server
 
 CMD cd packages/elements && yarn start
 

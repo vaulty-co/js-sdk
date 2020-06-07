@@ -1,4 +1,4 @@
-import { createInvariant } from '@js-sdk/common/src/helpers/invariant';
+import { createInvariant } from '@vaulty/common/src/helpers/invariant';
 
 import {
   operationRemoveFieldsFromControllers,

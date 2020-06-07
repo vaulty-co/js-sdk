@@ -1,6 +1,6 @@
-import pick from '@js-sdk/common/src/helpers/pick';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { ALLOWED_FIELD_SETTINGS } from '@js-sdk/common/src/models/fields/constants';
+import pick from '@vaulty/common/src/helpers/pick';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { ALLOWED_FIELD_SETTINGS } from '@vaulty/common/src/models/fields/constants';
 
 import { actions } from '../storeArtifacts';
 

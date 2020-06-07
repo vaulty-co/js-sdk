@@ -1,7 +1,7 @@
-import { FieldsCollection } from '@js-sdk/common/src/models/fields/FieldsCollection';
-import { FieldModel } from '@js-sdk/common/src/models/fields/FieldModel';
-import { ControllersCollection } from '@js-sdk/common/src/models/controllers/ControllersCollection';
-import { ControllerModel } from '@js-sdk/common/src/models/controllers/ControllerModel';
+import { FieldsCollection } from '@vaulty/common/src/models/fields/FieldsCollection';
+import { FieldModel } from '@vaulty/common/src/models/fields/FieldModel';
+import { ControllersCollection } from '@vaulty/common/src/models/controllers/ControllersCollection';
+import { ControllerModel } from '@vaulty/common/src/models/controllers/ControllerModel';
 
 import { makeControllerStatusSelector } from '../selectors';
 

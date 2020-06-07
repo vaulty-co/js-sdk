@@ -1,5 +1,5 @@
-import { filterStyles } from '@js-sdk/common/src/helpers/filterStyles';
-import { combineUpdaters } from '@js-sdk/common/src/helpers/combineUpdaters';
+import { filterStyles } from '@vaulty/common/src/helpers/filterStyles';
+import { combineUpdaters } from '@vaulty/common/src/helpers/combineUpdaters';
 
 import {
   ALLOWED_STYLED_PROPS,
