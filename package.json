@@ -10,7 +10,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "sh ./scripts/pre-push.sh"
+      "pre-commit": "sh ./scripts/pre-push.sh"
     }
   },
   "devDependencies": {
